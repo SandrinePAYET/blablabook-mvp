@@ -451,9 +451,66 @@ a388472 🎉 Initial commit: Structure projet Blablabook
 
 ---
 
-### **[Date suivante] - À remplir**
+#### **7 octobre 2025 - Mardi**
 
-**Temps passé :**
+**Temps passé :** 37 min (19h23-20h00)
+
+**Ce qui a été fait :**
+- ✅ Création charte graphique complète
+- ✅ Définition palette couleurs accessible (daltonisme)
+- ✅ Choix typographies (Inter + Poppins)
+- ✅ Style visuel moderne et épuré
+- ✅ Principes UI/UX définis
+- ✅ Configuration Tailwind CSS
+- ✅ Commit de la charte graphique
+
+**Difficultés rencontrées :**
+- Temps très limité (37 minutes seulement)
+- Choix entre plusieurs palettes de couleurs
+- Équilibre entre esthétique et accessibilité
+
+**Solutions trouvées :**
+- Session ultra concentrée et efficace
+- Choix palette Bleu/Orange (meilleure accessibilité)
+- Priorité à l'accessibilité (WCAG AA, daltonisme)
+- Documentation complète en une fois
+
+**Apprentissages :**
+- Conception accessible (daltonisme, contrastes)
+- Standards WCAG 2.1 niveau AA
+- Ne pas utiliser QUE la couleur (+ icônes)
+- Palettes de couleurs professionnelles
+- Hiérarchie typographique
+- Système de design cohérent
+
+**Fichiers créés :**
+1. `docs/01-conception/design/charte-graphique.md` (palette, typo, style)
+
+**Commits réalisés :**
+
+[nouveau] docs: charte graphique complète avec accessibilité daltonisme
+
+**Points forts de la charte :**
+- ✅ Accessible aux daltoniens (bleu/orange)
+- ✅ Contrastes validés WCAG AA
+- ✅ Typographies lisibles (Inter, Poppins)
+- ✅ Style moderne et chaleureux
+- ✅ Prête pour Tailwind CSS
+
+**Prochaine session :**
+- Mercredi 8 octobre (ce soir 19h30)
+- Objectif : Wireframes mobile (7 écrans)
+- Temps estimé : 1h-1h30
+
+**État d'esprit :** 😊 Satisfaite ! En 37 minutes j'ai créé une charte complète et accessible. C'est un gros plus pour le dossier professionnel. La palette bleu/orange est parfaite : moderne, professionnelle ET accessible. Le jury va apprécier cette réflexion sur l'accessibilité dès la conception. Je suis fière de ce choix ! 💪
+
+**Note personnelle :** L'accessibilité n'est pas une contrainte, c'est une force ! Penser aux daltoniens dès le début = meilleure expérience pour TOUS. Ça montre ma maturité de développeuse.
+
+---
+
+### **8 octobre 2025 - Mercredi**
+
+**Temps passé :** 
 
 **Ce qui a été fait :**
 
@@ -464,6 +521,11 @@ a388472 🎉 Initial commit: Structure projet Blablabook
 **Prochaine session :**
 
 **État d'esprit :**
+
+---
+
+
+
 
 ---
 
