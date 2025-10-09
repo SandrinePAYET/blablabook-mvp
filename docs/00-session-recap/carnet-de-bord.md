@@ -510,17 +510,13 @@ a388472 🎉 Initial commit: Structure projet Blablabook
 
 ### **8 octobre 2025 - Mercredi**
 
-**Temps passé :** 
+### **8 octobre 2025 - Mercredi**
 
-**Ce qui a été fait :**
+**Temps passé :** Repos - Pas de session
 
-**Difficultés :**
-
-**Solutions :**
-
-**Prochaine session :**
-
-**État d'esprit :**
+**Raison :**
+- Stage + vie familiale prioritaires
+- Besoin de récupération
 
 ---
 
