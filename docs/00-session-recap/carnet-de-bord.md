@@ -528,7 +528,7 @@ a388472 🎉 Initial commit: Structure projet Blablabook
 ## 📝 NOTES POUR MOI-MÊME
 
 ### **Commandes Git importantes**
-```bash
+
 git status                    # Voir l'état
 git add .                     # Tout ajouter
 git commit -m "message"       # Sauvegarder
