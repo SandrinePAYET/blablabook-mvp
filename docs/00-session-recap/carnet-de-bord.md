@@ -520,7 +520,121 @@ a388472 🎉 Initial commit: Structure projet Blablabook
 
 ---
 
+### **9 octobre 2025 - Jeudi**
 
+**Temps passé :** 16 min (8h32-8h48 matin)
+
+**Ce qui a été fait :**
+- ✅ Planification semaine complète
+- ✅ Carnet de bord mis à jour (8-9 oct)
+- ✅ Création fichier wireframes mobile
+- ✅ Rédaction 3 premiers wireframes (Landing, Login, Home)
+- ✅ Commit propre
+
+**Difficultés rencontrées :**
+- Temps très limité avant départ stage
+- Besoin de travailler ultra vite
+
+**Solutions trouvées :**
+- Session hyper concentrée 16 minutes
+- Priorité aux wireframes pour avancer
+- Efficacité maximale
+
+**Apprentissages :**
+- Conception d'interfaces mobile
+- Structure wireframes (ASCII art)
+- Définition interactions utilisateur
+- Documentation complète des écrans
+
+**État d'esprit :** 😊 Satisfaite ! 16 minutes ultra productives. J'avance bien sur la conception. Les wireframes prennent forme.
+
+**Soir :** REPOS - Athlétisme Taïna 🏃‍♀️
+
+---
+
+### **10 octobre 2025 - Vendredi**
+
+**Temps passé :** 24 min (8h16-8h40 matin)
+
+**Ce qui a été fait :**
+- ✅ Complété les 4 wireframes mobile restants
+- ✅ Écran 4 : Recherche + Résultats (avec états vide, résultats, erreurs)
+- ✅ Écran 5 : Ma bibliothèque (grille, tri, suppression)
+- ✅ Écran 6 : Détail d'un livre (complet avec actions)
+- ✅ Écran 7 : Profil utilisateur (statistiques, paramètres)
+- ✅ **WIREFRAMES MOBILE 100% TERMINÉS (7/7 écrans)**
+- ✅ Documentation navigation entre écrans
+- ✅ Accessibilité intégrée (touch targets, contrastes)
+- ✅ Commit propre
+
+**Difficultés rencontrées :**
+- Détailler tous les états de chaque écran
+- Penser à toutes les interactions possibles
+- Gérer les cas d'erreur et états vides
+
+**Solutions trouvées :**
+- Wireframes ASCII clairs et visuels
+- Documentation exhaustive de chaque élément
+- États multiples documentés (vide, chargement, erreur)
+- Interactions et navigation bien définies
+
+**Apprentissages :**
+- Conception UX complète mobile-first
+- Gestion des états d'interface (loading, empty, error)
+- Navigation intuitive avec bottom nav
+- Importance des feedbacks utilisateur (toasts, confirmations)
+- Accessibilité tactile (44px touch targets)
+
+**Points forts de ces wireframes :**
+- ✅ 7 écrans complets et détaillés
+- ✅ Tous les cas d'usage couverts
+- ✅ Navigation fluide et logique
+- ✅ Messages d'erreur prévus
+- ✅ États vides gérés (empty states)
+- ✅ Confirmations pour actions destructives
+- ✅ Accessibilité intégrée dès la conception
+
+**Fichiers créés/modifiés :**
+1. `docs/01-conception/wireframes/mobile.md` (COMPLET - 7 écrans)
+
+**Commits réalisés :**
+
+[09/10] docs: wireframes mobile (3 premiers écrans) + carnet de bord
+[10/10] docs: wireframes mobile complets (7/7 écrans terminés)
+
+**Progression globale conception :**
+- ✅ Base de données : 100%
+- ✅ Charte graphique : 100%
+- ✅ Wireframes mobile : 100% (7/7)
+- ⏳ Wireframes desktop : 0% (à faire)
+- ⏳ Maquette finale : 0% (à faire)
+
+**Total conception : ~75% ✓**
+
+**Prochaine session :**
+- Ce weekend (12-13 octobre)
+- Objectif : Wireframes desktop (7 écrans) + maquette
+- Temps estimé : 2-3h
+
+**État d'esprit :** 🎉 SUPER FIÈRE ! En 2 matinées j'ai terminé TOUS les wireframes mobile ! C'est un énorme morceau de la conception. Les écrans sont détaillés, les interactions sont claires, tout est documenté. Ça va beaucoup m'aider pour le développement. Le jury va voir que j'ai vraiment réfléchi à l'UX mobile. Je suis sur la bonne voie ! 💪
+
+**Note personnelle :** Ces sessions matinales avant le stage sont TRÈS efficaces. 20-25 minutes ultra concentrées = résultats incroyables. Je garde ce rythme ! Le weekend sera pour finir la conception (desktop + maquette) et ensuite JE CODE ! 🚀
+
+---
+
+### **[Weekend 12-13 octobre] - À faire**
+
+**Session prévue :** Samedi/Dimanche
+
+**Objectifs :**
+- Wireframes desktop (7 écrans adaptés)
+- Maquette finale (1 écran colorisé)
+- **FUSION** branche conception → develop
+- Début installation PostgreSQL
+
+**Temps estimé :** 3-4h réparties
+
+---
 
 
 ---
@@ -536,3 +650,4 @@ git log --oneline             # Voir l'historique
 git checkout -b nom-branche   # Nouvelle branche
 git checkout nom-branche      # Changer de branche
 git merge nom-branche         # Fusionner une branche
+
