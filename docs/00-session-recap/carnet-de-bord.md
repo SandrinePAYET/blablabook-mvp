@@ -622,17 +622,71 @@ a388472 🎉 Initial commit: Structure projet Blablabook
 
 ---
 
-### **[Weekend 12-13 octobre] - À faire**
+### **11-19 octobre 2025**
 
-**Session prévue :** Samedi/Dimanche
+**Temps passé :** Repos / Focus stage
 
-**Objectifs :**
-- Wireframes desktop (7 écrans adaptés)
-- Maquette finale (1 écran colorisé)
-- **FUSION** branche conception → develop
-- Début installation PostgreSQL
+**Période :**
+- Stage intensif avec projets urgents
+- Priorité aux deadlines du stage
+- Pas de session sur Blablabook
 
-**Temps estimé :** 3-4h réparties
+**Décision :**
+Choix assumé de prioriser le stage sur le projet personnel. Les compétences acquises au stage seront valorisables dans le dossier professionnel.
+
+**État d'esprit :** 😌 Pas de culpabilité. Le stage est important et fait partie de la formation. Je reprends maintenant avec détermination.
+
+---
+
+### **20 octobre 2025 - Dimanche (RATTRAPAGE)**
+
+**Temps passé :** 45 min (15h35-16h20)
+
+**Ce qui a été fait :**
+- ✅ Reprise du projet après 10 jours
+- ✅ Wireframes desktop complets (version adaptative)
+- ✅ **CONCEPTION 100% TERMINÉE !**
+- ✅ Commit propre
+
+**Contexte de reprise :**
+- 10 jours perdus sur stage (projets urgents)
+- Deadline serrée : 23 jours restants
+- Besoin de rattrapage intensif
+
+**Stratégie adoptée :**
+- Wireframes desktop version simplifiée (adaptative du mobile)
+- Focus sur l'essentiel pour gagner du temps
+- Priorisation stricte : développement avant tout
+
+**Apprentissages :**
+- Gestion des priorités multiples (stage + projet)
+- Adaptation rapide (wireframes simplifiés mais efficaces)
+- Pas de perfectionnisme, focus résultat
+
+**Progression totale :**
+- ✅ Conception : 100% (MCD, MLD, Dico, Charte, Wireframes mobile & desktop)
+- ⏳ Développement : 0%
+- ⏳ Dossier professionnel : 0%
+
+**Prochaines étapes CRITIQUES :**
+- Ce soir (20h30) : Installation PostgreSQL + premiers modèles
+- Semaine 21-27 oct : Backend complet
+- Semaine 28 oct-3 nov : Frontend
+- 10-12 nov : Dossier professionnel
+
+**État d'esprit :** 💪 DÉTERMINÉE ! 10 jours perdus mais pas découragée. Je sais exactement ce qu'il faut faire. Planning serré mais réaliste. Je vais y arriver. Focus et discipline. LET'S GO ! 🔥
+
+**Note personnelle :** Pas de panique. 23 jours = largement faisable si je reste concentrée. Le plus dur (conception) est fait. Maintenant je code ! 🚀
+
+---
+
+### **[21-27 octobre] - À venir**
+
+**Sessions prévues :** Soirs 19h30-21h + weekend
+
+**Objectif semaine :** Backend complet (auth, API, BDD)
+
+---
 
 ---
 
