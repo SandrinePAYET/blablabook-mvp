@@ -118,11 +118,94 @@ const register = async (req, res) => {
  * FONCTION : LOGIN (Connexion)
  * À DÉVELOPPER CE SOIR
  */
+/**
+ * SCHÉMA DE VALIDATION LOGIN
+ */
+const loginSchema = Joi.object({
+  email: Joi.string()
+    .email()
+    .required()
+    .messages({
+      'string.email': 'Format email invalide',
+      'any.required': 'L\'email est obligatoire'
+    }),
+  
+  password: Joi.string()
+    .required()
+    .messages({
+      'any.required': 'Le mot de passe est obligatoire'
+    })
+});
+
+/**
+ * FONCTION : LOGIN (Connexion)
+ * 
+ * POST /api/auth/login
+ * Body: { email, password }
+ */
 const login = async (req, res) => {
-  res.status(501).json({
-    success: false,
-    message: 'Login pas encore implémenté - à faire ce soir'
-  });
+  try {
+    // 1. Valider les données
+    const { error, value } = loginSchema.validate(req.body);
+    
+    if (error) {
+      return res.status(400).json({
+        success: false,
+        message: 'Données invalides',
+        errors: error.details.map(detail => detail.message)
+      });
+    }
+
+    // 2. Trouver l'utilisateur par email
+    const user = await User.findOne({
+      where: { email: value.email }
+    });
+
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: 'Email ou mot de passe incorrect'
+      });
+    }
+
+    // 3. Vérifier le mot de passe
+    const isPasswordValid = await user.validatePassword(value.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        success: false,
+        message: 'Email ou mot de passe incorrect'
+      });
+    }
+
+    // 4. Générer un token JWT
+    const token = jwt.sign(
+      { 
+        userId: user.id,
+        email: user.email 
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    // 5. Retourner la réponse
+    res.status(200).json({
+      success: true,
+      message: 'Connexion réussie',
+      data: {
+        user: user.toSafeObject(),
+        token
+      }
+    });
+
+  } catch (error) {
+    console.error('Erreur login:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erreur lors de la connexion',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
 };
 
 // Export des fonctions
