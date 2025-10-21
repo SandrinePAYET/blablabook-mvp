@@ -2,8 +2,10 @@
 const express = require('express');
 const router = express.Router();
 
+
 // Import des routes
 const authRoutes = require('./authRoutes');
+const bookRoutes = require('./bookRoutes');
 
 /**
  * MONTAGE DES ROUTES
@@ -13,6 +15,7 @@ const authRoutes = require('./authRoutes');
 router.use('/auth', authRoutes);
 
 // Routes books (à faire plus tard) → /api/books/*
+router.use('/books', bookRoutes);
 // router.use('/books', bookRoutes);
 
 // Routes user-books (à faire plus tard) → /api/user-books/*
