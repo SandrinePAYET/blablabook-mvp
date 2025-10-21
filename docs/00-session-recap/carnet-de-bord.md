@@ -638,58 +638,81 @@ Choix assumé de prioriser le stage sur le projet personnel. Les compétences ac
 
 ---
 
-### **20 octobre 2025 - Dimanche (RATTRAPAGE)**
+---
 
-**Temps passé :** 45 min (15h35-16h20)
+### **20 octobre 2025 - Lundi (SESSION 2 - Soir)**
+
+**Temps passé :** 17 min (20h05-20h22)
 
 **Ce qui a été fait :**
-- ✅ Reprise du projet après 10 jours
-- ✅ Wireframes desktop complets (version adaptative)
-- ✅ **CONCEPTION 100% TERMINÉE !**
-- ✅ Commit propre
+- ✅ Modèle Book créé (141 lignes)
+- ✅ Modèle UserBook créé (154 lignes)
+- ✅ Fichier index.js avec associations (114 lignes)
+- ✅ Tests complets des 3 modèles réussis
+- ✅ **MODÈLES BDD 100% TERMINÉS !**
+- ✅ 4 commits propres
 
-**Contexte de reprise :**
-- 10 jours perdus sur stage (projets urgents)
-- Deadline serrée : 23 jours restants
-- Besoin de rattrapage intensif
+**Difficultés rencontrées :**
+- Comprendre les associations Sequelize (1:N, N:N)
+- Définir la contrainte UNIQUE sur (user_id, book_id)
 
-**Stratégie adoptée :**
-- Wireframes desktop version simplifiée (adaptative du mobile)
-- Focus sur l'essentiel pour gagner du temps
-- Priorisation stricte : développement avant tout
+**Solutions trouvées :**
+- Explications détaillées des associations
+- Index UNIQUE dans UserBook pour éviter doublons
+- Tests complets pour valider toutes les relations
 
 **Apprentissages :**
-- Gestion des priorités multiples (stage + projet)
-- Adaptation rapide (wireframes simplifiés mais efficaces)
-- Pas de perfectionnisme, focus résultat
+- Associations Sequelize (hasMany, belongsTo, belongsToMany)
+- Contraintes d'intégrité en BDD
+- Table de liaison pour relation N:N
+- Méthodes statiques sur modèles
+- Tests des relations avec include
 
-**Progression totale :**
-- ✅ Conception : 100% (MCD, MLD, Dico, Charte, Wireframes mobile & desktop)
-- ⏳ Développement : 0%
-- ⏳ Dossier professionnel : 0%
+**Points forts :**
+- ✅ User, Book, UserBook fonctionnent parfaitement
+- ✅ Contrainte UNIQUE empêche doublons
+- ✅ Associations 1:N et N:N validées
+- ✅ Méthodes utiles (userHasBook, findOrCreate...)
+- ✅ Session ultra efficace (17 min)
 
-**Prochaines étapes CRITIQUES :**
-- Ce soir (20h30) : Installation PostgreSQL + premiers modèles
-- Semaine 21-27 oct : Backend complet
-- Semaine 28 oct-3 nov : Frontend
-- 10-12 nov : Dossier professionnel
+**Commits réalisés :**
+```
+1fe02ca feat: modèle Book avec validation et méthode findOrCreate
+a53200b feat: modèle UserBook (table liaison) avec contrainte unique
+ec92cce feat: fichier index modèles avec associations User-Book-UserBook
+(+ 1 test)
+```
 
-**État d'esprit :** 💪 DÉTERMINÉE ! 10 jours perdus mais pas découragée. Je sais exactement ce qu'il faut faire. Planning serré mais réaliste. Je vais y arriver. Focus et discipline. LET'S GO ! 🔥
+**Progression backend :**
+- ✅ PostgreSQL : 100%
+- ✅ Modèles Sequelize : 100%
+- ⏳ Controllers : 0%
+- ⏳ Routes : 0%
+- ⏳ Middleware : 0%
 
-**Note personnelle :** Pas de panique. 23 jours = largement faisable si je reste concentrée. Le plus dur (conception) est fait. Maintenant je code ! 🚀
+**Prochaine session :**
+- Mardi 21 octobre (ce soir 19h30)
+- Objectif : Controller Auth + Register
+- Temps estimé : 1h30
+
+**État d'esprit :** 🔥 ULTRA MOTIVÉE ! Session express mais hyper efficace ! Les modèles sont prêts, maintenant on passe aux controllers. Le backend prend forme. Je maîtrise de mieux en mieux Sequelize. Les associations sont claires. Prête pour la suite ! 💪
+
+**Note personnelle :** Bilan total lundi 20 oct = 4h47 de travail. Conception 100% + Modèles BDD 100%. Progression énorme. Le planning tient la route. 22 jours restants = largement faisable ! 🚀
 
 ---
 
-### **[21-27 octobre] - À venir**
+### **21 octobre 2025 - Mardi**
 
-**Sessions prévues :** Soirs 19h30-21h + weekend
+**Session prévue ce soir :** 19h30-21h00
 
-**Objectif semaine :** Backend complet (auth, API, BDD)
+**Objectif :** Controller Auth + API Register
 
----
-
----
-
+**À faire :**
+- Controller authController.js
+- Fonction register (inscription)
+- Validation Joi
+- Route POST /api/auth/register
+- Tests Postman
 
 ---
 
