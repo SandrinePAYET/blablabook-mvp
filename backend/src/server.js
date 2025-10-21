@@ -4,7 +4,7 @@
  * Point d'entrée de l'application backend
  */
 
-require('dotenv').config();
+require('dotenv').config({ path: '../.env' });
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -113,4 +113,25 @@ const startServer = async () => {
       console.log('🚀 ================================\n');
       console.log('📝 Endpoints disponibles:');
       console.log(`   GET  http://localhost:${PORT}/`);
-      console.log(`   POST http://localhost:${PORT}/api/aut
+      console.log(`   POST http://localhost:${PORT}/api/auth/register`);
+      console.log(`   POST http://localhost:${PORT}/api/auth/login`);
+      console.log('\n👉 Appuyez sur Ctrl+C pour arrêter le serveur\n');
+    });
+
+  } catch (error) {
+    console.error('❌ Erreur au démarrage du serveur:', error);
+    process.exit(1);
+  }
+};
+
+// Lancer le serveur
+startServer();
+
+// Gestion propre de l'arrêt
+process.on('SIGINT', async () => {
+  console.log('\n⚠️  Arrêt du serveur...');
+  await sequelize.close();
+  console.log('🔌 Connexion base de données fermée');
+  console.log('👋 Serveur arrêté proprement\n');
+  process.exit(0);
+});
