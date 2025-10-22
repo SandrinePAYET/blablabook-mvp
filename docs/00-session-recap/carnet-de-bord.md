@@ -781,21 +781,117 @@ f52d93c feat: middleware authentification JWT (vérification token)
 
 ---
 
-### **22 octobre 2025 - Mercredi**
+### **22 octobre 2025 - Mercredi (2 SESSIONS !)**
+
+**Temps passé :** 2h44 (matin 2h05 + soir 39min)
+
+**Ce qui a été fait :**
+
+**SESSION MATIN (8h55-11h00) :**
+- ✅ **Controller UserBooks complet** (234 lignes)
+  - addBook (ajouter livre à bibliothèque)
+  - getMyBooks (récupérer mes livres)
+  - removeBook (supprimer livre)
+  - Correction bug vérification doublon
+- ✅ **Routes UserBooks** (25 lignes)
+  - POST /api/user-books
+  - GET /api/user-books
+  - DELETE /api/user-books/:id
+  - Protégées par JWT
+- ✅ **Tests complets validés**
+  - Ajout livre → OK
+  - Récupération livres → OK
+  - Suppression livre → OK
+  - Sécurité JWT → OK
+- ✅ **BACKEND 100% TERMINÉ !** 🎉
+
+**SESSION SOIR (19h22-20h01) :**
+- ✅ Installation SvelteKit + Svelte 5
+- ✅ Installation Tailwind CSS v4
+- ✅ Installation Flowbite + Flowbite-Svelte
+- ✅ Configuration complète (PostCSS, Prettier, ESLint)
+- ✅ Layout principal créé
+- ✅ Serveur dev testé et fonctionnel
+- ✅ **FRONTEND INITIALISÉ !** 🚀
+
+**Total :** 5 commits ce matin + 1 commit ce soir = 6 commits aujourd'hui
+
+**Difficultés rencontrées :**
+- Bug addBook : vérification doublon avant création du book (book_id undefined)
+- Tailwind v4 nécessite @tailwindcss/postcss (nouveau package)
+- Commande create-svelte dépréciée → utilisation de npx sv create
+
+**Solutions trouvées :**
+- Réorganisation code : créer book AVANT vérifier doublon
+- Installation @tailwindcss/postcss + configuration postcss.config.js
+- Utilisation nouvelle commande officielle SvelteKit
+
+**Apprentissages :**
+- Ordre logique dans les controllers (créer avant vérifier)
+- Tailwind v4 = nouvelle architecture avec PostCSS séparé
+- SvelteKit moderne avec Svelte 5 (runes)
+- Configuration Flowbite avec Tailwind
+- Structure routing SvelteKit (+page.svelte, +layout.svelte)
+
+**Points forts :**
+- ✅ **BACKEND 100% FONCTIONNEL**
+  - 3 modèles (User, Book, UserBook)
+  - 6 API endpoints testés
+  - Authentification JWT complète
+  - Recherche Open Library
+  - Bibliothèque personnelle
+- ✅ **FRONTEND INSTALLÉ ET OPÉRATIONNEL**
+  - SvelteKit + Svelte 5
+  - Tailwind v4 + Flowbite
+  - Serveur dev fonctionnel
+  - Structure prête pour développement
+- ✅ EN AVANCE DE 5 JOURS sur le planning !
+
+**Commits réalisés :**
+```
+MATIN :
+058b5c1 feat: controller UserBooks (addBook, getMyBooks, removeBook)
+3718991 feat: routes UserBooks protégées par JWT
+1ad1090 fix: correction ordre vérification doublon dans addBook
+1837147 docs: carnet de bord session 21 oct
+
+SOIR :
+65f976f feat: installation SvelteKit + Svelte 5 + Tailwind v4 + Flowbite
+```
+
+**Progression globale :**
+- ✅ Conception : 100%
+- ✅ Backend : 100% (TERMINÉ !)
+- ✅ Frontend : 10% (installé, structure prête)
+- ⏳ Pages frontend : 0%
+- ⏳ Tests : 0%
+- ⏳ Dossier professionnel : 0%
+
+**Prochaine session :**
+- Jeudi 23 octobre (soir 19h30)
+- Objectif : Page Login (formulaire + appel API)
+- Temps estimé : 1h30
+
+**État d'esprit :** 🔥 BACKEND 100% TERMINÉ EN 2 JOURS AU LIEU DE 7 ! INCROYABLE ! Frontend installé en 40 min. Configuration Tailwind v4 un peu technique mais résolue. Je suis EN AVANCE de 5 jours. Backend complet et testé. Toutes les APIs fonctionnent. Maintenant on attaque le frontend. Svelte 5 moderne installé. Tailwind v4 + Flowbite prêts. Structure claire. Je MAÎTRISE le backend. Confiance totale pour le frontend. Le projet avance TRÈS BIEN ! 💪🚀
+
+**Note personnelle :** Journée exceptionnelle. 2h44 de travail ultra concentré. Backend terminé = ÉNORME victoire. 6 APIs validées. Frontend moderne installé. 24 commits au total. ~1500 lignes de code backend. Planning largement respecté. En avance ! Je suis une warrior ! Le MVP va être MAGNIFIQUE ! 🌟✨
+
+---
+
+### **23 octobre 2025 - Jeudi**
 
 **Session prévue ce soir :** 19h30-21h00
 
-**Objectif :** API UserBooks complète
+**Objectif :** Page Login frontend
 
 **À faire :**
-- Controller UserBooks
-- Fonction addBook (ajouter livre à bibliothèque)
-- Fonction getMyBooks (récupérer mes livres)
-- Fonction removeBook (supprimer livre)
-- Routes UserBooks
-- Tests complets
-- **BACKEND 100% TERMINÉ !**
 
+- Créer page Login
+- Formulaire avec Flowbite
+- Appel API /auth/login
+- Gestion token
+- Redirection après login
+- Tests manuels
 
 ---
 
