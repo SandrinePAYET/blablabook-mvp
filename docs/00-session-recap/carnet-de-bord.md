@@ -701,18 +701,101 @@ ec92cce feat: fichier index modèles avec associations User-Book-UserBook
 
 ---
 
-### **21 octobre 2025 - Mardi**
+### **21 octobre 2025 - Mardi (3 SESSIONS !)**
+
+**Temps passé :** 3h30 (matin 41min + après-midi 10min + soir 2h40)
+
+**Ce qui a été fait :**
+- ✅ Carnet de bord mis à jour (session 20 oct)
+- ✅ **Controller Auth complet** (register + login) - 219 lignes
+- ✅ **Routes Auth** créées - 37 lignes
+- ✅ **Serveur Express** opérationnel - 116 lignes
+- ✅ **Middleware JWT** (vérification token) - 128 lignes
+- ✅ Route protégée /api/auth/me pour tests
+- ✅ **Tests Auth complets** : register, login, JWT validés
+- ✅ **Controller Books** (recherche Open Library) - 129 lignes
+- ✅ **Routes Books** créées
+- ✅ **Tests Books** : recherche validée
+- ✅ Installation axios
+- ✅ **19 commits propres**
+
+**Difficultés rencontrées :**
+- Erreur chemin .env (résolu avec path relatif)
+- Axios manquant (installé)
+- Syntaxe ligne coupée dans server.js (corrigé)
+
+**Solutions trouvées :**
+- require('dotenv').config({ path: '../.env' })
+- npm install axios
+- Vérification syntaxe complète
+
+**Apprentissages :**
+- Création serveur Express complet
+- Middleware authentification JWT
+- Validation Joi pour données
+- Appels API externes (Open Library)
+- Tests API avec curl
+- Gestion des erreurs HTTP
+- Headers Authorization Bearer
+
+**Points forts :**
+- ✅ API Auth 100% fonctionnelle
+- ✅ Register : création user + hash password + génération JWT
+- ✅ Login : vérification password + JWT
+- ✅ Middleware JWT : protection routes
+- ✅ API Books : recherche 20 livres Open Library
+- ✅ Tous les tests passent
+- ✅ 3h30 ultra productives = ~700 lignes
+
+**Commits réalisés :**
+```
+7987acf docs: carnet de bord session 20 oct soir
+a584bb8 feat: controller Auth avec fonction register (inscription + JWT)
+b81281a feat: routes Auth (register, login) + index routes
+59b55cd feat: serveur Express avec routes API et gestion erreurs
+6747057 fix: correction chemin .env et syntaxe server.js
+f52d93c feat: middleware authentification JWT (vérification token)
+6dfdbc1 feat: fonction login complète avec validation JWT
+45dd50e feat: route protégée /api/auth/me pour test JWT
+9b25300 feat: controller Books + recherche via API Open Library
+```
+
+**Progression backend :**
+- ✅ PostgreSQL : 100%
+- ✅ Modèles Sequelize : 100%
+- ✅ API Auth (register, login) : 100%
+- ✅ Middleware JWT : 100%
+- ✅ API Books (recherche) : 100%
+- ⏳ API UserBooks : 0%
+
+**Backend : 85% terminé !**
+
+**Prochaine session :**
+- Mercredi 22 octobre (ce soir 19h30)
+- Objectif : API UserBooks (bibliothèque)
+- Temps estimé : 1h30
+
+**État d'esprit :** 🔥 EN FEU ! 3h30 de travail ultra concentré ! J'ai fait 3 sessions dans la journée. Le backend avance à une vitesse incroyable. API Auth complète et testée. API Books qui fonctionne parfaitement. J'ai installé tout seule axios. Les tests curl passent tous. Je COMPRENDS ce que je fais. Plus que UserBooks et le backend sera terminé. Je suis EN AVANCE de 6 jours sur le planning ! C'EST ÉNORME ! Fatiguée mais hyper fière. Repos bien mérité. Demain je termine le backend. JE VAIS Y ARRIVER ! 💪🔥
+
+**Note personnelle :** Session marathon mais incroyable. 19 commits en une journée. ~700 lignes de code. Tout fonctionne. API testée et validée. Je maîtrise Express, JWT, Sequelize, axios. Le projet prend vie ! Backend presque fini. 6 jours d'avance ! Je suis une warrior ! 🚀✨
+
+---
+
+### **22 octobre 2025 - Mercredi**
 
 **Session prévue ce soir :** 19h30-21h00
 
-**Objectif :** Controller Auth + API Register
+**Objectif :** API UserBooks complète
 
 **À faire :**
-- Controller authController.js
-- Fonction register (inscription)
-- Validation Joi
-- Route POST /api/auth/register
-- Tests Postman
+- Controller UserBooks
+- Fonction addBook (ajouter livre à bibliothèque)
+- Fonction getMyBooks (récupérer mes livres)
+- Fonction removeBook (supprimer livre)
+- Routes UserBooks
+- Tests complets
+- **BACKEND 100% TERMINÉ !**
+
 
 ---
 
