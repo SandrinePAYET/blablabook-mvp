@@ -49,23 +49,7 @@ const addBook = async (req, res) => {
       });
     }
 
-    // 2. Vérifier si l'utilisateur a déjà ce livre
-    const existingUserBook = await UserBook.findOne({
-      where: {
-        user_id: req.userId,
-        book_id: await Book.findOne({ where: { open_library_id: value.open_library_id } })
-          ?.then(book => book?.id)
-      }
-    });
-
-    if (existingUserBook) {
-      return res.status(409).json({
-        success: false,
-        message: 'Ce livre est déjà dans votre bibliothèque'
-      });
-    }
-
-    // 3. Trouver ou créer le livre dans la table books
+    // 2. Trouver ou créer le livre dans la table books
     const [book, created] = await Book.findOrCreate({
       where: { open_library_id: value.open_library_id },
       defaults: {
@@ -79,6 +63,21 @@ const addBook = async (req, res) => {
         page_count: value.page_count || null
       }
     });
+
+    // 3. Vérifier si l'utilisateur a déjà ce livre
+    const existingUserBook = await UserBook.findOne({
+      where: {
+        user_id: req.userId,
+        book_id: book.id
+      }
+    });
+
+    if (existingUserBook) {
+      return res.status(409).json({
+        success: false,
+        message: 'Ce livre est déjà dans votre bibliothèque'
+      });
+    }
 
     // 4. Créer l'entrée UserBook (lien user <-> book)
     const userBook = await UserBook.create({
