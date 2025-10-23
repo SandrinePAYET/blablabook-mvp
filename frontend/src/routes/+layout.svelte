@@ -1,5 +1,16 @@
 <script>
   import '../app.css';
+  import Navbar from '$lib/components/Navbar.svelte';
 </script>
 
-<slot />
+<Navbar />
+
+<main>
+  <slot />
+</main>
+
+<style>
+  main {
+    min-height: calc(100vh - 64px);
+  }
+</style>
