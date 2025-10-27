@@ -984,20 +984,275 @@ SOIR :
 
 ---
 
-### **24 octobre 2025 - Vendredi**
+# Carnet de Bord - Vendredi 24 Octobre 2025
 
-**Session prévue ce soir :** 19h30-21h00
+## Session Matin
 
-**Objectif :** Page Ma Bibliothèque
+**Horaires :** 8h37 - 9h00  
+**Durée :** 23 minutes  
+**Lieu :** Domicile
 
-**À faire :**
+### Objectifs
+- Corriger navigation (+layout.svelte)
+- Créer page Ma Bibliothèque
+- Afficher livres utilisateur avec appel API
 
-- Créer page /my-books
-- Afficher liste des livres de l'utilisateur
-- Appel API GET /api/user-books avec token
-- Grille de cartes avec livres
-- Gestion état vide "Aucun livre"
-- Bouton "Ajouter un livre" → /search
+### Réalisations
+
+#### 1. Correction Navigation (5 min)
+**Problème identifié :** Code du +layout.svelte mal placé (en dehors du script)
+
+**Solution appliquée :**
+- Déplacement du code JavaScript dans la balise `<script>`
+- Correction syntaxe Svelte 5
+- Tests de navigation validés
+
+**Fichiers modifiés :**
+- `frontend/src/routes/+layout.svelte`
+
+#### 2. Page Ma Bibliothèque (18 min)
+**Création complète :** `frontend/src/routes/my-books/+page.svelte` (232 lignes)
+
+**Fonctionnalités implémentées :**
+- Protection de la page (redirection si non connecté)
+- Appel API `GET /api/user-books` avec token JWT
+- Gestion état vide ("Aucun livre dans votre bibliothèque")
+- Affichage des livres en grille responsive
+- Cartes livres avec :
+  - Image de couverture
+  - Titre, auteur, année
+  - Badge statut (À lire, En cours, Lu)
+  - Bouton supprimer
+- Gestion loading et erreurs
+- Design professionnel avec Tailwind
+
+**Code structure :**
+```javascript
+// Protection authentification
+onMount(() => {
+  const token = localStorage.getItem('token');
+  if (!token) goto('/login');
+});
+
+// Récupération livres utilisateur
+async function fetchUserBooks() {
+  const response = await fetch('http://localhost:3000/api/user-books', {
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+  // ...
+}
+```
+
+**Tests validés :**
+- ✅ Redirection si non connecté
+- ✅ Appel API fonctionnel
+- ✅ Affichage état vide
+- ✅ Design responsive
+
+### Difficultés Rencontrées
+- Navigation ne fonctionnait pas → code mal placé dans +layout.svelte
+- Résolu en 5 minutes en déplaçant le code
+
+### Commit
+```
+259ef50 feat: page Ma Bibliothèque avec appel API et gestion état vide
+```
+
+**Statistiques :** 412 lignes modifiées (3 fichiers)
+
+### Compétences DWWM Mobilisées
+- **CCP1 - Développer front-end :** Création composant Svelte, gestion état
+- **CCP2 - Développer back-end :** Consommation API REST avec authentification
+- **Accessibilité :** Labels, alt, navigation clavier
+
+### Points Positifs
+- ✅ Session très productive (23 min = 412 lignes)
+- ✅ Page complète et fonctionnelle
+- ✅ Aucun blocage technique
+- ✅ Commit propre
+
+### À Faire Prochainement
+- Tester avec de vrais livres dans la base
+- Implémenter modification statut
+- Ajouter filtres par statut
+
+---
+
+## Session Soir
+
+**Horaires :** 18h55 - 20h06  
+**Durée :** 1h11  
+**Lieu :** Domicile
+
+### Objectifs
+- Créer page Recherche de livres
+- Intégrer API Open Library
+- Permettre ajout livre à la bibliothèque
+
+### Réalisations
+
+#### 1. Page Recherche de Livres (1h11)
+**Création complète :** `frontend/src/routes/search/+page.svelte` (267 lignes)
+
+**Fonctionnalités implémentées :**
+- Formulaire de recherche (titre, auteur, ISBN)
+- Appel API Open Library (`https://openlibrary.org/search.json`)
+- Transformation des données (mapping résultats)
+- Affichage résultats en grille responsive
+- Cartes livres compactes avec :
+  - Couverture haute qualité (format L)
+  - Titre, auteur, année publication
+  - Bouton "Ajouter à ma bibliothèque"
+- État loading avec spinner
+- Gestion erreurs (aucun résultat, erreur réseau)
+- Design responsive (3 à 6 colonnes selon écran)
+
+**Code structure :**
+```javascript
+// Recherche Open Library
+async function searchBooks(event) {
+  event.preventDefault();
+  const response = await fetch(
+    `https://openlibrary.org/search.json?q=${encodeURIComponent(searchQuery)}&limit=20`
+  );
+  const data = await response.json();
+  books = data.docs.map(book => ({
+    title: book.title,
+    author: book.author_name?.[0] || 'Auteur inconnu',
+    cover_id: book.cover_i,
+    // ...
+  }));
+}
+
+// Ajout à la bibliothèque
+async function addToLibrary(book) {
+  const response = await fetch('http://localhost:3000/api/user-books', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      title: book.title,
+      author: book.author,
+      cover_url: `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`,
+      // ...
+    })
+  });
+}
+```
+
+**Ajustements design (30 min) :**
+- Plusieurs itérations pour taille cartes optimale
+- Hauteur fixe cartes (280px) pour alignement
+- Images en haute qualité (format L au lieu de M)
+- Textes très compacts (10px) pour maximiser nombre de livres
+- Espacement entre cartes (gap-4)
+- 3 à 6 colonnes selon taille écran
+
+**Tests effectués :**
+- ✅ Recherche "Harry Potter" → 20 résultats
+- ✅ Affichage couvertures fonctionnel
+- ✅ Design responsive validé
+- ❌ Erreur "Données invalides" lors de l'ajout
+
+### Difficultés Rencontrées
+
+#### 1. Alignement des cartes (20 min)
+**Problème :** Cartes de hauteurs différentes selon longueur du titre
+
+**Solutions tentées :**
+- `auto-rows-[200px]` sur la grille → n'a pas fonctionné
+- `h-full` sur les cartes → hauteurs toujours variables
+- Cache navigateur très persistant
+
+**Solution finale :**
+- Hauteur fixe `h-[280px]` sur chaque carte
+- `flex flex-col` pour distribution contenu
+- `overflow-hidden` pour gérer débordement texte
+
+#### 2. Cache navigateur (10 min)
+**Problème :** Modifications CSS non visibles immédiatement
+
+**Actions :**
+- Ctrl+Shift+R (rafraîchissement forcé)
+- Vider cache navigateur
+- Cache très tenace, modifications pas toujours visibles
+
+#### 3. Erreur Backend "Données invalides" (5 min)
+**Problème :** Tentative d'ajout livre échoue
+
+**Message erreur :** "Données invalides" (alert navigateur)
+
+**Hypothèses :**
+- Validation backend trop stricte
+- Données Open Library pas au bon format
+- Champ manquant ou incorrect
+
+**État :** Non résolu, à corriger prochainement
+
+### Commit
+```
+acfb86c feat: page Recherche avec API Open Library (erreur ajout à corriger)
+```
+**Note :** Commit effectué le lundi 27 octobre matin
+
+**Statistiques :** 266 lignes (1 fichier créé)
+
+### Compétences DWWM Mobilisées
+- **CCP1 - Développer front-end :** Intégration API externe, gestion état
+- **CCP2 - Développer back-end :** Communication backend via API REST
+- **Design responsive :** Grid Tailwind, adaptation multi-écrans
+- **Débogage :** Identification et tentatives résolution erreurs
+
+### Points Positifs
+- ✅ Page Recherche fonctionnelle à 90%
+- ✅ Intégration Open Library réussie
+- ✅ Design compact et responsive
+- ✅ 20 livres affichés par recherche
+- ✅ Gestion erreurs et loading
+
+### Points d'Amélioration
+- ❌ Erreur backend à corriger (priorité)
+- ⚠️ Alignement cartes perfectible (cache)
+- ⚠️ Boutons "Ajouter" non visibles sur certaines cartes
+
+### À Faire Prochainement
+- **URGENT :** Débugger erreur "Données invalides" backend
+- Vérifier validation côté serveur
+- Tester ajout complet d'un livre
+- Améliorer design si nécessaire après vidage cache
+- Voir les livres ajoutés dans Ma Bibliothèque
+
+---
+
+## Bilan Journée Vendredi 24 Octobre
+
+**Temps total :** 23 min (matin) + 1h11 (soir) = 1h34
+
+**Réalisations :**
+- ✅ Page Ma Bibliothèque complète (412 lignes)
+- ✅ Page Recherche avec Open Library (266 lignes)
+- ✅ 2 commits propres
+- ✅ 678 lignes de code au total
+
+**Progression Frontend :** 50% environ
+- ✅ Authentification (Login, Register)
+- ✅ Navigation (Navbar)
+- ✅ Page accueil
+- ✅ Ma Bibliothèque (affichage)
+- ✅ Recherche (affichage résultats)
+- ⏳ Ajout livre (en cours)
+- ⏳ Actions sur livres (à faire)
+- ⏳ Détail livre (à faire)
+
+**Objectifs Lundi 27 Octobre :**
+1. Corriger erreur backend ajout livre
+2. Tester flux complet recherche → ajout → affichage
+3. Implémenter modification/suppression livre
+4. Créer page détail livre si temps
+
+**État d'esprit :** Productif malgré quelques difficultés techniques. Session soir longue mais code de qualité produit.
 
 ---
 
