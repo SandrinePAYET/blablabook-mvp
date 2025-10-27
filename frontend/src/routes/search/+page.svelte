@@ -73,16 +73,17 @@
       const token = localStorage.getItem('token');
 
       // Préparer les données du livre
-      const bookData = {
-        title: book.title,
-        author: book.author,
-        isbn: book.isbn || null,
-        cover_url: book.cover_id 
-          ? `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`
-          : null,
-        publication_year: book.first_publish_year || null,
-        status: 'to_read'
-      };
+const bookData = {
+  open_library_id: book.key,  // ✅ AJOUTÉ (obligatoire)
+  title: book.title,
+  author: book.author,
+  isbn: book.isbn || null,
+  cover_url: book.cover_id 
+    ? `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`
+    : null,
+  published_year: book.first_publish_year || null  // ✅ CORRIGÉ (publication → published)
+  // ✅ SUPPRIMÉ status (n'existe pas dans Book)
+};
 
       // Appel API backend
       const response = await fetch('http://localhost:3000/api/user-books', {
