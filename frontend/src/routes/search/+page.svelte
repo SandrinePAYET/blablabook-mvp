@@ -184,6 +184,7 @@ const bookData = {
     {/if}
 
     <!-- Résultats -->
+              <!-- Résultats -->
     {#if !loading && books.length > 0}
       <div class="mb-6">
         <p class="text-gray-600">
@@ -191,12 +192,12 @@ const bookData = {
         </p>
       </div>
 
-      <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {#each books as book (book.key)}
-          <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden h-[280px] flex flex-col">
+          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden flex flex-col">
             
             <!-- Image de couverture -->
-            <div class="h-40 bg-gray-200 flex items-center justify-center overflow-hidden flex-shrink-0">
+            <div class="h-48 bg-gray-200 flex items-center justify-center overflow-hidden flex-shrink-0">
               {#if book.cover_id}
                 <img 
                   src={getCoverUrl(book.cover_id)} 
@@ -204,22 +205,22 @@ const bookData = {
                   class="w-full h-full object-contain"
                 />
               {:else}
-                <div class="text-5xl">📚</div>
+                <div class="text-6xl">📚</div>
               {/if}
             </div>
 
             <!-- Informations -->
-            <div class="p-2 flex-1 flex flex-col overflow-hidden">
-              <h3 class="font-semibold text-gray-900 text-xs mb-1 line-clamp-2">
+            <div class="p-3 flex-1 flex flex-col">
+              <h3 class="font-semibold text-gray-900 text-sm mb-2 line-clamp-2 min-h-[2.5rem]">
                 {book.title}
               </h3>
               
-              <p class="text-[10px] text-gray-600 mb-1 truncate">
+              <p class="text-xs text-gray-600 mb-1 truncate">
                 {book.author}
               </p>
 
               {#if book.first_publish_year}
-                <p class="text-[10px] text-gray-500 mb-2">
+                <p class="text-xs text-gray-500 mb-3">
                   {book.first_publish_year}
                 </p>
               {/if}
@@ -228,7 +229,7 @@ const bookData = {
               <button
                 onclick={() => addToLibrary(book)}
                 disabled={addingBookId === book.key}
-                class="w-full px-2 py-1 bg-blue-600 text-white text-xs font-semibold rounded hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed mt-auto"
+                class="w-full px-3 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed mt-auto"
               >
                 {addingBookId === book.key ? '⏳ Ajout...' : '➕ Ajouter'}
               </button>
