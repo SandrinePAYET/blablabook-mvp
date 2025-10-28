@@ -73,17 +73,16 @@
       const token = localStorage.getItem('token');
 
       // Préparer les données du livre
-const bookData = {
-  open_library_id: book.key,  // ✅ AJOUTÉ (obligatoire)
-  title: book.title,
-  author: book.author,
-  isbn: book.isbn || null,
-  cover_url: book.cover_id 
-    ? `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`
-    : null,
-  published_year: book.first_publish_year || null  // ✅ CORRIGÉ (publication → published)
-  // ✅ SUPPRIMÉ status (n'existe pas dans Book)
-};
+      const bookData = {
+        open_library_id: book.key,
+        title: book.title,
+        author: book.author,
+        isbn: book.isbn || null,
+        cover_url: book.cover_id 
+          ? `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`
+          : null,
+        published_year: book.first_publish_year || null
+      };
 
       // Appel API backend
       const response = await fetch('http://localhost:3000/api/user-books', {
@@ -184,7 +183,6 @@ const bookData = {
     {/if}
 
     <!-- Résultats -->
-              <!-- Résultats -->
     {#if !loading && books.length > 0}
       <div class="mb-6">
         <p class="text-gray-600">
@@ -192,46 +190,40 @@ const bookData = {
         </p>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      <div class="grid grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-6">
         {#each books as book (book.key)}
-          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden flex flex-col">
+          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden">
             
             <!-- Image de couverture -->
-            <div class="h-48 bg-gray-200 flex items-center justify-center overflow-hidden flex-shrink-0">
+            <div class="aspect-[2/3] bg-gray-200 flex items-center justify-center overflow-hidden">
               {#if book.cover_id}
                 <img 
                   src={getCoverUrl(book.cover_id)} 
                   alt={book.title}
-                  class="w-full h-full object-contain"
+                  class="w-full h-full object-cover"
                 />
               {:else}
-                <div class="text-6xl">📚</div>
+                <div class="text-4xl">📚</div>
               {/if}
             </div>
 
             <!-- Informations -->
-            <div class="p-3 flex-1 flex flex-col">
-              <h3 class="font-semibold text-gray-900 text-sm mb-2 line-clamp-2 min-h-[2.5rem]">
+            <div class="p-2">
+              <h3 class="font-semibold text-gray-900 text-xs mb-1 line-clamp-1">
                 {book.title}
               </h3>
               
-              <p class="text-xs text-gray-600 mb-1 truncate">
+              <p class="text-[10px] text-gray-600 mb-2 truncate">
                 {book.author}
               </p>
-
-              {#if book.first_publish_year}
-                <p class="text-xs text-gray-500 mb-3">
-                  {book.first_publish_year}
-                </p>
-              {/if}
 
               <!-- Bouton ajouter -->
               <button
                 onclick={() => addToLibrary(book)}
                 disabled={addingBookId === book.key}
-                class="w-full px-3 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed mt-auto"
+                class="w-full px-2 py-1 bg-blue-600 text-white text-[10px] font-semibold rounded hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
               >
-                {addingBookId === book.key ? '⏳ Ajout...' : '➕ Ajouter'}
+                {addingBookId === book.key ? '⏳' : '➕'}
               </button>
             </div>
           </div>
@@ -253,9 +245,9 @@ const bookData = {
 </div>
 
 <style>
-  .line-clamp-2 {
+  .line-clamp-1 {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
