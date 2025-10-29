@@ -200,7 +200,7 @@
                 <img 
                   src={getCoverUrl(book.cover_id)} 
                   alt={book.title}
-                  class="w-full h-full object-cover"
+                  class="w-full h-full object-contain"
                 />
            {:else}
   <div class="w-full h-full bg-gradient-to-br from-blue-200 to-cyan-200 flex flex-col items-center justify-center p-2">
