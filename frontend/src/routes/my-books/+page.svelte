@@ -61,6 +61,32 @@
     }
   }
 
+  // Fonction pour changer le statut d'un livre
+  async function updateStatus(userBookId, newStatus) {
+    try {
+      const token = localStorage.getItem('token');
+
+      const response = await fetch(`http://localhost:3000/api/user-books/${userBookId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status: newStatus })
+      });
+
+      if (response.ok) {
+        // Recharger la liste
+        await loadBooks();
+      } else {
+        alert('Erreur lors de la mise à jour du statut');
+      }
+    } catch (err) {
+      console.error('Erreur updateStatus:', err);
+      alert('Erreur de connexion');
+    }
+  }
+
   // Fonction pour supprimer un livre
   async function deleteBook(bookId, bookTitle) {
     if (!confirm(`Supprimer "${bookTitle}" de votre bibliothèque ?`)) {
@@ -160,12 +186,12 @@
         </button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div class="grid grid-cols-6 md:grid-cols-7 lg:grid-cols-8 xl:grid-cols-10" style="gap: 40px;">
         {#each books as userBook}
           <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden">
             
             <!-- Image de couverture -->
-            <div class="h-64 bg-gray-200 flex items-center justify-center overflow-hidden">
+            <div class="aspect-[2/3] bg-gray-200 flex items-center justify-center overflow-hidden">
               {#if userBook.book.cover_url}
                 <img 
                   src={userBook.book.cover_url} 
@@ -173,43 +199,37 @@
                   class="w-full h-full object-cover"
                 />
               {:else}
-                <div class="text-6xl">📚</div>
+                <div class="text-4xl">📚</div>
               {/if}
             </div>
 
             <!-- Informations -->
-            <div class="p-4">
-              <h3 class="font-bold text-gray-900 mb-2 line-clamp-2 min-h-[3rem]">
+            <div class="p-2">
+              <h3 class="font-semibold text-gray-900 text-xs mb-1 line-clamp-1">
                 {userBook.book.title}
               </h3>
               
               {#if userBook.book.author}
-                <p class="text-sm text-gray-600 mb-3">
+                <p class="text-[10px] text-gray-600 mb-2 truncate">
                   par {userBook.book.author}
                 </p>
               {/if}
 
-              <!-- Statut -->
-              <div class="mb-3">
-                {#if userBook.status === 'to_read'}
-                  <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">
-                    📖 À lire
-                  </span>
-                {:else if userBook.status === 'reading'}
-                  <span class="inline-block px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-semibold rounded-full">
-                    📚 En cours
-                  </span>
-                {:else if userBook.status === 'read'}
-                  <span class="inline-block px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">
-                    ✅ Lu
-                  </span>
-                {/if}
-              </div>
+              <!-- Statut avec sélecteur -->
+              <select
+                value={userBook.status}
+                onchange={(e) => updateStatus(userBook.id, e.target.value)}
+                class="w-full text-[10px] px-2 py-1 mb-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+              >
+                <option value="to_read">📖 À lire</option>
+                <option value="reading">📚 En cours</option>
+                <option value="read">✅ Lu</option>
+              </select>
 
               <!-- Bouton supprimer -->
               <button
                 onclick={() => deleteBook(userBook.id, userBook.book.title)}
-                class="w-full px-4 py-2 bg-red-100 text-red-700 text-sm font-semibold rounded-lg hover:bg-red-200 transition-colors"
+                class="w-full px-2 py-1 bg-red-100 text-red-700 text-[10px] font-semibold rounded hover:bg-red-200 transition-colors"
               >
                 🗑️ Supprimer
               </button>
@@ -223,10 +243,17 @@
 </div>
 
 <style>
-  .line-clamp-2 {
+  .line-clamp-1 {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+  
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 </style>
