@@ -190,7 +190,7 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-6">
+      <div class="grid grid-cols-6 md:grid-cols-7 lg:grid-cols-8 xl:grid-cols-10" style="gap: 40px;">
         {#each books as book (book.key)}
           <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden">
             
@@ -248,6 +248,7 @@
   .line-clamp-1 {
     display: -webkit-box;
     -webkit-line-clamp: 1;
+    line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
