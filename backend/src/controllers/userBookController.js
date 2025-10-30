@@ -226,8 +226,95 @@ const removeBook = async (req, res) => {
   }
 };
 
+/**
+ * FONCTION : UPDATE BOOK
+ * 
+ * PUT /api/user-books/:id
+ * Modifie un livre de la bibliothèque (statut, rating, review)
+ * Route protégée (nécessite authentification)
+ * 
+ * @param {Object} req - Requête Express
+ * @param {Object} res - Réponse Express
+ */
+const updateBook = async (req, res) => {
+  try {
+    // 1. Récupérer l'ID du UserBook
+    const { id } = req.params;
+
+    if (!id || isNaN(id)) {
+      return res.status(400).json({
+        success: false,
+        message: 'ID invalide'
+      });
+    }
+
+    // 2. Récupérer les données à mettre à jour
+    const { status, rating, review } = req.body;
+
+    // 3. Valider le statut si fourni
+    if (status && !['to_read', 'reading', 'read'].includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Statut invalide. Valeurs autorisées: to_read, reading, read'
+      });
+    }
+
+    // 4. Trouver le UserBook
+    const userBook = await UserBook.findOne({
+      where: {
+        id: parseInt(id),
+        user_id: req.userId  // Vérifier que c'est bien le livre de l'utilisateur
+      },
+      include: {
+        model: Book,
+        as: 'book'
+      }
+    });
+
+    if (!userBook) {
+      return res.status(404).json({
+        success: false,
+        message: 'Livre non trouvé dans votre bibliothèque'
+      });
+    }
+
+    // 5. Mettre à jour les champs
+    if (status !== undefined) userBook.status = status;
+    if (rating !== undefined) userBook.rating = rating;
+    if (review !== undefined) userBook.review = review;
+
+    await userBook.save();
+
+    // 6. Recharger avec les relations
+    await userBook.reload({
+      include: {
+        model: Book,
+        as: 'book'
+      }
+    });
+
+    // 7. Retourner la réponse
+    res.json({
+      success: true,
+      message: 'Livre mis à jour avec succès',
+      data: {
+        userBook
+      }
+    });
+
+  } catch (error) {
+    console.error('Erreur updateBook:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erreur lors de la mise à jour du livre',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
 module.exports = {
   addBook,
   getMyBooks,
+  updateBook,
   removeBook
 };
