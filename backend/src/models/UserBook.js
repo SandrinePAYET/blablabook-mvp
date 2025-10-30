@@ -60,7 +60,7 @@ const UserBook = sequelize.define('UserBook', {
   // Note du livre (optionnel, pour futur post-MVP)
   // De 1 à 5 étoiles
   rating: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.FLOAT,
     allowNull: true,
     validate: {
       min: {
