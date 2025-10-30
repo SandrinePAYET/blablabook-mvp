@@ -252,9 +252,12 @@
 
             <!-- Informations -->
             <div class="p-2">
-              <h3 class="font-semibold text-gray-900 text-xs mb-1 line-clamp-1">
-                {userBook.book.title}
-              </h3>
+              <a 
+  href="/book/{userBook.id}"
+  class="font-semibold text-gray-900 text-xs mb-1 line-clamp-1 hover:text-blue-600 transition-colors cursor-pointer block"
+>
+  {userBook.book.title}
+</a>
               
               {#if userBook.book.author}
                 <p class="text-[10px] text-gray-600 mb-2 truncate">
