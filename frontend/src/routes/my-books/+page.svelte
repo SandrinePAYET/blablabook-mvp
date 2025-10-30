@@ -258,6 +258,27 @@
 >
   {userBook.book.title}
 </a>
+
+<a 
+  href="/book/{userBook.id}"
+  class="font-semibold text-gray-900 text-xs mb-1 line-clamp-1 hover:text-blue-600 transition-colors cursor-pointer block"
+>
+  {userBook.book.title}
+</a>
+
+<!-- Note (NOUVEAU CODE À AJOUTER ICI) -->
+{#if userBook.rating}
+  <div class="flex items-center gap-1 text-xs text-yellow-600 mb-1">
+    <span>⭐</span>
+    <span class="font-semibold">{userBook.rating}</span>
+  </div>
+{/if}
+              
+{#if userBook.book.author}
+  <p class="text-[10px] text-gray-600 mb-2 truncate">
+    par {userBook.book.author}
+  </p>
+{/if}
               
               {#if userBook.book.author}
                 <p class="text-[10px] text-gray-600 mb-2 truncate">
