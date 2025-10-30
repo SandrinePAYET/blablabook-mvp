@@ -6,11 +6,22 @@
   let books = $state([]);
   let loading = $state(true);
   let error = $state('');
+  let currentFilter = $state('all');
+  let filteredBooks = $derived(
+  currentFilter === 'all' 
+    ? books 
+    : books.filter(b => b.status === currentFilter)
+);
 
   // Charger les livres au montage du composant
   onMount(async () => {
     await loadBooks();
   });
+
+  // Fonction pour changer le filtre
+  function filterBooks(filter) {
+    currentFilter = filter;
+  }
 
   // Fonction pour charger les livres
   async function loadBooks() {
@@ -172,12 +183,43 @@
       </div>
     {/if}
 
+    <!-- Filtres par statut -->
+    {#if !loading && !error && books.length > 0}
+      <div class="mb-6 flex gap-3">
+        <button
+          onclick={() => filterBooks('all')}
+          class="px-4 py-2 rounded-lg font-semibold transition-colors {currentFilter === 'all' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}"
+        >
+          Tous ({books.length})
+        </button>
+        <button
+          onclick={() => filterBooks('to_read')}
+          class="px-4 py-2 rounded-lg font-semibold transition-colors {currentFilter === 'to_read' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}"
+        >
+          📖 À lire ({books.filter(b => b.status === 'to_read').length})
+        </button>
+        <button
+          onclick={() => filterBooks('reading')}
+          class="px-4 py-2 rounded-lg font-semibold transition-colors {currentFilter === 'reading' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}"
+        >
+          📚 En cours ({books.filter(b => b.status === 'reading').length})
+        </button>
+        <button
+          onclick={() => filterBooks('read')}
+          class="px-4 py-2 rounded-lg font-semibold transition-colors {currentFilter === 'read' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}"
+        >
+          ✅ Lu ({books.filter(b => b.status === 'read').length})
+        </button>
+      </div>
+    {/if}
+
     <!-- Grille de livres -->
     {#if !loading && !error && books.length > 0}
       <div class="mb-6 flex justify-between items-center">
         <p class="text-gray-600">
-          {books.length} livre{books.length > 1 ? 's' : ''} dans votre bibliothèque
-        </p>
+  {filteredBooks.length} livre{filteredBooks.length > 1 ? 's' : ''} 
+  {currentFilter === 'all' ? 'dans votre bibliothèque' : 'trouvé' + (filteredBooks.length > 1 ? 's' : '')}
+</p>
         <button
           onclick={() => goto('/search')}
           class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
@@ -187,7 +229,7 @@
       </div>
 
       <div class="grid grid-cols-6 md:grid-cols-7 lg:grid-cols-8 xl:grid-cols-10" style="gap: 40px;">
-        {#each books as userBook}
+        {#each filteredBooks as userBook}
           <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden">
             
             <!-- Image de couverture -->
