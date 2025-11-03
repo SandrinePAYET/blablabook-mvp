@@ -1,175 +1,188 @@
 <script>
-  import { Button, Label, Input, Card, Alert } from 'flowbite-svelte';
   import { goto } from '$app/navigation';
 
-  // État du formulaire (Svelte 5 runes)
-  let email = $state('');
-  let password = $state('');
-  let error = $state('');
-  let loading = $state(false);
+  let username = '';
+  let password = '';
+  let error = '';
+  let loading = false;
 
-  // Fonction de connexion
-  async function handleLogin() {
-    // Réinitialiser l'erreur
-    error = '';
+  async function handleLogin(e) {
+    e.preventDefault();
     
-    // Validation basique
-    if (!email || !password) {
+    if (!username || !password) {
       error = 'Veuillez remplir tous les champs';
       return;
     }
 
-    // Validation email
-    if (!email.includes('@')) {
-      error = 'Email invalide';
-      return;
-    }
-
-    // Validation mot de passe
-    if (password.length < 8) {
-      error = 'Le mot de passe doit contenir au moins 8 caractères';
-      return;
-    }
+    loading = true;
+    error = '';
 
     try {
-      loading = true;
-
-      // Appel API backend
       const response = await fetch('http://localhost:3000/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ username, password }),
       });
 
       const data = await response.json();
 
-      if (!response.ok) {
-        // Erreur de l'API
-        error = data.message || 'Erreur lors de la connexion';
-        loading = false;
-        return;
+      if (response.ok) {
+        localStorage.setItem('token', data.data.token);
+        localStorage.setItem('user', JSON.stringify(data.data.user));
+        goto('/my-books');
+      } else {
+        error = data.message || 'Erreur de connexion';
       }
-
-      // Succès ! Sauvegarder le token
-      localStorage.setItem('token', data.data.token);
-      localStorage.setItem('user', JSON.stringify(data.data.user));
-
-      // Redirection vers la page d'accueil
-      goto('/');
-
     } catch (err) {
-      console.error('Erreur login:', err);
+      console.error('Erreur:', err);
       error = 'Erreur de connexion au serveur';
+    } finally {
       loading = false;
-    }
-  }
-
-  // Gestion de la touche Entrée
-  function handleKeyPress(event) {
-    if (event.key === 'Enter') {
-      handleLogin();
     }
   }
 </script>
 
 <svelte:head>
   <title>Connexion - Blablabook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 </svelte:head>
 
-<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+<!-- Fond bois avec texture -->
+<div class="min-h-screen flex items-center justify-center py-12 px-4" style="background: linear-gradient(135deg, #8B7355 0%, #6B5444 100%); background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); background-blend-mode: multiply; background-size: 300px;">
+  
   <div class="max-w-md w-full">
-    <!-- Logo / Titre -->
-    <div class="text-center mb-8">
-      <h1 class="text-4xl font-bold text-gray-900 mb-2">
-        📚 Blablabook
-      </h1>
-      <p class="text-gray-600">
-        Connectez-vous à votre bibliothèque personnelle
-      </p>
-    </div>
-
+    
     <!-- Carte de connexion -->
-    <Card size="xl" padding="xl">
-      <h2 class="text-2xl font-semibold text-gray-900 mb-6">
-        Connexion
-      </h2>
-
-      <!-- Message d'erreur -->
-      {#if error}
-        <Alert color="red" class="mb-4">
-          <span class="font-medium">Erreur :</span> {error}
-        </Alert>
-      {/if}
+    <div style="background: linear-gradient(135deg, #D4A574 0%, #C19A6B 50%, #A0826D 100%); background-image: repeating-linear-gradient(90deg, rgba(0,0,0,0.1) 0px, transparent 1px, transparent 3px, rgba(0,0,0,0.15) 4px, transparent 5px, transparent 8px); padding: 48px 40px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 2px 8px rgba(255,255,255,0.3);">
+      
+      <!-- Logo et titre -->
+      <div class="text-center mb-8">
+        <div style="display: inline-block; background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); padding: 20px; border-radius: 50%; box-shadow: 0 8px 20px rgba(245, 158, 11, 0.5); border: 4px solid rgba(255, 255, 255, 0.3); margin-bottom: 16px;">
+          <span style="font-size: 48px; display: block; line-height: 1;">📚</span>
+        </div>
+        
+        <h1 style="font-family: 'Lobster', cursive; font-size: 42px; color: #78350f; margin-bottom: 8px; text-shadow: 1px 1px 2px rgba(255,255,255,0.3);">
+          Connexion
+        </h1>
+        
+        <p style="color: #92400e; font-size: 16px; font-weight: 600;">
+          Accédez à votre bibliothèque personnelle
+        </p>
+      </div>
 
       <!-- Formulaire -->
-      <form onsubmit={(e) => { e.preventDefault(); handleLogin(); }} class="space-y-6">
+      <form onsubmit={handleLogin} class="space-y-6">
         
-        <!-- Email -->
+        <!-- Message d'erreur -->
+        {#if error}
+          <div style="background: rgba(220, 38, 38, 0.1); border: 2px solid #DC2626; color: #991B1B; padding: 12px 16px; border-radius: 12px; font-weight: 600; font-size: 14px;">
+            ❌ {error}
+          </div>
+        {/if}
+
+        <!-- Nom d'utilisateur -->
         <div>
-          <Label for="email" class="mb-2">Email</Label>
-          <Input
-            id="email"
-            type="email"
-            placeholder="exemple@email.com"
-            bind:value={email}
-            onkeypress={handleKeyPress}
+          <label for="username" style="display: block; color: #78350f; font-weight: 700; margin-bottom: 8px; font-size: 15px;">
+            👤 Nom d'utilisateur
+          </label>
+          <input
+            id="username"
+            type="text"
+            bind:value={username}
+            placeholder="Entrez votre nom d'utilisateur"
             required
-            size="lg"
+            style="width: 100%; padding: 14px 18px; border-radius: 12px; border: 3px solid rgba(139, 92, 246, 0.3); font-size: 16px; background: white; box-shadow: 0 3px 10px rgba(0,0,0,0.2); font-weight: 500;"
+            onfocus={(e) => e.currentTarget.style.borderColor = '#8B5CF6'}
+            onblur={(e) => e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.3)'}
           />
         </div>
 
         <!-- Mot de passe -->
         <div>
-          <Label for="password" class="mb-2">Mot de passe</Label>
-          <Input
+          <label for="password" style="display: block; color: #78350f; font-weight: 700; margin-bottom: 8px; font-size: 15px;">
+            🔒 Mot de passe
+          </label>
+          <input
             id="password"
             type="password"
-            placeholder="••••••••"
             bind:value={password}
-            onkeypress={handleKeyPress}
+            placeholder="Entrez votre mot de passe"
             required
-            size="lg"
+            style="width: 100%; padding: 14px 18px; border-radius: 12px; border: 3px solid rgba(139, 92, 246, 0.3); font-size: 16px; background: white; box-shadow: 0 3px 10px rgba(0,0,0,0.2); font-weight: 500;"
+            onfocus={(e) => e.currentTarget.style.borderColor = '#8B5CF6'}
+            onblur={(e) => e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.3)'}
           />
         </div>
 
-        <!-- Bouton connexion -->
-        <Button
+        <!-- Bouton de connexion -->
+        <button
           type="submit"
-          color="blue"
-          size="lg"
-          class="w-full"
           disabled={loading}
+          class="w-full px-8 py-4 font-bold rounded-full transition-all text-lg"
+          style="background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%); color: white; box-shadow: 0 6px 16px rgba(139, 92, 246, 0.5); border: 3px solid rgba(255, 255, 255, 0.3); {loading ? 'opacity: 0.7; cursor: not-allowed;' : ''}"
+          onmouseover={(e) => {
+            if (!loading) {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 8px 20px rgba(139, 92, 246, 0.7)';
+            }
+          }}
+          onmouseout={(e) => {
+            if (!loading) {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 6px 16px rgba(139, 92, 246, 0.5)';
+            }
+          }}
         >
           {#if loading}
-            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            Connexion en cours...
+            ⏳ Connexion en cours...
           {:else}
-            Se connecter
+            🔓 Se connecter
           {/if}
-        </Button>
+        </button>
 
         <!-- Lien inscription -->
-        <div class="text-center text-sm text-gray-600">
-          Pas encore de compte ?
-          <a href="/register" class="font-medium text-blue-600 hover:text-blue-500">
-            S'inscrire
+        <div class="text-center">
+          <p style="color: #92400e; font-weight: 600; margin-bottom: 12px;">
+            Pas encore de compte ?
+          </p>
+          
+          <a href="/register"
+            class="inline-block px-8 py-3 font-bold rounded-full transition-all"
+            style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: white; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); border: 2px solid rgba(255, 255, 255, 0.3); text-decoration: none;"
+            onmouseover={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 6px 16px rgba(16, 185, 129, 0.6)';
+            }}
+            onmouseout={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(16, 185, 129, 0.4)';
+            }}
+          >
+            ✨ Créer un compte
           </a>
         </div>
       </form>
-    </Card>
+    </div>
 
-    <!-- Footer -->
-    <p class="mt-8 text-center text-sm text-gray-500">
-      Blablabook - Votre bibliothèque personnelle
-    </p>
+    <!-- Lien retour accueil -->
+    <div class="text-center mt-6">
+      
+      <a href="/"
+        class="inline-block px-6 py-2 font-semibold rounded-full transition-all"
+        style="background: rgba(255, 255, 255, 0.9); color: #78350f; box-shadow: 0 3px 8px rgba(0,0,0,0.3); text-decoration: none;"
+        onmouseover={(e) => {
+          e.currentTarget.style.background = 'rgba(255, 255, 255, 1)';
+          e.currentTarget.style.transform = 'scale(1.05)';
+        }}
+        onmouseout={(e) => {
+          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+          e.currentTarget.style.transform = 'scale(1)';
+        }}
+      >
+        ← Retour à l'accueil
+      </a>
+    </div>
   </div>
 </div>
-
-<style>
-  /* Styles personnalisés si nécessaire */
-</style>
