@@ -8,10 +8,10 @@
   let error = $state('');
   let currentFilter = $state('all');
   let filteredBooks = $derived(
-  currentFilter === 'all' 
-    ? books 
-    : books.filter(b => b.status === currentFilter)
-);
+    currentFilter === 'all' 
+      ? books 
+      : books.filter(b => b.status === currentFilter)
+  );
 
   // Charger les livres au montage du composant
   onMount(async () => {
@@ -129,39 +129,40 @@
 
 <svelte:head>
   <title>Ma Bibliothèque - Blablabook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
 </svelte:head>
 
-<div class="min-h-screen bg-gray-50 py-8">
+<div class="min-h-screen py-8" style="background: linear-gradient(135deg, #8B7355 0%, #6B5444 100%); background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); background-blend-mode: multiply; background-size: 300px;">
   <div class="container mx-auto px-4 max-w-7xl">
     
     <!-- En-tête -->
-    <div class="mb-8">
-      <h1 class="text-4xl font-bold text-gray-900 mb-2">
-        📚 Ma Bibliothèque
+    <div class="mb-8 rounded-lg p-6 shadow-lg" style="background: linear-gradient(135deg, #D4A574 0%, #C19A6B 50%, #A0826D 100%); background-image: repeating-linear-gradient(90deg, rgba(0,0,0,0.1) 0px, transparent 1px, transparent 3px, rgba(0,0,0,0.15) 4px, transparent 5px, transparent 8px), repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, transparent 2px, transparent 7px, rgba(255,255,255,0.08) 9px, transparent 11px, transparent 15px); box-shadow: 0 6px 12px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.3);">
+      <h1 class="text-5xl mb-2" style="color: #78350f; font-family: 'Satisfy', cursive; font-weight: normal; text-shadow: 1px 1px 0px #78350f;">
+        Ma Bibliothèque
       </h1>
-      <p class="text-gray-600">
+      <p style="color: #92400e;">
         Gérez votre collection personnelle de livres
       </p>
     </div>
 
     <!-- Loading amélioré -->
-{#if loading}
-  <div class="flex justify-center items-center py-32">
-    <div class="text-center">
-      <div class="relative inline-block">
-        <svg class="animate-spin h-16 w-16 text-blue-600 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-        </svg>
-        <div class="absolute inset-0 flex items-center justify-center">
-          <div class="text-2xl">📚</div>
+    {#if loading}
+      <div class="flex justify-center items-center py-32">
+        <div class="text-center bg-white rounded-xl p-8 shadow-xl" style="background-color: rgba(255, 255, 255, 0.95);">
+          <div class="relative inline-block">
+            <svg class="animate-spin h-16 w-16 mx-auto" style="color: #92400e;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="text-2xl">📚</div>
+            </div>
+          </div>
+          <p class="font-semibold text-lg mt-4" style="color: #78350f;">Chargement de votre bibliothèque...</p>
+          <p class="text-sm mt-2" style="color: #92400e;">Préparation de vos livres</p>
         </div>
       </div>
-      <p class="text-gray-700 font-semibold text-lg mt-4">Chargement de votre bibliothèque...</p>
-      <p class="text-gray-500 text-sm mt-2">Préparation de vos livres</p>
-    </div>
-  </div>
-{/if}
+    {/if}
 
     <!-- Erreur -->
     {#if error}
@@ -182,7 +183,12 @@
         </p>
         <button
           onclick={() => goto('/search')}
-          class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+          class="px-8 py-3 text-white font-semibold rounded-lg transition-colors shadow-lg"
+          style="background-color: #92400e;"
+          onmouseover={(e) => e.currentTarget.style.backgroundColor = '#78350f'}
+          onmouseout={(e) => e.currentTarget.style.backgroundColor = '#92400e'}
+          onfocus={(e) => e.currentTarget.style.backgroundColor = '#78350f'}
+          onblur={(e) => e.currentTarget.style.backgroundColor = '#92400e'}
         >
           🔍 Rechercher des livres
         </button>
@@ -191,28 +197,151 @@
 
     <!-- Filtres par statut -->
     {#if !loading && !error && books.length > 0}
-      <div class="mb-6 flex gap-3">
+      <div class="mb-6 flex gap-4 p-4 rounded-lg shadow-md" style="background: linear-gradient(135deg, #C19A6B 0%, #A0826D 100%); box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
         <button
           onclick={() => filterBooks('all')}
-          class="px-4 py-2 rounded-lg font-semibold transition-colors {currentFilter === 'all' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}"
+          class="px-6 py-2 rounded-full font-bold transition-all text-sm"
+          style="
+            background: {currentFilter === 'all' ? 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)' : 'rgba(255, 255, 255, 0.9)'};
+            color: {currentFilter === 'all' ? 'white' : '#78350f'};
+            box-shadow: {currentFilter === 'all' ? '0 4px 12px rgba(245, 158, 11, 0.5)' : '0 2px 4px rgba(0,0,0,0.1)'};
+            border: 2px solid {currentFilter === 'all' ? 'rgba(255, 255, 255, 0.3)' : 'transparent'};
+          "
+          onmouseover={(e) => {
+            if (currentFilter !== 'all') {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 1)';
+              e.currentTarget.style.transform = 'scale(1.05)';
+            }
+          }}
+          onmouseout={(e) => {
+            if (currentFilter !== 'all') {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+              e.currentTarget.style.transform = 'scale(1)';
+            }
+          }}
+          onfocus={(e) => {
+            if (currentFilter !== 'all') {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 1)';
+              e.currentTarget.style.transform = 'scale(1.05)';
+            }
+          }}
+          onblur={(e) => {
+            if (currentFilter !== 'all') {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+              e.currentTarget.style.transform = 'scale(1)';
+            }
+          }}
         >
-          Tous ({books.length})
+          📚 Tous ({books.length})
         </button>
+        
         <button
           onclick={() => filterBooks('to_read')}
-          class="px-4 py-2 rounded-lg font-semibold transition-colors {currentFilter === 'to_read' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}"
+          class="px-6 py-2 rounded-full font-bold transition-all text-sm"
+          style="
+            background: {currentFilter === 'to_read' ? 'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)' : 'rgba(255, 255, 255, 0.9)'};
+            color: {currentFilter === 'to_read' ? 'white' : '#78350f'};
+            box-shadow: {currentFilter === 'to_read' ? '0 4px 12px rgba(59, 130, 246, 0.5)' : '0 2px 4px rgba(0,0,0,0.1)'};
+            border: 2px solid {currentFilter === 'to_read' ? 'rgba(255, 255, 255, 0.3)' : 'transparent'};
+          "
+          onmouseover={(e) => {
+            if (currentFilter !== 'to_read') {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 1)';
+              e.currentTarget.style.transform = 'scale(1.05)';
+            }
+          }}
+          onmouseout={(e) => {
+            if (currentFilter !== 'to_read') {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+              e.currentTarget.style.transform = 'scale(1)';
+            }
+          }}
+          onfocus={(e) => {
+            if (currentFilter !== 'to_read') {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 1)';
+              e.currentTarget.style.transform = 'scale(1.05)';
+            }
+          }}
+          onblur={(e) => {
+            if (currentFilter !== 'to_read') {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+              e.currentTarget.style.transform = 'scale(1)';
+            }
+          }}
         >
           📖 À lire ({books.filter(b => b.status === 'to_read').length})
         </button>
+        
         <button
           onclick={() => filterBooks('reading')}
-          class="px-4 py-2 rounded-lg font-semibold transition-colors {currentFilter === 'reading' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}"
+          class="px-6 py-2 rounded-full font-bold transition-all text-sm"
+          style="
+            background: {currentFilter === 'reading' ? 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)' : 'rgba(255, 255, 255, 0.9)'};
+            color: {currentFilter === 'reading' ? 'white' : '#78350f'};
+            box-shadow: {currentFilter === 'reading' ? '0 4px 12px rgba(139, 92, 246, 0.5)' : '0 2px 4px rgba(0,0,0,0.1)'};
+            border: 2px solid {currentFilter === 'reading' ? 'rgba(255, 255, 255, 0.3)' : 'transparent'};
+          "
+          onmouseover={(e) => {
+            if (currentFilter !== 'reading') {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 1)';
+              e.currentTarget.style.transform = 'scale(1.05)';
+            }
+          }}
+          onmouseout={(e) => {
+            if (currentFilter !== 'reading') {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+              e.currentTarget.style.transform = 'scale(1)';
+            }
+          }}
+          onfocus={(e) => {
+            if (currentFilter !== 'reading') {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 1)';
+              e.currentTarget.style.transform = 'scale(1.05)';
+            }
+          }}
+          onblur={(e) => {
+            if (currentFilter !== 'reading') {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+              e.currentTarget.style.transform = 'scale(1)';
+            }
+          }}
         >
           📚 En cours ({books.filter(b => b.status === 'reading').length})
         </button>
+        
         <button
           onclick={() => filterBooks('read')}
-          class="px-4 py-2 rounded-lg font-semibold transition-colors {currentFilter === 'read' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}"
+          class="px-6 py-2 rounded-full font-bold transition-all text-sm"
+          style="
+            background: {currentFilter === 'read' ? 'linear-gradient(135deg, #10B981 0%, #059669 100%)' : 'rgba(255, 255, 255, 0.9)'};
+            color: {currentFilter === 'read' ? 'white' : '#78350f'};
+            box-shadow: {currentFilter === 'read' ? '0 4px 12px rgba(16, 185, 129, 0.5)' : '0 2px 4px rgba(0,0,0,0.1)'};
+            border: 2px solid {currentFilter === 'read' ? 'rgba(255, 255, 255, 0.3)' : 'transparent'};
+          "
+          onmouseover={(e) => {
+            if (currentFilter !== 'read') {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 1)';
+              e.currentTarget.style.transform = 'scale(1.05)';
+            }
+          }}
+          onmouseout={(e) => {
+            if (currentFilter !== 'read') {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+              e.currentTarget.style.transform = 'scale(1)';
+            }
+          }}
+          onfocus={(e) => {
+            if (currentFilter !== 'read') {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 1)';
+              e.currentTarget.style.transform = 'scale(1.05)';
+            }
+          }}
+          onblur={(e) => {
+            if (currentFilter !== 'read') {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+              e.currentTarget.style.transform = 'scale(1)';
+            }
+          }}
         >
           ✅ Lu ({books.filter(b => b.status === 'read').length})
         </button>
@@ -221,116 +350,175 @@
 
     <!-- Grille de livres -->
     {#if !loading && !error && books.length > 0}
-      <div class="mb-6 flex justify-between items-center">
-        <p class="text-gray-600">
-  {filteredBooks.length} livre{filteredBooks.length > 1 ? 's' : ''} 
-  {currentFilter === 'all' ? 'dans votre bibliothèque' : 'trouvé' + (filteredBooks.length > 1 ? 's' : '')}
-</p>
+<div class="mb-6 flex justify-between items-center p-4 rounded-lg shadow-md" style="background: linear-gradient(135deg, #C19A6B 0%, #A0826D 100%); box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+        <p class="font-semibold" style="color: #78350f;">
+          {filteredBooks.length} livre{filteredBooks.length > 1 ? 's' : ''} 
+          {currentFilter === 'all' ? 'dans votre bibliothèque' : 'trouvé' + (filteredBooks.length > 1 ? 's' : '')}
+        </p>
         <button
-          onclick={() => goto('/search')}
-          class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          ➕ Ajouter un livre
-        </button>
+  onclick={() => goto('/search')}
+  class="px-8 py-3 font-bold rounded-full transition-all shadow-lg hover:scale-105"
+  style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); color: white; box-shadow: 0 6px 16px rgba(245, 158, 11, 0.5); border: 3px solid rgba(255, 255, 255, 0.3);"
+  onmouseover={(e) => {
+    e.currentTarget.style.transform = 'scale(1.05)';
+    e.currentTarget.style.boxShadow = '0 8px 24px rgba(245, 158, 11, 0.7)';
+  }}
+  onmouseout={(e) => {
+    e.currentTarget.style.transform = 'scale(1)';
+    e.currentTarget.style.boxShadow = '0 6px 16px rgba(245, 158, 11, 0.5)';
+  }}
+  onfocus={(e) => {
+    e.currentTarget.style.transform = 'scale(1.05)';
+    e.currentTarget.style.boxShadow = '0 8px 24px rgba(245, 158, 11, 0.7)';
+  }}
+  onblur={(e) => {
+    e.currentTarget.style.transform = 'scale(1)';
+    e.currentTarget.style.boxShadow = '0 6px 16px rgba(245, 158, 11, 0.5)';
+  }}
+>
+  📚 Ajouter un livre
+</button>
       </div>
 
-      <div class="grid grid-cols-6 md:grid-cols-7 lg:grid-cols-8 xl:grid-cols-10" style="gap: 40px;">
-        {#each filteredBooks as userBook}
-          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden">
-            
-            <!-- Image de couverture -->
-            <div class="aspect-[2/3] bg-gray-200 flex items-center justify-center overflow-hidden">
-              {#if userBook.book.cover_url}
-                <img 
-                  src={userBook.book.cover_url} 
-                  alt={userBook.book.title}
-                  class="w-full h-full object-contain"
-                />
-              {:else}
-  <div class="w-full h-full bg-gradient-to-br from-blue-200 to-cyan-200 flex flex-col items-center justify-center p-2">
-    <svg class="w-12 h-12 mb-1" fill="#2563eb" viewBox="0 0 20 20">
-      <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
-    </svg>
-    <p class="text-[9px] text-gray-700 font-medium text-center">Pas de couverture</p>
-  </div>
-{/if}
-            </div>
+<!-- Étagères multiples -->
+      <!-- Étagères avec planche uniquement -->
+      {#each Array(Math.ceil(filteredBooks.length / 6)) as _, shelfIndex}
+        <div style="position: relative; margin-bottom: 40px;">
+          
+          <!-- Livres directement sur le fond bois -->
+          <div class="flex justify-around items-end" style="min-height: 250px; padding: 0 40px;">
+            {#each filteredBooks.slice(shelfIndex * 6, (shelfIndex + 1) * 6) as userBook}
+              <div class="bg-white rounded-lg shadow-xl hover:shadow-2xl transition-all hover:-translate-y-3 overflow-hidden" style="width: 140px; flex-shrink: 0;">
+                
+                <!-- Image de couverture -->
+                <div class="aspect-[2/3] bg-gray-200 flex items-center justify-center overflow-hidden">
+                  {#if userBook.book.cover_url}
+                    <img 
+                      src={userBook.book.cover_url} 
+                      alt={userBook.book.title}
+                      class="w-full h-full object-cover"
+                    />
+                  {:else}
+                    <div class="w-full h-full bg-gradient-to-br from-blue-200 to-cyan-200 flex flex-col items-center justify-center p-2">
+                      <svg class="w-12 h-12 mb-1" fill="#2563eb" viewBox="0 0 20 20">
+                        <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+                      </svg>
+                      <p class="text-[9px] text-gray-700 font-medium text-center">Pas de couverture</p>
+                    </div>
+                  {/if}
+                </div>
 
-            <!-- Informations -->
-            <div class="p-2">
-              <a 
-  href="/book/{userBook.id}"
-  class="font-semibold text-gray-900 text-xs mb-1 line-clamp-1 hover:text-blue-600 transition-colors cursor-pointer block"
+                <!-- Informations -->
+                <div class="p-2 bg-white">
+                  <a 
+                    href="/book/{userBook.id}"
+                    class="font-semibold text-gray-900 text-xs mb-1 hover:text-amber-700 transition-colors cursor-pointer block"
+                    style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;"
+                  >
+                    {userBook.book.title}
+                  </a>
+
+                  <!-- Note -->
+                  {#if userBook.rating}
+                    <div class="flex items-center gap-1 text-xs text-yellow-600 mb-1">
+                      <span>⭐</span>
+                      <span class="font-semibold">{userBook.rating}</span>
+                    </div>
+                  {/if}
+                  
+                  {#if userBook.book.author}
+                    <p class="text-[10px] text-gray-600 mb-2" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                      par {userBook.book.author}
+                    </p>
+                  {/if}
+
+                  <!-- Statut avec sélecteur -->
+<select
+  value={userBook.status}
+  onchange={(e) => updateStatus(userBook.id, e.target.value)}
+  class="w-full text-[11px] px-3 py-2 mb-2 rounded-full focus:outline-none font-semibold transition-all cursor-pointer"
+  style="
+    background: {userBook.status === 'to_read' ? 'linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%)' : userBook.status === 'reading' ? 'linear-gradient(135deg, #E9D5FF 0%, #D8B4FE 100%)' : 'linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%)'};
+    color: {userBook.status === 'to_read' ? '#1E40AF' : userBook.status === 'reading' ? '#6B21A8' : '#065F46'};
+    border: 2px solid {userBook.status === 'to_read' ? '#3B82F6' : userBook.status === 'reading' ? '#8B5CF6' : '#10B981'};
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  "
+  onmouseover={(e) => e.currentTarget.style.boxShadow = '0 4px 10px rgba(0,0,0,0.25)'}
+  onmouseout={(e) => e.currentTarget.style.boxShadow = '0 2px 6px rgba(0,0,0,0.15)'}
+  onfocus={(e) => e.currentTarget.style.boxShadow = '0 4px 10px rgba(0,0,0,0.25)'}
+  onblur={(e) => e.currentTarget.style.boxShadow = '0 2px 6px rgba(0,0,0,0.15)'}
 >
-  {userBook.book.title}
-</a>
+  <option value="to_read">📖 À lire</option>
+  <option value="reading">📚 En cours</option>
+  <option value="read">✅ Lu</option>
+</select>
 
-<a 
-  href="/book/{userBook.id}"
-  class="font-semibold text-gray-900 text-xs mb-1 line-clamp-1 hover:text-blue-600 transition-colors cursor-pointer block"
+                  <!-- Bouton supprimer -->
+                  <button
+  onclick={() => deleteBook(userBook.id, userBook.book.title)}
+  class="w-full px-2 py-2 text-[10px] font-bold rounded-full transition-all"
+  style="background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%); color: white; box-shadow: 0 2px 6px rgba(220, 38, 38, 0.3); border: 1px solid rgba(255, 255, 255, 0.2);"
+  onmouseover={(e) => {
+    e.currentTarget.style.background = 'linear-gradient(135deg, #EF4444 0%, #DC2626 100%)';
+    e.currentTarget.style.boxShadow = '0 4px 10px rgba(220, 38, 38, 0.5)';
+  }}
+  onmouseout={(e) => {
+    e.currentTarget.style.background = 'linear-gradient(135deg, #DC2626 0%, #991B1B 100%)';
+    e.currentTarget.style.boxShadow = '0 2px 6px rgba(220, 38, 38, 0.3)';
+  }}
+  onfocus={(e) => {
+    e.currentTarget.style.background = 'linear-gradient(135deg, #EF4444 0%, #DC2626 100%)';
+    e.currentTarget.style.boxShadow = '0 4px 10px rgba(220, 38, 38, 0.5)';
+  }}
+  onblur={(e) => {
+    e.currentTarget.style.background = 'linear-gradient(135deg, #DC2626 0%, #991B1B 100%)';
+    e.currentTarget.style.boxShadow = '0 2px 6px rgba(220, 38, 38, 0.3)';
+  }}
 >
-  {userBook.book.title}
-</a>
-
-<!-- Note (NOUVEAU CODE À AJOUTER ICI) -->
-{#if userBook.rating}
-  <div class="flex items-center gap-1 text-xs text-yellow-600 mb-1">
-    <span>⭐</span>
-    <span class="font-semibold">{userBook.rating}</span>
-  </div>
-{/if}
-              
-{#if userBook.book.author}
-  <p class="text-[10px] text-gray-600 mb-2 truncate">
-    par {userBook.book.author}
-  </p>
-{/if}
-              
-              {#if userBook.book.author}
-                <p class="text-[10px] text-gray-600 mb-2 truncate">
-                  par {userBook.book.author}
-                </p>
-              {/if}
-
-              <!-- Statut avec sélecteur -->
-              <select
-                value={userBook.status}
-                onchange={(e) => updateStatus(userBook.id, e.target.value)}
-                class="w-full text-[10px] px-2 py-1 mb-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-              >
-                <option value="to_read">📖 À lire</option>
-                <option value="reading">📚 En cours</option>
-                <option value="read">✅ Lu</option>
-              </select>
-
-              <!-- Bouton supprimer -->
-              <button
-                onclick={() => deleteBook(userBook.id, userBook.book.title)}
-                class="w-full px-2 py-1 bg-red-100 text-red-700 text-[10px] font-semibold rounded hover:bg-red-200 transition-colors"
-              >
-                🗑️ Supprimer
-              </button>
-            </div>
+  🗑️ Supprimer
+</button>
+                </div>
+              </div>
+            {/each}
           </div>
+          
+          <!-- BARRE/PLANCHE épaisse en bas -->
+          <div style="height: 35px; 
+background: 
+  repeating-linear-gradient(90deg, 
+    rgba(0,0,0,0.1) 0px, 
+    transparent 1px, 
+    transparent 3px, 
+    rgba(0,0,0,0.15) 4px,
+    transparent 5px,
+    transparent 8px
+  ),
+  repeating-linear-gradient(90deg, 
+    rgba(255,255,255,0.05) 0px, 
+    transparent 2px, 
+    transparent 7px, 
+    rgba(255,255,255,0.08) 9px,
+    transparent 11px,
+    transparent 15px
+  ),
+  repeating-linear-gradient(90deg, 
+    rgba(0,0,0,0.08) 0px, 
+    transparent 3px, 
+    transparent 12px, 
+    rgba(0,0,0,0.12) 14px,
+    transparent 16px,
+    transparent 25px
+  ),
+  linear-gradient(180deg, #A05030 0%, #8B4513 50%, #6B3410 100%); 
+border-radius: 8px; 
+box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 3px 8px rgba(255,255,255,0.4), inset 0 -3px 8px rgba(0,0,0,0.3); 
+margin: 0 30px; 
+position: relative; 
+z-index: 1;"></div>
+
+
+    </div>
         {/each}
-      </div>
-    {/if}
-
+      {/if}
+    </div>
   </div>
-</div>
-
-<style>
-  .line-clamp-1 {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  
-  .truncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-</style>

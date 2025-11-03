@@ -3,86 +3,152 @@
   import { onMount } from 'svelte';
 
   let user = $state(null);
-  let isLoggedIn = $state(false);
-  let menuOpen = $state(false);
 
   onMount(() => {
-    const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
-    
-    if (token && userData) {
+    if (userData) {
       user = JSON.parse(userData);
-      isLoggedIn = true;
     }
   });
 
-  function handleLogout() {
+  function logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    user = null;
-    isLoggedIn = false;
     goto('/login');
-  }
-
-  function navigateTo(path) {
-    goto(path);
-    menuOpen = false;
   }
 </script>
 
-<nav class="bg-white border-b border-gray-200 px-6 py-4">
-  <div class="flex justify-between items-center max-w-7xl mx-auto">
-    
-    <!-- Logo -->
-    <button onclick={() => navigateTo('/')} class="flex items-center space-x-2">
-      <span class="text-2xl">📚</span>
-      <span class="text-xl font-bold text-gray-900">Blablabook</span>
-    </button>
+<svelte:head>
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+</svelte:head>
 
-    <!-- Menu Desktop -->
-    <div class="hidden md:flex items-center space-x-6">
-      <button onclick={() => navigateTo('/')} class="text-gray-700 hover:text-blue-600">
-        🏠 Accueil
-      </button>
+<nav style="background: linear-gradient(135deg, #D4A574 0%, #C19A6B 50%, #A0826D 100%); background-image: repeating-linear-gradient(90deg, rgba(0,0,0,0.1) 0px, transparent 1px, transparent 3px, rgba(0,0,0,0.15) 4px, transparent 5px, transparent 8px), repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, transparent 2px, transparent 7px, rgba(255,255,255,0.08) 9px, transparent 11px, transparent 15px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); border-bottom: 3px solid #8B6F47;">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex justify-between items-center h-16">
       
-      {#if isLoggedIn}
-        <button onclick={() => navigateTo('/my-books')} class="text-gray-700 hover:text-blue-600">
-          📚 Ma Bibliothèque
-        </button>
-        <button onclick={() => navigateTo('/search')} class="text-gray-700 hover:text-blue-600">
-          🔍 Rechercher
-        </button>
-      {/if}
-    </div>
-
-    <!-- Boutons utilisateur -->
-    <div class="flex items-center space-x-3">
-      {#if isLoggedIn}
-        <div class="flex items-center space-x-3">
-          <span class="hidden sm:inline text-sm text-gray-700">
-            👋 {user?.first_name}
-          </span>
-          <button 
-            onclick={handleLogout}
-            class="px-4 py-2 text-sm bg-red-100 text-red-700 rounded-lg hover:bg-red-200"
-          >
-            Déconnexion
-          </button>
+      <!-- Logo Blablabook -->
+      <a 
+        href="/"
+        class="flex items-center gap-3 transition-transform hover:scale-105"
+      >
+        <div style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); padding: 8px 12px; border-radius: 12px; box-shadow: 0 4px 8px rgba(245, 158, 11, 0.4); border: 2px solid rgba(255, 255, 255, 0.3);">
+          <span style="font-size: 24px;">📚</span>
         </div>
-      {:else}
-        <button 
-          onclick={() => navigateTo('/login')}
-          class="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-        >
-          Se connecter
-        </button>
-        <button 
-          onclick={() => navigateTo('/register')}
-          class="hidden sm:inline px-4 py-2 text-sm bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
-        >
-          S'inscrire
-        </button>
-      {/if}
+        <span style="font-family: 'Lobster', cursive; font-size: 28px; color: #78350f; text-shadow: 1px 1px 2px rgba(255,255,255,0.3);">
+          Blablabook
+        </span>
+      </a>
+
+      <!-- Boutons navigation -->
+      <div class="flex items-center gap-4">
+        {#if user}
+          <!-- Nom utilisateur -->
+          <span style="color: #78350f; font-weight: 600; font-size: 15px; text-shadow: 0 1px 2px rgba(255,255,255,0.5);">
+            👤 {user.username}
+          </span>
+
+          <!-- Bouton Ma Bibliothèque -->
+          <a
+            href="/my-books"
+            class="px-6 py-2 font-bold rounded-full transition-all"
+            style="background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%); color: white; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4); border: 2px solid rgba(255, 255, 255, 0.3); text-decoration: none;"
+            onmouseover={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 6px 14px rgba(139, 92, 246, 0.6)';
+            }}
+            onfocus={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 6px 14px rgba(139, 92, 246, 0.6)';
+            }}
+            onmouseout={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 4px 10px rgba(139, 92, 246, 0.4)';
+            }}
+            onblur={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 4px 10px rgba(139, 92, 246, 0.4)';
+            }}
+          >
+            📖 Ma Bibliothèque
+          </a>
+
+          <!-- Bouton Rechercher -->
+          <a
+            href="/search"
+            class="px-6 py-2 font-bold rounded-full transition-all"
+            style="background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%); color: white; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4); border: 2px solid rgba(255, 255, 255, 0.3); text-decoration: none;"
+            onmouseover={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 6px 14px rgba(59, 130, 246, 0.6)';
+            }}
+            onfocus={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 6px 14px rgba(59, 130, 246, 0.6)';
+            }}
+            onmouseout={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 4px 10px rgba(59, 130, 246, 0.4)';
+            }}
+            onblur={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 4px 10px rgba(59, 130, 246, 0.4)';
+            }}
+          >
+            🔍 Rechercher
+          </a>
+
+          <!-- Bouton Déconnexion -->
+          <button
+            onclick={logout}
+            class="px-6 py-2 font-bold rounded-full transition-all"
+            style="background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%); color: white; box-shadow: 0 4px 10px rgba(220, 38, 38, 0.4); border: 2px solid rgba(255, 255, 255, 0.3);"
+            onmouseover={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 6px 14px rgba(220, 38, 38, 0.6)';
+            }}
+            onfocus={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 6px 14px rgba(220, 38, 38, 0.6)';
+            }}
+            onmouseout={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 4px 10px rgba(220, 38, 38, 0.4)';
+            }}
+            onblur={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 4px 10px rgba(220, 38, 38, 0.4)';
+            }}
+          >
+            🚪 Déconnexion
+          </button>
+        {:else}
+          <!-- Boutons connexion/inscription -->
+          
+          <a
+            href="/login"
+            class="px-6 py-2 font-bold rounded-full transition-all"
+            style="background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%); color: white; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4); border: 2px solid rgba(255, 255, 255, 0.3); text-decoration: none;"
+            onmouseover={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+            onfocus={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+            onmouseout={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            onblur={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          >
+            🔐 Connexion
+          </a>
+          
+          <a
+            href="/register"
+            class="px-6 py-2 font-bold rounded-full transition-all"
+            style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: white; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4); border: 2px solid rgba(255, 255, 255, 0.3); text-decoration: none;"
+            onmouseover={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+            onfocus={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+            onmouseout={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            onblur={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          >
+            ✨ Inscription
+          </a>
+        {/if}
+      </div>
     </div>
   </div>
 </nav>
