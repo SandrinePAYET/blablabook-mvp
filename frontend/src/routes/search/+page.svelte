@@ -1,272 +1,315 @@
 <script>
-  import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
 
-  // État (Svelte 5 runes)
-  let searchQuery = $state('');
-  let books = $state([]);
+  let query = $state('');
+  let results = $state([]);
   let loading = $state(false);
   let error = $state('');
-  let addingBookId = $state(null);
 
-  // Vérifier authentification
-  onMount(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      goto('/login');
-    }
-  });
-
-  // Fonction de recherche
-  async function searchBooks(event) {
-    event.preventDefault();
-    
-    if (!searchQuery.trim()) {
-      error = 'Veuillez entrer un titre ou un auteur';
+  async function searchBooks() {
+    if (!query.trim()) {
+      results = [];
       return;
     }
 
     loading = true;
     error = '';
-    books = [];
 
     try {
-      // Appel API Open Library
-      const response = await fetch(
-        `https://openlibrary.org/search.json?q=${encodeURIComponent(searchQuery)}&limit=20`
-      );
-
-      if (!response.ok) {
-        throw new Error('Erreur lors de la recherche');
-      }
-
+      const response = await fetch(`http://localhost:3000/api/books/search?q=${encodeURIComponent(query)}`);
       const data = await response.json();
 
-      // Transformer les résultats
-      books = data.docs.map(book => ({
-        key: book.key,
-        title: book.title,
-        author: book.author_name ? book.author_name[0] : 'Auteur inconnu',
-        cover_id: book.cover_i,
-        first_publish_year: book.first_publish_year,
-        isbn: book.isbn ? book.isbn[0] : null
-      }));
-
-      if (books.length === 0) {
-        error = 'Aucun livre trouvé. Essayez une autre recherche.';
+      if (response.ok) {
+        results = data.data.books || [];
+      } else {
+        error = data.message || 'Erreur lors de la recherche';
       }
-
-      loading = false;
-
     } catch (err) {
-      console.error('Erreur searchBooks:', err);
-      error = 'Erreur lors de la recherche. Réessayez.';
+      console.error('Erreur:', err);
+      error = 'Erreur de connexion au serveur';
+    } finally {
       loading = false;
     }
   }
 
-  // Fonction pour ajouter un livre à la bibliothèque
   async function addToLibrary(book) {
-    addingBookId = book.key;
-
     try {
       const token = localStorage.getItem('token');
+      
+      if (!token) {
+        alert('Veuillez vous connecter pour ajouter des livres');
+        return;
+      }
 
-      // Préparer les données du livre
-      const bookData = {
-        open_library_id: book.key,
-        title: book.title,
-        author: book.author,
-        isbn: book.isbn || null,
-        cover_url: book.cover_id 
-          ? `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`
-          : null,
-        published_year: book.first_publish_year || null
-      };
-
-      // Appel API backend
       const response = await fetch('http://localhost:3000/api/user-books', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify(bookData)
+        body: JSON.stringify({
+          title: book.title,
+          author: book.author,
+          cover_url: book.cover_url,
+          status: 'to_read'
+        })
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        if (response.status === 401) {
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
-          goto('/login');
-          return;
-        }
+      if (response.ok) {
+        alert(`"${book.title}" ajouté à votre bibliothèque ! 📚`);
+      } else {
+        const data = await response.json();
         alert(data.message || 'Erreur lors de l\'ajout');
-        addingBookId = null;
-        return;
       }
-
-      // Succès
-      alert(`"${book.title}" ajouté à votre bibliothèque ! 📚`);
-      addingBookId = null;
-
     } catch (err) {
-      console.error('Erreur addToLibrary:', err);
-      alert('Erreur de connexion au serveur');
-      addingBookId = null;
+      console.error('Erreur:', err);
+      alert('Erreur de connexion');
     }
-  }
-
-  // Fonction pour obtenir l'URL de la couverture
-  function getCoverUrl(coverId) {
-    if (!coverId) return null;
-    return `https://covers.openlibrary.org/b/id/${coverId}-L.jpg`;
   }
 </script>
 
 <svelte:head>
   <title>Rechercher des livres - Blablabook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 </svelte:head>
 
-<div class="min-h-screen bg-gray-50 py-8">
+<style>
+  /* Effet 3D sur les livres */
+  .book-3d {
+    transform-style: preserve-3d;
+    transition: all 0.3s ease;
+  }
+  
+  .book-3d:hover {
+    transform: translateY(-20px) rotateY(-5deg);
+  }
+
+  /* Ombre réaliste */
+  .book-shadow {
+    box-shadow: 
+      0 15px 30px rgba(0,0,0,0.3),
+      0 5px 15px rgba(0,0,0,0.2),
+      inset 0 -2px 5px rgba(0,0,0,0.1);
+  }
+
+  /* Réflexion sous le livre */
+  .book-reflection {
+    position: relative;
+  }
+  
+  .book-reflection::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.15), transparent);
+    transform: scaleY(-1);
+    opacity: 0.4;
+    filter: blur(3px);
+  }
+
+  /* Étagère avec profondeur */
+  .shelf-3d {
+    background: 
+      linear-gradient(180deg, 
+        #A05030 0%, 
+        #8B4513 30%,
+        #6B3410 60%,
+        #5A3510 100%
+      );
+    box-shadow: 
+      0 -2px 0 rgba(255,255,255,0.2),
+      0 15px 25px rgba(0,0,0,0.6),
+      inset 0 -5px 15px rgba(0,0,0,0.4),
+      inset 0 3px 8px rgba(255,255,255,0.3);
+    border-top: 2px solid rgba(160,80,48,0.8);
+    position: relative;
+  }
+
+  /* Texture bois sur étagère */
+  .shelf-3d::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      repeating-linear-gradient(90deg, 
+        rgba(0,0,0,0.1) 0px, 
+        transparent 1px, 
+        transparent 3px, 
+        rgba(0,0,0,0.15) 4px,
+        transparent 5px,
+        transparent 10px
+      );
+    pointer-events: none;
+  }
+
+  /* Effet de profondeur sur le conteneur */
+  .shelf-container {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+  }
+</style>
+
+<!-- Fond bois avec texture -->
+<div class="min-h-screen py-8" style="background: linear-gradient(135deg, #8B7355 0%, #6B5444 100%); background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); background-blend-mode: multiply; background-size: 300px;">
+  
   <div class="container mx-auto px-4 max-w-7xl">
     
-    <!-- En-tête -->
-    <div class="mb-8">
-      <h1 class="text-4xl font-bold text-gray-900 mb-2">
+    <!-- En-tête avec barre de recherche -->
+    <div class="mb-8 rounded-xl p-8 shadow-xl" style="background: linear-gradient(135deg, #D4A574 0%, #C19A6B 50%, #A0826D 100%); background-image: repeating-linear-gradient(90deg, rgba(0,0,0,0.1) 0px, transparent 1px, transparent 3px, rgba(0,0,0,0.15) 4px, transparent 5px, transparent 8px); box-shadow: 0 6px 16px rgba(0,0,0,0.4), inset 0 2px 6px rgba(255,255,255,0.3);">
+      
+      <h1 style="font-family: 'Lobster', cursive; font-size: 48px; color: #78350f; margin-bottom: 8px; text-shadow: 1px 1px 2px rgba(255,255,255,0.3);">
         🔍 Rechercher des livres
       </h1>
-      <p class="text-gray-600">
+      
+      <p style="color: #92400e; font-size: 16px; margin-bottom: 24px; font-weight: 600;">
         Découvrez des millions de livres grâce à Open Library
       </p>
-    </div>
 
-    <!-- Formulaire de recherche -->
-    <form onsubmit={searchBooks} class="mb-8">
+      <!-- Barre de recherche élégante -->
       <div class="flex gap-3">
         <input
           type="text"
-          bind:value={searchQuery}
+          bind:value={query}
+          onkeydown={(e) => e.key === 'Enter' && searchBooks()}
           placeholder="Titre, auteur, ISBN..."
-          class="flex-1 px-6 py-4 text-lg border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+          class="flex-1 px-6 py-4 rounded-full text-lg focus:outline-none"
+          style="background: white; border: 3px solid rgba(139, 92, 246, 0.3); box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-weight: 500;"
+          onfocus={(e) => e.currentTarget.style.borderColor = '#8B5CF6'}
+          onblur={(e) => e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.3)'}
         />
+        
         <button
-          type="submit"
-          disabled={loading}
-          class="px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+          onclick={searchBooks}
+          class="px-8 py-4 font-bold rounded-full transition-all text-lg"
+          style="background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%); color: white; box-shadow: 0 6px 16px rgba(139, 92, 246, 0.5); border: 3px solid rgba(255, 255, 255, 0.3); min-width: 180px;"
+          onmouseover={(e) => {
+            e.currentTarget.style.transform = 'scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 8px 20px rgba(139, 92, 246, 0.7)';
+          }}
+          onmouseout={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 6px 16px rgba(139, 92, 246, 0.5)';
+          }}
         >
-          {loading ? '⏳ Recherche...' : '🔍 Rechercher'}
+          🔍 Rechercher
         </button>
       </div>
-    </form>
+    </div>
 
-    <!-- Erreur -->
-    {#if error}
-      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
-        {error}
-      </div>
-    {/if}
-
-<!-- Loading amélioré -->
+    <!-- Loading -->
     {#if loading}
       <div class="flex justify-center items-center py-32">
-        <div class="text-center">
-          <div class="relative inline-block">
-            <svg class="animate-spin h-16 w-16 text-blue-600 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            <div class="absolute inset-0 flex items-center justify-center">
-              <div class="text-2xl">🔍</div>
-            </div>
-          </div>
-          <p class="text-gray-700 font-semibold text-lg mt-4">Recherche en cours...</p>
-          <p class="text-gray-500 text-sm mt-2">Exploration de millions de livres</p>
+        <div class="text-center bg-white rounded-xl p-8 shadow-xl">
+          <div class="animate-spin h-16 w-16 mx-auto mb-4" style="border: 4px solid #8B5CF6; border-top-color: transparent; border-radius: 50%;"></div>
+          <p class="font-bold text-lg" style="color: #78350f;">Recherche en cours...</p>
         </div>
       </div>
     {/if}
-    
+
+    <!-- Erreur -->
+    {#if error}
+      <div class="bg-red-100 border-2 border-red-400 text-red-700 px-6 py-4 rounded-xl mb-6 font-semibold">
+        ❌ {error}
+      </div>
+    {/if}
+
     <!-- Résultats -->
-    {#if !loading && books.length > 0}
-      <div class="mb-6">
-        <p class="text-gray-600">
-          {books.length} résultat{books.length > 1 ? 's' : ''} trouvé{books.length > 1 ? 's' : ''}
+    {#if !loading && results.length > 0}
+      <div class="mb-6 p-4 rounded-lg" style="background: rgba(212, 165, 116, 0.9); box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+        <p class="font-bold text-lg" style="color: #78350f;">
+          📚 {results.length} résultat{results.length > 1 ? 's' : ''} trouvé{results.length > 1 ? 's' : ''}
         </p>
       </div>
 
-      <div class="grid grid-cols-6 md:grid-cols-7 lg:grid-cols-8 xl:grid-cols-10" style="gap: 40px;">
-        {#each books as book (book.key)}
-          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden">
-            
-            <!-- Image de couverture -->
-            <div class="aspect-[2/3] bg-gray-200 flex items-center justify-center overflow-hidden">
-              {#if book.cover_id}
-                <img 
-                  src={getCoverUrl(book.cover_id)} 
-                  alt={book.title}
-                  class="w-full h-full object-contain"
-                />
-           {:else}
-  <div class="w-full h-full bg-gradient-to-br from-blue-200 to-cyan-200 flex flex-col items-center justify-center p-2">
-    <svg class="w-12 h-12 mb-1" fill="#2563eb" viewBox="0 0 20 20">
-      <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
-    </svg>
-    <p class="text-[9px] text-gray-700 font-medium text-center">Pas de couverture</p>
-  </div>
-{/if}
-            </div>
+      <!-- Étagères avec livres 3D -->
+      {#each Array(Math.ceil(results.length / 6)) as _, shelfIndex}
+        <div class="shelf-container" style="position: relative; margin-bottom: 60px;">
+          
+          <!-- Livres sur l'étagère avec effet 3D -->
+          <div class="flex justify-around items-end gap-6" style="min-height: 300px; padding: 0 40px 20px 40px;">
+            {#each results.slice(shelfIndex * 6, (shelfIndex + 1) * 6) as book}
+              <div class="book-3d book-reflection bg-white rounded-lg book-shadow overflow-hidden" style="width: 160px; flex-shrink: 0;">
+                
+                <!-- Couverture -->
+                <div class="aspect-[2/3] bg-gray-200 flex items-center justify-center overflow-hidden" style="border-bottom: 3px solid rgba(0,0,0,0.1);">
+                  {#if book.cover_url}
+                    <img 
+                      src={book.cover_url} 
+                      alt={book.title}
+                      class="w-full h-full object-cover"
+                      style="box-shadow: inset 0 0 20px rgba(0,0,0,0.2);"
+                    />
+                  {:else}
+                    <div class="w-full h-full bg-gradient-to-br from-blue-200 to-cyan-200 flex flex-col items-center justify-center p-3">
+                      <svg class="w-16 h-16 mb-2" fill="#2563eb" viewBox="0 0 20 20">
+                        <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+                      </svg>
+                      <p class="text-xs text-gray-700 font-medium text-center">Pas de couverture</p>
+                    </div>
+                  {/if}
+                </div>
 
-            <!-- Informations -->
-            <div class="p-2">
-              <h3 class="font-semibold text-gray-900 text-xs mb-1 line-clamp-1">
-                {book.title}
-              </h3>
-              
-              <p class="text-[10px] text-gray-600 mb-2 truncate">
-                {book.author}
-              </p>
+                <!-- Infos -->
+                <div class="p-3 bg-white">
+                  <h3 
+                    class="font-bold text-gray-900 text-sm mb-1"
+                    style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;"
+                    title={book.title}
+                  >
+                    {book.title}
+                  </h3>
+                  
+                  {#if book.author}
+                    <p class="text-xs text-gray-600 mb-3" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                      par {book.author}
+                    </p>
+                  {/if}
 
-              <!-- Bouton ajouter -->
-              <button
-                onclick={() => addToLibrary(book)}
-                disabled={addingBookId === book.key}
-                class="w-full px-2 py-1 bg-blue-600 text-white text-[10px] font-semibold rounded hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
-              >
-                {addingBookId === book.key ? '⏳' : '➕'}
-              </button>
-            </div>
+                  <!-- Bouton ajouter élégant -->
+                  <button
+                    onclick={() => addToLibrary(book)}
+                    class="w-full px-3 py-2 font-bold rounded-full transition-all text-xs"
+                    style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: white; box-shadow: 0 3px 8px rgba(16, 185, 129, 0.4); border: 2px solid rgba(255, 255, 255, 0.3);"
+                    onmouseover={(e) => {
+                      e.currentTarget.style.transform = 'scale(1.05)';
+                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(16, 185, 129, 0.6)';
+                    }}
+                    onmouseout={(e) => {
+                      e.currentTarget.style.transform = 'scale(1)';
+                      e.currentTarget.style.boxShadow = '0 3px 8px rgba(16, 185, 129, 0.4)';
+                    }}
+                  >
+                    ➕ Ajouter
+                  </button>
+                </div>
+              </div>
+            {/each}
           </div>
-        {/each}
-      </div>
+          
+          <!-- Planche d'étagère avec profondeur 3D -->
+          <div class="shelf-3d" style="height: 45px; border-radius: 8px; margin: 0 30px;"></div>
+        </div>
+      {/each}
+    {/if}
 
-      <!-- Bouton voir ma bibliothèque -->
-      <div class="mt-8 text-center">
-        <button
-          onclick={() => goto('/my-books')}
-          class="px-8 py-3 bg-green-600 text-white text-lg font-semibold rounded-lg hover:bg-green-700 transition-colors"
-        >
-          📚 Voir ma bibliothèque
-        </button>
+    <!-- Message si pas de résultats -->
+    {#if !loading && results.length === 0 && query}
+      <div class="text-center py-16 bg-white rounded-xl shadow-lg p-12">
+        <div class="text-6xl mb-4">🔍</div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">
+          Aucun résultat trouvé
+        </h2>
+        <p class="text-gray-600">
+          Essayez avec d'autres mots-clés
+        </p>
       </div>
     {/if}
 
   </div>
 </div>
-
-<style>
-  .line-clamp-1 {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  
-  .truncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-</style>
