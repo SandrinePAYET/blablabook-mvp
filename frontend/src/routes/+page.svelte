@@ -3,169 +3,140 @@
   import { onMount } from 'svelte';
 
   let isLoggedIn = $state(false);
-  let userName = $state('');
 
   onMount(() => {
     const token = localStorage.getItem('token');
-    const userData = localStorage.getItem('user');
-    
-    if (token && userData) {
-      const user = JSON.parse(userData);
-      isLoggedIn = true;
-      userName = user.first_name;
-    }
+    isLoggedIn = !!token;
   });
-
-  function navigateTo(path) {
-    goto(path);
-  }
 </script>
 
 <svelte:head>
-  <title>Blablabook - Votre bibliothèque personnelle</title>
+  <title>Accueil - Blablabook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 </svelte:head>
 
-<div class="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+<!-- Fond bois avec texture -->
+<div class="min-h-screen flex items-center justify-center" style="background: linear-gradient(135deg, #8B7355 0%, #6B5444 100%); background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); background-blend-mode: multiply; background-size: 300px;">
   
-  <!-- Hero Section -->
-  <div class="container mx-auto px-4 py-16 md:py-24">
-    <div class="text-center max-w-4xl mx-auto">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    
+    <!-- Carte principale avec fond bois doré -->
+    <div style="background: linear-gradient(135deg, #D4A574 0%, #C19A6B 50%, #A0826D 100%); background-image: repeating-linear-gradient(90deg, rgba(0,0,0,0.1) 0px, transparent 1px, transparent 3px, rgba(0,0,0,0.15) 4px, transparent 5px, transparent 8px); padding: 60px 40px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 2px 8px rgba(255,255,255,0.3);">
       
-      <!-- Emoji Hero -->
-      <div class="text-8xl mb-6">
-        📚
+      <!-- Icône livre géante -->
+      <div class="mb-8">
+        <div style="display: inline-block; background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); padding: 30px; border-radius: 50%; box-shadow: 0 10px 30px rgba(245, 158, 11, 0.5); border: 5px solid rgba(255, 255, 255, 0.3);">
+          <span style="font-size: 80px; display: block; line-height: 1;">📚</span>
+        </div>
       </div>
 
-      <!-- Titre principal -->
-      {#if isLoggedIn}
-        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-          Bienvenue {userName} ! 👋
-        </h1>
-        <p class="text-xl text-gray-600 mb-8">
-          Prêt à découvrir de nouveaux livres ?
-        </p>
-      {:else}
-        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-          Bienvenue sur Blablabook
-        </h1>
-        <p class="text-xl text-gray-600 mb-8">
-          Votre bibliothèque personnelle en ligne
-        </p>
-      {/if}
+      <!-- Titre avec police Lobster -->
+      <h1 style="font-family: 'Lobster', cursive; font-size: 72px; color: #78350f; margin-bottom: 16px; text-shadow: 2px 2px 4px rgba(255,255,255,0.3);">
+        Blablabook
+      </h1>
 
-      <!-- Description -->
-      <p class="text-lg text-gray-700 mb-12 max-w-2xl mx-auto leading-relaxed">
-        Organisez vos lectures, découvrez de nouveaux livres et gardez une trace de vos aventures littéraires. 
-        Simple, élégant, efficace.
+      <!-- Sous-titre -->
+      <p style="font-size: 24px; color: #92400e; margin-bottom: 40px; font-weight: 600; text-shadow: 1px 1px 2px rgba(255,255,255,0.3);">
+        Votre bibliothèque personnelle en ligne
       </p>
 
-      <!-- Call to Actions -->
-      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <!-- Description -->
+      <p style="font-size: 18px; color: #78350f; margin-bottom: 50px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+        Organisez, suivez et partagez vos lectures. Créez votre bibliothèque virtuelle et ne perdez plus jamais le fil de vos livres préférés ! 📖✨
+      </p>
+
+      <!-- Boutons -->
+      <div class="flex gap-6 justify-center">
         {#if isLoggedIn}
+          <!-- Utilisateur connecté -->
           <button
-            onclick={() => navigateTo('/my-books')}
-            class="px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all"
+            onclick={() => goto('/my-books')}
+            class="px-10 py-4 font-bold rounded-full transition-all text-lg"
+            style="background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%); color: white; box-shadow: 0 6px 16px rgba(139, 92, 246, 0.5); border: 3px solid rgba(255, 255, 255, 0.3);"
+            onmouseover={(e) => {
+              e.currentTarget.style.transform = 'scale(1.1)';
+              e.currentTarget.style.boxShadow = '0 10px 25px rgba(139, 92, 246, 0.7)';
+            }}
+            onmouseout={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 6px 16px rgba(139, 92, 246, 0.5)';
+            }}
           >
             📚 Ma Bibliothèque
           </button>
+
           <button
-            onclick={() => navigateTo('/search')}
-            class="px-8 py-4 bg-white text-blue-600 text-lg font-semibold rounded-lg hover:bg-gray-50 transition-colors border-2 border-blue-600 shadow-lg"
+            onclick={() => goto('/search')}
+            class="px-10 py-4 font-bold rounded-full transition-all text-lg"
+            style="background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%); color: white; box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5); border: 3px solid rgba(255, 255, 255, 0.3);"
+            onmouseover={(e) => {
+              e.currentTarget.style.transform = 'scale(1.1)';
+              e.currentTarget.style.boxShadow = '0 10px 25px rgba(59, 130, 246, 0.7)';
+            }}
+            onmouseout={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 6px 16px rgba(59, 130, 246, 0.5)';
+            }}
           >
-            🔍 Rechercher un livre
+            🔍 Rechercher
           </button>
         {:else}
+          <!-- Utilisateur non connecté -->
           <button
-            onclick={() => navigateTo('/register')}
-            class="px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all"
+            onclick={() => goto('/register')}
+            class="px-10 py-4 font-bold rounded-full transition-all text-lg"
+            style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: white; box-shadow: 0 6px 16px rgba(16, 185, 129, 0.5); border: 3px solid rgba(255, 255, 255, 0.3);"
+            onmouseover={(e) => {
+              e.currentTarget.style.transform = 'scale(1.1)';
+              e.currentTarget.style.boxShadow = '0 10px 25px rgba(16, 185, 129, 0.7)';
+            }}
+            onmouseout={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 6px 16px rgba(16, 185, 129, 0.5)';
+            }}
           >
-            🚀 Commencer gratuitement
+            ✨ Commencer gratuitement
           </button>
+
           <button
-            onclick={() => navigateTo('/login')}
-            class="px-8 py-4 bg-white text-blue-600 text-lg font-semibold rounded-lg hover:bg-gray-50 transition-colors border-2 border-blue-600 shadow-lg"
+            onclick={() => goto('/login')}
+            class="px-10 py-4 font-bold rounded-full transition-all text-lg"
+            style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); color: white; box-shadow: 0 6px 16px rgba(245, 158, 11, 0.5); border: 3px solid rgba(255, 255, 255, 0.3);"
+            onmouseover={(e) => {
+              e.currentTarget.style.transform = 'scale(1.1)';
+              e.currentTarget.style.boxShadow = '0 10px 25px rgba(245, 158, 11, 0.7)';
+            }}
+            onmouseout={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 6px 16px rgba(245, 158, 11, 0.5)';
+            }}
           >
             🔐 Se connecter
           </button>
         {/if}
       </div>
-    </div>
-  </div>
 
-  <!-- Features Section -->
-  <div class="container mx-auto px-4 py-16">
-    <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-      
-      <!-- Feature 1 -->
-      <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center">
-        <div class="text-5xl mb-4">📖</div>
-        <h3 class="text-xl font-bold text-gray-900 mb-3">
-          Organisez vos livres
-        </h3>
-        <p class="text-gray-600">
-          Créez votre bibliothèque personnelle et classez vos livres facilement
-        </p>
-      </div>
+      <!-- Fonctionnalités -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+        <div style="background: rgba(255, 255, 255, 0.9); padding: 24px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+          <div style="font-size: 48px; margin-bottom: 12px;">📖</div>
+          <h3 style="font-size: 20px; font-weight: bold; color: #78350f; margin-bottom: 8px;">Organisez</h3>
+          <p style="color: #92400e; font-size: 14px;">Classez vos livres par statut : à lire, en cours, terminés</p>
+        </div>
 
-      <!-- Feature 2 -->
-      <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center">
-        <div class="text-5xl mb-4">🔍</div>
-        <h3 class="text-xl font-bold text-gray-900 mb-3">
-          Découvrez de nouveaux livres
-        </h3>
-        <p class="text-gray-600">
-          Recherchez parmi des millions de livres via l'API Open Library
-        </p>
-      </div>
+        <div style="background: rgba(255, 255, 255, 0.9); padding: 24px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+          <div style="font-size: 48px; margin-bottom: 12px;">⭐</div>
+          <h3 style="font-size: 20px; font-weight: bold; color: #78350f; margin-bottom: 8px;">Notez</h3>
+          <p style="color: #92400e; font-size: 14px;">Attribuez des notes à vos lectures favorites</p>
+        </div>
 
-      <!-- Feature 3 -->
-      <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center">
-        <div class="text-5xl mb-4">⭐</div>
-        <h3 class="text-xl font-bold text-gray-900 mb-3">
-          Suivez vos lectures
-        </h3>
-        <p class="text-gray-600">
-          Notez et commentez vos livres, suivez votre progression de lecture
-        </p>
+        <div style="background: rgba(255, 255, 255, 0.9); padding: 24px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+          <div style="font-size: 48px; margin-bottom: 12px;">🔍</div>
+          <h3 style="font-size: 20px; font-weight: bold; color: #78350f; margin-bottom: 8px;">Découvrez</h3>
+          <p style="color: #92400e; font-size: 14px;">Recherchez parmi des milliers de livres</p>
+        </div>
       </div>
 
     </div>
   </div>
-
-  <!-- Stats Section (si connecté) -->
-  {#if isLoggedIn}
-    <div class="container mx-auto px-4 py-16">
-      <div class="max-w-4xl mx-auto bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-12 text-white text-center shadow-2xl">
-        <h2 class="text-3xl font-bold mb-6">
-          Votre aventure littéraire commence maintenant ! 📚
-        </h2>
-        <p class="text-xl mb-8 opacity-90">
-          Explorez, lisez, partagez vos découvertes
-        </p>
-        <button
-          onclick={() => navigateTo('/search')}
-          class="px-8 py-4 bg-white text-blue-600 text-lg font-semibold rounded-lg hover:bg-gray-100 transition-colors shadow-lg"
-        >
-          🔍 Commencer à rechercher
-        </button>
-      </div>
-    </div>
-  {/if}
-
-  <!-- Footer -->
-  <footer class="container mx-auto px-4 py-8 mt-16 border-t border-gray-200">
-    <div class="text-center text-gray-600">
-      <p class="text-sm">
-        © 2025 Blablabook - Votre bibliothèque personnelle
-      </p>
-      <p class="text-xs mt-2 text-gray-500">
-        Propulsé par Open Library API
-      </p>
-    </div>
-  </footer>
-
 </div>
-
-<style>
-  /* Animations personnalisées si nécessaire */
-</style>
