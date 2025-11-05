@@ -31,7 +31,7 @@
       if (response.ok) {
         localStorage.setItem('token', data.data.token);
         localStorage.setItem('user', JSON.stringify(data.data.user));
-        goto('/my-books');
+        window.location.href = '/my-books';
       } else {
         error = data.message || 'Erreur de connexion';
       }

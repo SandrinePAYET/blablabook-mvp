@@ -15,7 +15,8 @@
   function logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    goto('/login');
+    user = null; // Réinitialise l'état
+    window.location.href = '/'; // Force un rechargement complet
   }
 
   function toggleMenu() {

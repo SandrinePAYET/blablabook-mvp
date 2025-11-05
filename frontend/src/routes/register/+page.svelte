@@ -2,6 +2,7 @@
   import { goto } from '$app/navigation';
 
   let username = '';
+  let email = '';
   let password = '';
   let confirmPassword = '';
   let error = '';
@@ -10,7 +11,7 @@
   async function handleRegister(e) {
     e.preventDefault();
     
-    if (!username || !password || !confirmPassword) {
+    if (!username || !email || !password || !confirmPassword) {
       error = 'Veuillez remplir tous les champs';
       return;
     }
@@ -34,7 +35,7 @@
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, email, password }),
       });
 
       const data = await response.json();
@@ -42,7 +43,7 @@
       if (response.ok) {
         localStorage.setItem('token', data.data.token);
         localStorage.setItem('user', JSON.stringify(data.data.user));
-        goto('/my-books');
+        window.location.href = '/my-books';
       } else {
         error = data.message || 'Erreur lors de l\'inscription';
       }
@@ -103,6 +104,23 @@
             type="text"
             bind:value={username}
             placeholder="Choisissez un nom d'utilisateur"
+            required
+            style="width: 100%; padding: 14px 18px; border-radius: 12px; border: 3px solid rgba(16, 185, 129, 0.3); font-size: 16px; background: white; box-shadow: 0 3px 10px rgba(0,0,0,0.2); font-weight: 500;"
+            onfocus={(e) => e.currentTarget.style.borderColor = '#10B981'}
+            onblur={(e) => e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.3)'}
+          />
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label for="email" style="display: block; color: #78350f; font-weight: 700; margin-bottom: 8px; font-size: 15px;">
+            📧 Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            bind:value={email}
+            placeholder="votre@email.com"
             required
             style="width: 100%; padding: 14px 18px; border-radius: 12px; border: 3px solid rgba(16, 185, 129, 0.3); font-size: 16px; background: white; box-shadow: 0 3px 10px rgba(0,0,0,0.2); font-weight: 500;"
             onfocus={(e) => e.currentTarget.style.borderColor = '#10B981'}
