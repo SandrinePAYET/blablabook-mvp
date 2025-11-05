@@ -16,7 +16,24 @@ const User = sequelize.define('User', {
     primaryKey: true,
     autoIncrement: true
   },
-
+// Nom d'utilisateur (unique, obligatoire)
+  username: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    unique: {
+      msg: 'Ce nom d\'utilisateur est déjà utilisé'
+    },
+    validate: {
+      notEmpty: {
+        msg: 'Le nom d\'utilisateur est obligatoire'
+      },
+      len: {
+        args: [3, 50],
+        msg: 'Le nom d\'utilisateur doit contenir entre 3 et 50 caractères'
+      }
+    }
+  },
+  
   // Email (unique, obligatoire)
   email: {
     type: DataTypes.STRING(255),
@@ -33,7 +50,7 @@ const User = sequelize.define('User', {
       }
     }
   },
-
+  
   // Mot de passe (haché, obligatoire)
   password: {
     type: DataTypes.STRING(255),

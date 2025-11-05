@@ -7,12 +7,23 @@
 const { User } = require('../models');
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
+const { Op } = require('sequelize');
 
 /**
  * SCHÉMA DE VALIDATION INSCRIPTION
  * Définit les règles pour les données d'inscription
  */
 const registerSchema = Joi.object({
+  username: Joi.string()
+    .min(3)
+    .max(50)
+    .required()
+    .messages({
+      'string.min': 'Le nom d\'utilisateur doit contenir au moins 3 caractères',
+      'string.max': 'Le nom d\'utilisateur ne peut pas dépasser 50 caractères',
+      'any.required': 'Le nom d\'utilisateur est obligatoire'
+    }),
+  
   email: Joi.string()
     .email()
     .required()
@@ -22,41 +33,32 @@ const registerSchema = Joi.object({
     }),
   
   password: Joi.string()
-    .min(8)
+    .min(6)
     .required()
     .messages({
-      'string.min': 'Le mot de passe doit contenir au moins 8 caractères',
+      'string.min': 'Le mot de passe doit contenir au moins 6 caractères',
       'any.required': 'Le mot de passe est obligatoire'
-    }),
-  
-  first_name: Joi.string()
-    .min(2)
-    .max(100)
-    .optional()
-    .allow('', null),
-  
-  last_name: Joi.string()
-    .min(2)
-    .max(100)
-    .optional()
-    .allow('', null)
+    })
 });
 
 /**
  * FONCTION : REGISTER (Inscription)
  * 
  * POST /api/auth/register
- * Body: { email, password, first_name?, last_name? }
+ * Body: { username, email, password }
  * 
  * @param {Object} req - Requête Express
  * @param {Object} res - Réponse Express
  */
 const register = async (req, res) => {
   try {
+    console.log('📝 Tentative d\'inscription:', req.body);
+
     // 1. Valider les données reçues
     const { error, value } = registerSchema.validate(req.body);
     
     if (error) {
+      console.log('❌ Validation échouée:', error.details);
       return res.status(400).json({
         success: false,
         message: 'Données invalides',
@@ -64,30 +66,39 @@ const register = async (req, res) => {
       });
     }
 
-    // 2. Vérifier si l'email existe déjà
+    // 2. Vérifier si l'username ou l'email existent déjà
     const existingUser = await User.findOne({
-      where: { email: value.email }
+      where: {
+        [Op.or]: [
+          { username: value.username },
+          { email: value.email }
+        ]
+      }
     });
 
     if (existingUser) {
+      const field = existingUser.username === value.username ? 'nom d\'utilisateur' : 'email';
+      console.log(`❌ ${field} déjà utilisé`);
       return res.status(409).json({
         success: false,
-        message: 'Cet email est déjà utilisé'
+        message: `Ce ${field} est déjà utilisé`
       });
     }
 
     // 3. Créer l'utilisateur (le password sera hashé automatiquement par le hook beforeCreate)
     const user = await User.create({
+      username: value.username,
       email: value.email,
-      password: value.password,
-      first_name: value.first_name || null,
-      last_name: value.last_name || null
+      password: value.password
     });
+
+    console.log('✅ Utilisateur créé:', user.id, user.username);
 
     // 4. Générer un token JWT
     const token = jwt.sign(
       { 
         userId: user.id,
+        username: user.username,
         email: user.email 
       },
       process.env.JWT_SECRET,
@@ -105,7 +116,7 @@ const register = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Erreur register:', error);
+    console.error('❌ Erreur register:', error);
     res.status(500).json({
       success: false,
       message: 'Erreur lors de l\'inscription',
@@ -115,19 +126,13 @@ const register = async (req, res) => {
 };
 
 /**
- * FONCTION : LOGIN (Connexion)
- * À DÉVELOPPER CE SOIR
- */
-/**
  * SCHÉMA DE VALIDATION LOGIN
  */
 const loginSchema = Joi.object({
-  email: Joi.string()
-    .email()
+  username: Joi.string()
     .required()
     .messages({
-      'string.email': 'Format email invalide',
-      'any.required': 'L\'email est obligatoire'
+      'any.required': 'Le nom d\'utilisateur est obligatoire'
     }),
   
   password: Joi.string()
@@ -141,14 +146,17 @@ const loginSchema = Joi.object({
  * FONCTION : LOGIN (Connexion)
  * 
  * POST /api/auth/login
- * Body: { email, password }
+ * Body: { username, password }
  */
 const login = async (req, res) => {
   try {
+    console.log('🔐 Tentative de connexion:', req.body.username);
+
     // 1. Valider les données
     const { error, value } = loginSchema.validate(req.body);
     
     if (error) {
+      console.log('❌ Validation échouée:', error.details);
       return res.status(400).json({
         success: false,
         message: 'Données invalides',
@@ -156,15 +164,16 @@ const login = async (req, res) => {
       });
     }
 
-    // 2. Trouver l'utilisateur par email
+    // 2. Trouver l'utilisateur par username
     const user = await User.findOne({
-      where: { email: value.email }
+      where: { username: value.username }
     });
 
     if (!user) {
+      console.log('❌ Utilisateur non trouvé');
       return res.status(401).json({
         success: false,
-        message: 'Email ou mot de passe incorrect'
+        message: 'Nom d\'utilisateur ou mot de passe incorrect'
       });
     }
 
@@ -172,16 +181,20 @@ const login = async (req, res) => {
     const isPasswordValid = await user.validatePassword(value.password);
 
     if (!isPasswordValid) {
+      console.log('❌ Mot de passe incorrect');
       return res.status(401).json({
         success: false,
-        message: 'Email ou mot de passe incorrect'
+        message: 'Nom d\'utilisateur ou mot de passe incorrect'
       });
     }
+
+    console.log('✅ Connexion réussie:', user.username);
 
     // 4. Générer un token JWT
     const token = jwt.sign(
       { 
         userId: user.id,
+        username: user.username,
         email: user.email 
       },
       process.env.JWT_SECRET,
@@ -199,7 +212,7 @@ const login = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Erreur login:', error);
+    console.error('❌ Erreur login:', error);
     res.status(500).json({
       success: false,
       message: 'Erreur lors de la connexion',
