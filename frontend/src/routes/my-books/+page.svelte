@@ -137,8 +137,7 @@
     
     <!-- En-tête -->
     <div class="mb-8 rounded-lg p-6 shadow-lg" style="background: linear-gradient(135deg, #D4A574 0%, #C19A6B 50%, #A0826D 100%); background-image: repeating-linear-gradient(90deg, rgba(0,0,0,0.1) 0px, transparent 1px, transparent 3px, rgba(0,0,0,0.15) 4px, transparent 5px, transparent 8px), repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, transparent 2px, transparent 7px, rgba(255,255,255,0.08) 9px, transparent 11px, transparent 15px); box-shadow: 0 6px 12px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.3);">
-      <h1 class="text-5xl mb-2" style="color: #78350f; font-family: 'Satisfy', cursive; font-weight: normal; text-shadow: 1px 1px 0px #78350f;">
-        Ma Bibliothèque
+      <h1 class="text-3xl md:text-5xl mb-2" style="color: #78350f; font-family: 'Satisfy', cursive; font-weight: normal; text-shadow: 1px 1px 0px #78350f;">
       </h1>
       <p style="color: #92400e;">
         Gérez votre collection personnelle de livres
@@ -197,7 +196,7 @@
 
     <!-- Filtres par statut -->
     {#if !loading && !error && books.length > 0}
-      <div class="mb-6 flex gap-4 p-4 rounded-lg shadow-md" style="background: linear-gradient(135deg, #C19A6B 0%, #A0826D 100%); box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+      <div class="mb-6 flex flex-wrap gap-3 p-4 rounded-lg shadow-md" style="background: linear-gradient(135deg, #C19A6B 0%, #A0826D 100%); box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
         <button
           onclick={() => filterBooks('all')}
           class="px-6 py-2 rounded-full font-bold transition-all text-sm"
@@ -357,7 +356,7 @@
         </p>
         <button
   onclick={() => goto('/search')}
-  class="px-8 py-3 font-bold rounded-full transition-all shadow-lg hover:scale-105"
+  class="px-4 md:px-8 py-2 md:py-3 font-bold rounded-full transition-all shadow-lg hover:scale-105 text-sm md:text-base"
   style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); color: white; box-shadow: 0 6px 16px rgba(245, 158, 11, 0.5); border: 3px solid rgba(255, 255, 255, 0.3);"
   onmouseover={(e) => {
     e.currentTarget.style.transform = 'scale(1.05)';
@@ -386,10 +385,9 @@
         <div style="position: relative; margin-bottom: 40px;">
           
           <!-- Livres directement sur le fond bois -->
-          <div class="flex justify-around items-end" style="min-height: 250px; padding: 0 40px;">
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 items-end px-4 md:px-10" style="min-height: 280px;">
             {#each filteredBooks.slice(shelfIndex * 6, (shelfIndex + 1) * 6) as userBook}
-              <div class="bg-white rounded-lg shadow-xl hover:shadow-2xl transition-all hover:-translate-y-3 overflow-hidden" style="width: 140px; flex-shrink: 0;">
-                
+              <div class="bg-white rounded-lg shadow-xl hover:shadow-2xl transition-all hover:-translate-y-2 md:hover:-translate-y-4 overflow-hidden w-full max-w-[160px] mx-auto">
                 <!-- Image de couverture -->
                 <div class="aspect-[2/3] bg-gray-200 flex items-center justify-center overflow-hidden">
                   {#if userBook.book.cover_url}
@@ -483,7 +481,8 @@
           </div>
           
           <!-- BARRE/PLANCHE épaisse en bas -->
-          <div style="height: 35px; 
+          
+  <div class="h-[25px] md:h-[35px] mx-4 md:mx-8" style="
 background: 
   repeating-linear-gradient(90deg, 
     rgba(0,0,0,0.1) 0px, 
@@ -512,7 +511,6 @@ background:
   linear-gradient(180deg, #A05030 0%, #8B4513 50%, #6B3410 100%); 
 border-radius: 8px; 
 box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 3px 8px rgba(255,255,255,0.4), inset 0 -3px 8px rgba(0,0,0,0.3); 
-margin: 0 30px; 
 position: relative; 
 z-index: 1;"></div>
 
