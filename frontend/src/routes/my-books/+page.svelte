@@ -125,6 +125,45 @@
       alert('Erreur de connexion');
     }
   }
+
+  // Fonction générique pour mettre à jour un livre
+  async function updateBook(userBookId, updates) {
+    try {
+      const token = localStorage.getItem('token');
+      
+      const response = await fetch(`http://localhost:3000/api/user-books/${userBookId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(updates)
+      });
+      
+      if (response.ok) {
+        await loadBooks();
+        return true;
+      } else {
+        alert('Erreur lors de la mise à jour');
+        return false;
+      }
+    } catch (err) {
+      console.error('Erreur updateBook:', err);
+      alert('Erreur de connexion');
+      return false;
+    }
+  }
+
+  // Mettre à jour la note (rating)
+  async function updateRating(userBookId, rating) {
+    await updateBook(userBookId, { rating });
+  }
+
+  // Mettre à jour l'avis (review)
+  async function updateReview(userBookId, review) {
+    await updateBook(userBookId, { review });
+  }
+
 </script>
 
 <svelte:head>
