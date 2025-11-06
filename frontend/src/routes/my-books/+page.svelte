@@ -385,7 +385,7 @@
         <div style="position: relative; margin-bottom: 40px;">
           
           <!-- Livres directement sur le fond bois -->
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 items-end px-4 md:px-10" style="min-height: 280px;">
+          <div class="flex justify-around items-end gap-6" style="min-height: 300px; padding: 0 40px 20px 40px;">
             {#each filteredBooks.slice(shelfIndex * 6, (shelfIndex + 1) * 6) as userBook}
               <div class="bg-white rounded-lg shadow-xl hover:shadow-2xl transition-all hover:-translate-y-2 md:hover:-translate-y-4 overflow-hidden w-full max-w-[160px] mx-auto">
                 <!-- Image de couverture -->
