@@ -47,11 +47,12 @@
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          title: book.title,
-          author: book.author,
-          cover_url: book.cover_url,
-          status: 'to_read'
+body: JSON.stringify({
+  open_library_id: book.open_library_id,
+  title: book.title,
+   author: book.author,
+    cover_url: book.cover_url,
+     status: 'to_read'
         })
       });
 
@@ -97,18 +98,19 @@
     position: relative;
   }
   
-  .book-reflection::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    right: 0;
-    height: 40px;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.15), transparent);
-    transform: scaleY(-1);
-    opacity: 0.4;
-    filter: blur(3px);
-  }
+.book-reflection::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.15), transparent);
+  transform: scaleY(-1);
+  opacity: 0.4;
+  filter: blur(3px);
+  pointer-events: none;
+}
 
   /* Étagère avec profondeur */
   .shelf-3d {
@@ -157,7 +159,7 @@
 
 <!-- Fond bois avec texture -->
 <div class="min-h-screen py-8" style="background: linear-gradient(135deg, #8B7355 0%, #6B5444 100%); background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); background-blend-mode: multiply; background-size: 300px;">
-  
+
   <div class="container mx-auto px-4 max-w-7xl">
     
     <!-- En-tête avec barre de recherche -->
@@ -176,23 +178,23 @@
         <input
           type="text"
           bind:value={query}
-          onkeydown={(e) => e.key === 'Enter' && searchBooks()}
+          on:keydown={(e) => e.key === 'Enter' && searchBooks()}
           placeholder="Titre, auteur, ISBN..."
           class="flex-1 px-6 py-4 rounded-full text-lg focus:outline-none"
           style="background: white; border: 3px solid rgba(139, 92, 246, 0.3); box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-weight: 500;"
-          onfocus={(e) => e.currentTarget.style.borderColor = '#8B5CF6'}
-          onblur={(e) => e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.3)'}
+          on:focus={(e) => e.currentTarget.style.borderColor = '#8B5CF6'}
+          on:blur={(e) => e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.3)'}
         />
         
         <button
-          onclick={searchBooks}
+          on:click={searchBooks}
           class="px-8 py-4 font-bold rounded-full transition-all text-lg"
           style="background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%); color: white; box-shadow: 0 6px 16px rgba(139, 92, 246, 0.5); border: 3px solid rgba(255, 255, 255, 0.3); min-width: 180px;"
-          onmouseover={(e) => {
+          on:mouseover={(e) => {
             e.currentTarget.style.transform = 'scale(1.05)';
             e.currentTarget.style.boxShadow = '0 8px 20px rgba(139, 92, 246, 0.7)';
           }}
-          onmouseout={(e) => {
+          on:mouseout={(e) => {
             e.currentTarget.style.transform = 'scale(1)';
             e.currentTarget.style.boxShadow = '0 6px 16px rgba(139, 92, 246, 0.5)';
           }}
@@ -272,21 +274,13 @@
                   {/if}
 
                   <!-- Bouton ajouter élégant -->
-                  <button
-                    onclick={() => addToLibrary(book)}
-                    class="w-full px-3 py-2 font-bold rounded-full transition-all text-xs"
-                    style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: white; box-shadow: 0 3px 8px rgba(16, 185, 129, 0.4); border: 2px solid rgba(255, 255, 255, 0.3);"
-                    onmouseover={(e) => {
-                      e.currentTarget.style.transform = 'scale(1.05)';
-                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(16, 185, 129, 0.6)';
-                    }}
-                    onmouseout={(e) => {
-                      e.currentTarget.style.transform = 'scale(1)';
-                      e.currentTarget.style.boxShadow = '0 3px 8px rgba(16, 185, 129, 0.4)';
-                    }}
-                  >
-                    ➕ Ajouter
-                  </button>
+<button
+  on:click={() => addToLibrary(book)}
+  class="w-full px-3 py-2 font-bold rounded-full text-xs"
+  style="background: #10B981; color: white;"
+>
+  ➕ Ajouter
+</button>
                 </div>
               </div>
             {/each}
