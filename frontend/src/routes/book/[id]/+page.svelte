@@ -3,16 +3,13 @@
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
 
-  // Récupérer l'ID depuis l'URL
   const bookId = $page.params.id;
 
-  // État (Svelte 5 runes)
   let userBook = $state(null);
   let loading = $state(true);
   let error = $state('');
   let saving = $state(false);
 
-  // Charger les données du livre
   onMount(async () => {
     await loadBook();
   });
@@ -29,7 +26,6 @@
         return;
       }
 
-      // Récupérer tous les livres et trouver celui avec cet ID
       const response = await fetch('http://localhost:3000/api/user-books', {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -48,7 +44,6 @@
         throw new Error(data.message || 'Erreur de chargement');
       }
 
-      // Trouver le livre avec cet ID
       const found = data.data.books.find(b => b.id === parseInt(bookId));
 
       if (!found) {
@@ -67,7 +62,6 @@
     }
   }
 
-  // Fonction pour sauvegarder les modifications
   async function saveChanges() {
     if (!userBook) return;
 
@@ -104,7 +98,6 @@
     }
   }
 
-  // Fonction pour supprimer le livre
   async function deleteBook() {
     if (!userBook) return;
 
@@ -138,107 +131,95 @@
 
 <svelte:head>
   <title>{userBook ? userBook.book.title : 'Détail livre'} - Blablabook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
 </svelte:head>
 
-<div class="bg-gray-50 py-3">
-  <div class="container mx-auto px-4 max-w-5xl">
+<div class="min-h-screen py-8" style="background: linear-gradient(135deg, #8B7355 0%, #6B5444 100%); background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); background-blend-mode: multiply; background-size: 300px;">
+  <div class="container mx-auto px-4 max-w-4xl">
     
-    <!-- Bouton retour -->
     <button
-      onclick={() => goto('/my-books')}
-      class="mb-3 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors flex items-center gap-2"
+      on:click={() => goto('/my-books')}
+      class="mb-6 px-6 py-3 font-bold rounded-full transition-all shadow-lg"
+      style="background: linear-gradient(135deg, #D4A574 0%, #C19A6B 100%); color: #78350f; box-shadow: 0 4px 12px rgba(0,0,0,0.3);"
     >
       ← Retour à Ma Bibliothèque
     </button>
 
-    <!-- Loading -->
     {#if loading}
-      <div class="flex justify-center items-center py-20">
-        <div class="text-center">
-          <svg class="animate-spin h-12 w-12 text-blue-600 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
-          <p class="text-gray-600">Chargement...</p>
+      <div class="flex justify-center items-center py-32">
+        <div class="text-center bg-white rounded-xl p-8 shadow-xl">
+          <div class="animate-spin h-16 w-16 mx-auto mb-4" style="border: 4px solid #92400e; border-top-color: transparent; border-radius: 50%;"></div>
+          <p class="font-bold text-lg" style="color: #78350f;">Chargement...</p>
         </div>
       </div>
     {/if}
 
-    <!-- Erreur -->
     {#if error}
-      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
-        <strong>Erreur :</strong> {error}
+      <div class="bg-red-100 border-2 border-red-400 text-red-700 px-6 py-4 rounded-xl mb-6 font-semibold">
+        ❌ {error}
       </div>
     {/if}
 
-    <!-- Contenu -->
     {#if !loading && !error && userBook}
-      <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-        <div class="md:flex md:gap-3">
-          
-          <!-- Couverture -->
-          <div class="md:w-1/4 bg-gray-200 flex items-center justify-center p-2">
+      <div class="bg-white rounded-xl shadow-2xl overflow-hidden" style="background: linear-gradient(135deg, #FFF8DC 0%, #FAEBD7 50%, #F5E6D3 100%);">
+        
+        <!-- Section couverture et titre -->
+        <div class="text-center p-8 border-b-4" style="border-color: #D4A574;">
+          <div class="mb-6">
             {#if userBook.book.cover_url}
               <img 
                 src={userBook.book.cover_url} 
                 alt={userBook.book.title}
-                class="max-w-full max-h-32 object-contain rounded-lg shadow-md"
+                class="max-w-xs mx-auto rounded-lg shadow-2xl"
+                style="max-height: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);"
               />
             {:else}
-              <div class="w-full h-32 bg-gradient-to-br from-blue-200 to-cyan-200 flex flex-col items-center justify-center rounded-lg">
-                <svg class="w-12 h-12 mb-1" fill="#2563eb" viewBox="0 0 20 20">
+              <div class="w-64 h-96 mx-auto bg-gradient-to-br from-blue-200 to-cyan-200 flex flex-col items-center justify-center rounded-lg shadow-2xl">
+                <svg class="w-24 h-24 mb-4" fill="#2563eb" viewBox="0 0 20 20">
                   <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
                 </svg>
-                <p class="text-sm text-gray-700 font-medium">Pas de couverture</p>
+                <p class="text-lg text-gray-700 font-medium">Pas de couverture</p>
               </div>
             {/if}
           </div>
 
-          <!-- Informations -->
-          <div class="md:w-3/4 p-3">
-            
-            <!-- Titre et auteur -->
-            <h1 class="text-2xl font-bold text-gray-900 mb-1">
-              {userBook.book.title}
-            </h1>
-            
-            {#if userBook.book.author}
-              <p class="text-lg text-gray-600 mb-2">
-                par {userBook.book.author}
-              </p>
+          <h1 class="text-4xl font-bold mb-3" style="color: #78350f; font-family: 'Satisfy', cursive;">
+            {userBook.book.title}
+          </h1>
+          
+          {#if userBook.book.author}
+            <p class="text-2xl mb-4" style="color: #92400e;">
+              par {userBook.book.author}
+            </p>
+          {/if}
+
+          <div class="flex flex-wrap justify-center gap-4 text-sm" style="color: #78350f;">
+            {#if userBook.book.published_year}
+              <span class="font-semibold">📅 {userBook.book.published_year}</span>
             {/if}
-
-            <!-- Métadonnées -->
-            <div class="flex gap-4 mb-3 text-sm text-gray-600">
-              {#if userBook.book.published_year}
-                <span>📅 {userBook.book.published_year}</span>
-              {/if}
-              {#if userBook.book.page_count}
-                <span>📄 {userBook.book.page_count} pages</span>
-              {/if}
-              {#if userBook.book.isbn}
-                <span>📚 ISBN: {userBook.book.isbn}</span>
-              {/if}
-            </div>
-
-            <!-- Description -->
-            {#if userBook.book.description}
-              <div class="mb-2">
-                <p class="text-sm text-gray-700 leading-relaxed line-clamp-1">
-                  {userBook.book.description}
-                </p>
-              </div>
+            {#if userBook.book.page_count}
+              <span class="font-semibold">📄 {userBook.book.page_count} pages</span>
             {/if}
+          </div>
+        </div>
 
-            <!-- Statut -->
-            <div class="mb-3">
-              <label for="status" class="block text-sm font-semibold text-gray-900 mb-2">
+        <!-- Section formulaire -->
+        <div class="p-8">
+          <div class="max-w-2xl mx-auto">
+            
+            <div class="mb-6">
+              <label class="block text-lg font-bold mb-3" style="color: #78350f;">
                 Statut de lecture
               </label>
               <select
-                id="status"
                 bind:value={userBook.status}
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                class="w-full px-4 py-3 rounded-lg text-base font-semibold focus:outline-none transition-all"
+                style="
+                  background: {userBook.status === 'to_read' ? 'linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%)' : userBook.status === 'reading' ? 'linear-gradient(135deg, #E9D5FF 0%, #D8B4FE 100%)' : 'linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%)'};
+                  color: {userBook.status === 'to_read' ? '#1E40AF' : userBook.status === 'reading' ? '#6B21A8' : '#065F46'};
+                  border: 3px solid {userBook.status === 'to_read' ? '#3B82F6' : userBook.status === 'reading' ? '#8B5CF6' : '#10B981'};
+                  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                "
               >
                 <option value="to_read">📖 À lire</option>
                 <option value="reading">📚 En cours de lecture</option>
@@ -246,50 +227,63 @@
               </select>
             </div>
 
-            <!-- Note -->
             <div class="mb-6">
-              <label for="rating" class="block text-sm font-semibold text-gray-900 mb-2">
+              <label class="block text-lg font-bold mb-3" style="color: #78350f;">
                 Note (sur 5)
               </label>
               <input
-                id="rating"
                 type="number"
                 min="0"
                 max="5"
                 step="0.5"
                 bind:value={userBook.rating}
                 placeholder="Ex: 4.5"
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                class="w-full px-4 py-3 rounded-lg text-base focus:outline-none"
+                style="background: white; border: 3px solid #D4A574; box-shadow: 0 4px 8px rgba(0,0,0,0.1); color: #78350f; font-weight: 600;"
               />
+              {#if userBook.rating}
+                <div class="mt-2 text-2xl">
+                  {'⭐'.repeat(Math.floor(userBook.rating))}
+                  {userBook.rating % 1 !== 0 ? '✨' : ''}
+                </div>
+              {/if}
             </div>
 
-            <!-- Avis -->
             <div class="mb-6">
-              <label for="review" class="block text-sm font-semibold text-gray-900 mb-2">
+              <label class="block text-lg font-bold mb-3" style="color: #78350f;">
                 Votre avis
               </label>
               <textarea
-                id="review"
                 bind:value={userBook.review}
                 placeholder="Qu'avez-vous pensé de ce livre ?"
-                rows="2"
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                rows="6"
+                class="w-full px-4 py-3 rounded-lg text-base focus:outline-none resize-none"
+                style="background: white; border: 3px solid #D4A574; box-shadow: 0 4px 8px rgba(0,0,0,0.1); color: #78350f; font-family: 'Georgia', serif; line-height: 1.6;"
               ></textarea>
             </div>
 
-            <!-- Boutons actions -->
-            <div class="flex gap-3">
+            {#if userBook.book.description}
+              <div class="mb-6 p-4 rounded-lg" style="background: rgba(212,165,116,0.2); border-left: 4px solid #92400e;">
+                <p class="text-sm leading-relaxed" style="color: #78350f;">
+                  {userBook.book.description}
+                </p>
+              </div>
+            {/if}
+
+            <div class="flex flex-col sm:flex-row gap-3">
               <button
-                onclick={saveChanges}
+                on:click={saveChanges}
                 disabled={saving}
-                class="flex-1 px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400"
+                class="flex-1 px-6 py-4 font-bold rounded-full transition-all text-lg shadow-lg"
+                style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: white; box-shadow: 0 6px 16px rgba(16, 185, 129, 0.5); border: 3px solid rgba(255, 255, 255, 0.3);"
               >
                 {saving ? '⏳ Enregistrement...' : '💾 Enregistrer'}
               </button>
               
               <button
-                onclick={deleteBook}
-                class="px-6 py-2 bg-red-100 text-red-700 font-semibold rounded-lg hover:bg-red-200 transition-colors"
+                on:click={deleteBook}
+                class="px-6 py-4 font-bold rounded-full transition-all text-lg shadow-lg"
+                style="background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%); color: white; box-shadow: 0 6px 16px rgba(220, 38, 38, 0.5); border: 3px solid rgba(255, 255, 255, 0.3);"
               >
                 🗑️ Supprimer
               </button>
@@ -297,6 +291,7 @@
 
           </div>
         </div>
+
       </div>
     {/if}
 
