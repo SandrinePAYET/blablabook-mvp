@@ -1,5 +1,6 @@
 <script>
   import { goto } from '$app/navigation';
+  import Footer from '$lib/components/Footer.svelte';
 
   let username = '';
   let email = '';
@@ -230,5 +231,6 @@
         ← Retour à l'accueil
       </a>
     </div>
+    <Footer />
   </div>
 </div>
