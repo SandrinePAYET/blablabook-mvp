@@ -2,6 +2,7 @@
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
+  import Footer from '$lib/components/Footer.svelte';
 
   const bookId = $page.params.id;
 
@@ -296,4 +297,5 @@
     {/if}
 
   </div>
+  <Footer />
 </div>

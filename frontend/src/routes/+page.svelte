@@ -1,6 +1,7 @@
 <script>
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
+  import Footer from '$lib/components/Footer.svelte';
 
   let isLoggedIn = $state(false);
   let user = $state(null);
@@ -193,5 +194,5 @@
 
     </div>
   {/if}
-  
+  <Footer />
 </div>

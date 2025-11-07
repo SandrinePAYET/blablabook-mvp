@@ -1,6 +1,7 @@
 <script>
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
+  import Footer from '$lib/components/Footer.svelte';
 
   // État (Svelte 5 runes)
   let books = $state([]);
@@ -558,4 +559,5 @@ z-index: 1;"></div>
         {/each}
       {/if}
     </div>
+    <Footer />
   </div>

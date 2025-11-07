@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import Footer from '$lib/components/Footer.svelte';
 
   let query = $state('');
   let results = $state([]);
@@ -306,4 +307,5 @@ body: JSON.stringify({
     {/if}
 
   </div>
+  <Footer />
 </div>
