@@ -638,58 +638,621 @@ Choix assumé de prioriser le stage sur le projet personnel. Les compétences ac
 
 ---
 
-### **20 octobre 2025 - Dimanche (RATTRAPAGE)**
+---
 
-**Temps passé :** 45 min (15h35-16h20)
+### **20 octobre 2025 - Lundi (SESSION 2 - Soir)**
+
+**Temps passé :** 17 min (20h05-20h22)
 
 **Ce qui a été fait :**
-- ✅ Reprise du projet après 10 jours
-- ✅ Wireframes desktop complets (version adaptative)
-- ✅ **CONCEPTION 100% TERMINÉE !**
-- ✅ Commit propre
+- ✅ Modèle Book créé (141 lignes)
+- ✅ Modèle UserBook créé (154 lignes)
+- ✅ Fichier index.js avec associations (114 lignes)
+- ✅ Tests complets des 3 modèles réussis
+- ✅ **MODÈLES BDD 100% TERMINÉS !**
+- ✅ 4 commits propres
 
-**Contexte de reprise :**
-- 10 jours perdus sur stage (projets urgents)
-- Deadline serrée : 23 jours restants
-- Besoin de rattrapage intensif
+**Difficultés rencontrées :**
+- Comprendre les associations Sequelize (1:N, N:N)
+- Définir la contrainte UNIQUE sur (user_id, book_id)
 
-**Stratégie adoptée :**
-- Wireframes desktop version simplifiée (adaptative du mobile)
-- Focus sur l'essentiel pour gagner du temps
-- Priorisation stricte : développement avant tout
+**Solutions trouvées :**
+- Explications détaillées des associations
+- Index UNIQUE dans UserBook pour éviter doublons
+- Tests complets pour valider toutes les relations
 
 **Apprentissages :**
-- Gestion des priorités multiples (stage + projet)
-- Adaptation rapide (wireframes simplifiés mais efficaces)
-- Pas de perfectionnisme, focus résultat
+- Associations Sequelize (hasMany, belongsTo, belongsToMany)
+- Contraintes d'intégrité en BDD
+- Table de liaison pour relation N:N
+- Méthodes statiques sur modèles
+- Tests des relations avec include
 
-**Progression totale :**
-- ✅ Conception : 100% (MCD, MLD, Dico, Charte, Wireframes mobile & desktop)
-- ⏳ Développement : 0%
+**Points forts :**
+- ✅ User, Book, UserBook fonctionnent parfaitement
+- ✅ Contrainte UNIQUE empêche doublons
+- ✅ Associations 1:N et N:N validées
+- ✅ Méthodes utiles (userHasBook, findOrCreate...)
+- ✅ Session ultra efficace (17 min)
+
+**Commits réalisés :**
+```
+1fe02ca feat: modèle Book avec validation et méthode findOrCreate
+a53200b feat: modèle UserBook (table liaison) avec contrainte unique
+ec92cce feat: fichier index modèles avec associations User-Book-UserBook
+(+ 1 test)
+```
+
+**Progression backend :**
+- ✅ PostgreSQL : 100%
+- ✅ Modèles Sequelize : 100%
+- ⏳ Controllers : 0%
+- ⏳ Routes : 0%
+- ⏳ Middleware : 0%
+
+**Prochaine session :**
+- Mardi 21 octobre (ce soir 19h30)
+- Objectif : Controller Auth + Register
+- Temps estimé : 1h30
+
+**État d'esprit :** 🔥 ULTRA MOTIVÉE ! Session express mais hyper efficace ! Les modèles sont prêts, maintenant on passe aux controllers. Le backend prend forme. Je maîtrise de mieux en mieux Sequelize. Les associations sont claires. Prête pour la suite ! 💪
+
+**Note personnelle :** Bilan total lundi 20 oct = 4h47 de travail. Conception 100% + Modèles BDD 100%. Progression énorme. Le planning tient la route. 22 jours restants = largement faisable ! 🚀
+
+---
+
+### **21 octobre 2025 - Mardi (3 SESSIONS !)**
+
+**Temps passé :** 3h30 (matin 41min + après-midi 10min + soir 2h40)
+
+**Ce qui a été fait :**
+- ✅ Carnet de bord mis à jour (session 20 oct)
+- ✅ **Controller Auth complet** (register + login) - 219 lignes
+- ✅ **Routes Auth** créées - 37 lignes
+- ✅ **Serveur Express** opérationnel - 116 lignes
+- ✅ **Middleware JWT** (vérification token) - 128 lignes
+- ✅ Route protégée /api/auth/me pour tests
+- ✅ **Tests Auth complets** : register, login, JWT validés
+- ✅ **Controller Books** (recherche Open Library) - 129 lignes
+- ✅ **Routes Books** créées
+- ✅ **Tests Books** : recherche validée
+- ✅ Installation axios
+- ✅ **19 commits propres**
+
+**Difficultés rencontrées :**
+- Erreur chemin .env (résolu avec path relatif)
+- Axios manquant (installé)
+- Syntaxe ligne coupée dans server.js (corrigé)
+
+**Solutions trouvées :**
+- require('dotenv').config({ path: '../.env' })
+- npm install axios
+- Vérification syntaxe complète
+
+**Apprentissages :**
+- Création serveur Express complet
+- Middleware authentification JWT
+- Validation Joi pour données
+- Appels API externes (Open Library)
+- Tests API avec curl
+- Gestion des erreurs HTTP
+- Headers Authorization Bearer
+
+**Points forts :**
+- ✅ API Auth 100% fonctionnelle
+- ✅ Register : création user + hash password + génération JWT
+- ✅ Login : vérification password + JWT
+- ✅ Middleware JWT : protection routes
+- ✅ API Books : recherche 20 livres Open Library
+- ✅ Tous les tests passent
+- ✅ 3h30 ultra productives = ~700 lignes
+
+**Commits réalisés :**
+```
+7987acf docs: carnet de bord session 20 oct soir
+a584bb8 feat: controller Auth avec fonction register (inscription + JWT)
+b81281a feat: routes Auth (register, login) + index routes
+59b55cd feat: serveur Express avec routes API et gestion erreurs
+6747057 fix: correction chemin .env et syntaxe server.js
+f52d93c feat: middleware authentification JWT (vérification token)
+6dfdbc1 feat: fonction login complète avec validation JWT
+45dd50e feat: route protégée /api/auth/me pour test JWT
+9b25300 feat: controller Books + recherche via API Open Library
+```
+
+**Progression backend :**
+- ✅ PostgreSQL : 100%
+- ✅ Modèles Sequelize : 100%
+- ✅ API Auth (register, login) : 100%
+- ✅ Middleware JWT : 100%
+- ✅ API Books (recherche) : 100%
+- ⏳ API UserBooks : 0%
+
+**Backend : 85% terminé !**
+
+**Prochaine session :**
+- Mercredi 22 octobre (ce soir 19h30)
+- Objectif : API UserBooks (bibliothèque)
+- Temps estimé : 1h30
+
+**État d'esprit :** 🔥 EN FEU ! 3h30 de travail ultra concentré ! J'ai fait 3 sessions dans la journée. Le backend avance à une vitesse incroyable. API Auth complète et testée. API Books qui fonctionne parfaitement. J'ai installé tout seule axios. Les tests curl passent tous. Je COMPRENDS ce que je fais. Plus que UserBooks et le backend sera terminé. Je suis EN AVANCE de 6 jours sur le planning ! C'EST ÉNORME ! Fatiguée mais hyper fière. Repos bien mérité. Demain je termine le backend. JE VAIS Y ARRIVER ! 💪🔥
+
+**Note personnelle :** Session marathon mais incroyable. 19 commits en une journée. ~700 lignes de code. Tout fonctionne. API testée et validée. Je maîtrise Express, JWT, Sequelize, axios. Le projet prend vie ! Backend presque fini. 6 jours d'avance ! Je suis une warrior ! 🚀✨
+
+---
+
+### **22 octobre 2025 - Mercredi (2 SESSIONS !)**
+
+**Temps passé :** 2h44 (matin 2h05 + soir 39min)
+
+**Ce qui a été fait :**
+
+**SESSION MATIN (8h55-11h00) :**
+- ✅ **Controller UserBooks complet** (234 lignes)
+  - addBook (ajouter livre à bibliothèque)
+  - getMyBooks (récupérer mes livres)
+  - removeBook (supprimer livre)
+  - Correction bug vérification doublon
+- ✅ **Routes UserBooks** (25 lignes)
+  - POST /api/user-books
+  - GET /api/user-books
+  - DELETE /api/user-books/:id
+  - Protégées par JWT
+- ✅ **Tests complets validés**
+  - Ajout livre → OK
+  - Récupération livres → OK
+  - Suppression livre → OK
+  - Sécurité JWT → OK
+- ✅ **BACKEND 100% TERMINÉ !** 🎉
+
+**SESSION SOIR (19h22-20h01) :**
+- ✅ Installation SvelteKit + Svelte 5
+- ✅ Installation Tailwind CSS v4
+- ✅ Installation Flowbite + Flowbite-Svelte
+- ✅ Configuration complète (PostCSS, Prettier, ESLint)
+- ✅ Layout principal créé
+- ✅ Serveur dev testé et fonctionnel
+- ✅ **FRONTEND INITIALISÉ !** 🚀
+
+**Total :** 5 commits ce matin + 1 commit ce soir = 6 commits aujourd'hui
+
+**Difficultés rencontrées :**
+- Bug addBook : vérification doublon avant création du book (book_id undefined)
+- Tailwind v4 nécessite @tailwindcss/postcss (nouveau package)
+- Commande create-svelte dépréciée → utilisation de npx sv create
+
+**Solutions trouvées :**
+- Réorganisation code : créer book AVANT vérifier doublon
+- Installation @tailwindcss/postcss + configuration postcss.config.js
+- Utilisation nouvelle commande officielle SvelteKit
+
+**Apprentissages :**
+- Ordre logique dans les controllers (créer avant vérifier)
+- Tailwind v4 = nouvelle architecture avec PostCSS séparé
+- SvelteKit moderne avec Svelte 5 (runes)
+- Configuration Flowbite avec Tailwind
+- Structure routing SvelteKit (+page.svelte, +layout.svelte)
+
+**Points forts :**
+- ✅ **BACKEND 100% FONCTIONNEL**
+  - 3 modèles (User, Book, UserBook)
+  - 6 API endpoints testés
+  - Authentification JWT complète
+  - Recherche Open Library
+  - Bibliothèque personnelle
+- ✅ **FRONTEND INSTALLÉ ET OPÉRATIONNEL**
+  - SvelteKit + Svelte 5
+  - Tailwind v4 + Flowbite
+  - Serveur dev fonctionnel
+  - Structure prête pour développement
+- ✅ EN AVANCE DE 5 JOURS sur le planning !
+
+**Commits réalisés :**
+```
+MATIN :
+058b5c1 feat: controller UserBooks (addBook, getMyBooks, removeBook)
+3718991 feat: routes UserBooks protégées par JWT
+1ad1090 fix: correction ordre vérification doublon dans addBook
+1837147 docs: carnet de bord session 21 oct
+
+SOIR :
+65f976f feat: installation SvelteKit + Svelte 5 + Tailwind v4 + Flowbite
+```
+
+**Progression globale :**
+- ✅ Conception : 100%
+- ✅ Backend : 100% (TERMINÉ !)
+- ✅ Frontend : 10% (installé, structure prête)
+- ⏳ Pages frontend : 0%
+- ⏳ Tests : 0%
 - ⏳ Dossier professionnel : 0%
 
-**Prochaines étapes CRITIQUES :**
-- Ce soir (20h30) : Installation PostgreSQL + premiers modèles
-- Semaine 21-27 oct : Backend complet
-- Semaine 28 oct-3 nov : Frontend
-- 10-12 nov : Dossier professionnel
+**Prochaine session :**
+- Jeudi 23 octobre (soir 19h30)
+- Objectif : Page Login (formulaire + appel API)
+- Temps estimé : 1h30
 
-**État d'esprit :** 💪 DÉTERMINÉE ! 10 jours perdus mais pas découragée. Je sais exactement ce qu'il faut faire. Planning serré mais réaliste. Je vais y arriver. Focus et discipline. LET'S GO ! 🔥
+**État d'esprit :** 🔥 BACKEND 100% TERMINÉ EN 2 JOURS AU LIEU DE 7 ! INCROYABLE ! Frontend installé en 40 min. Configuration Tailwind v4 un peu technique mais résolue. Je suis EN AVANCE de 5 jours. Backend complet et testé. Toutes les APIs fonctionnent. Maintenant on attaque le frontend. Svelte 5 moderne installé. Tailwind v4 + Flowbite prêts. Structure claire. Je MAÎTRISE le backend. Confiance totale pour le frontend. Le projet avance TRÈS BIEN ! 💪🚀
 
-**Note personnelle :** Pas de panique. 23 jours = largement faisable si je reste concentrée. Le plus dur (conception) est fait. Maintenant je code ! 🚀
-
----
-
-### **[21-27 octobre] - À venir**
-
-**Sessions prévues :** Soirs 19h30-21h + weekend
-
-**Objectif semaine :** Backend complet (auth, API, BDD)
+**Note personnelle :** Journée exceptionnelle. 2h44 de travail ultra concentré. Backend terminé = ÉNORME victoire. 6 APIs validées. Frontend moderne installé. 24 commits au total. ~1500 lignes de code backend. Planning largement respecté. En avance ! Je suis une warrior ! Le MVP va être MAGNIFIQUE ! 🌟✨
 
 ---
 
+### **23 octobre 2025 - Jeudi (2 SESSIONS !)**
+
+**Temps passé :** 48 min (matin 23 min + soir 25 min)
+
+**Ce qui a été fait :**
+
+**SESSION MATIN (8h45-9h08 = 23 MIN) :**
+- ✅ **Page Login frontend** (220 lignes)
+  - Formulaire Flowbite (email, password)
+  - Validation des champs
+  - Appel API POST /api/auth/login
+  - Sauvegarde token + user dans localStorage
+  - Redirection automatique vers /
+  - Gestion erreurs et loading
+  - Design professionnel
+  
+- ✅ **Page Register frontend** (213 lignes)
+  - Formulaire complet (prénom, nom, email, password, confirmation)
+  - Validation avancée (correspondance passwords)
+  - Appel API POST /api/auth/register
+  - Message de succès
+  - Redirection vers login après 2 secondes
+  - Lien vers login
+
+**SESSION SOIR (20h56-21h21 = 25 MIN) :**
+- ✅ **Navbar fonctionnelle** (100 lignes)
+  - Logo cliquable
+  - Menu navigation (Accueil, Ma Bibliothèque, Rechercher)
+  - Boutons Se connecter/S'inscrire (si déconnecté)
+  - Bouton Déconnexion + nom utilisateur (si connecté)
+  - Navigation programmatique avec goto()
+  - Gestion état utilisateur avec localStorage
+  - Design simple et efficace
+  - Intégrée dans +layout.svelte
+
+- ✅ **Page d'accueil Hero section** (165 lignes)
+  - Hero avec emoji 📚
+  - Message adapté si connecté/déconnecté
+  - "Bienvenue {prénom} !" si connecté
+  - Call-to-actions (Commencer/Se connecter)
+  - 3 sections features (Organiser, Découvrir, Suivre)
+  - Section stats si connecté
+  - Footer professionnel
+  - Design moderne avec Tailwind
+  - Gradient bleu élégant
+
+**Total :** 3 commits (698 lignes au total)
+
+**Difficultés rencontrées :**
+- Erreur Svelte 5 avec Flowbite Navbar (let: directives incompatibles)
+- Problème de cache navigateur après modifications
+
+**Solutions trouvées :**
+
+- Navbar simplifiée sans composants Flowbite complexes
+- Utilisation de <button> avec onclick au lieu de <a>
+- Code HTML/CSS pur plus simple et fiable
+- Redémarrage serveur pour forcer rechargement
+
+**Apprentissages :**
+
+- Svelte 5 : incompatibilité entre runes et certains composants Flowbite
+- Parfois mieux créer des composants simples que d'utiliser des libs
+- onMount() pour charger données localStorage côté client
+- Navigation programmatique avec goto() très pratique
+- Conditions {#if isLoggedIn} pour affichage adapté
+- Design moderne possible avec Tailwind seul
+
+**Points forts :**
+
+- ✅ 698 lignes en 48 minutes = PRODUCTIVITÉ MAXIMALE !
+- ✅ Authentification frontend 100% fonctionnelle
+- ✅ Navbar avec gestion état utilisateur
+- ✅ Page d'accueil professionnelle et attractive
+- ✅ Design cohérent sur toutes les pages
+- ✅ Navigation fluide entre les pages
+- ✅ Code propre et maintenable
+- ✅ Expérience utilisateur complète
+
+**Commits réalisés :**
+
+3f7d186 feat: pages Login et Register frontend avec Flowbite
+779839c feat: Navbar fonctionnelle avec navigation et déconnexion
+98c5c60 feat: page d'accueil avec hero section et features
+
+**Progression globale :**
+
+- ✅ Conception : 100%
+- ✅ Backend : 100%
+- ✅ Frontend : 30% (Auth + Navbar + Home terminés !)
+- ⏳ Pages principales (Bibliothèque, Recherche) : 0%
+- ⏳ Tests : 0%
+- ⏳ Dossier professionnel : 0%
+
+**Prochaine session :**
+
+- Vendredi 24 octobre (soir 19h30)
+- Objectif : Page Ma Bibliothèque (liste livres)
+- Temps estimé : 1h30
+
+**État d'esprit :** 🔥 DEUX MINI-SESSIONS ULTRA PRODUCTIVES ! 23 min le matin + 25 min le soir = 698 lignes ! Auth frontend complète. Navbar fonctionnelle. Page d'accueil magnifique. Svelte 5 parfois capricieux avec Flowbite mais on s'adapte. Solutions simples = solutions efficaces. Design moderne et professionnel. Navigation fluide. Expérience utilisateur au top. Le frontend avance TRÈS VITE ! 3 pages terminées en moins de 1h au total ! Je GÈRE ! 💪🚀
+
+**Note personnelle :** Sessions courtes mais efficaces. Matin express avant stage = 433 lignes en 23 min (RECORD !). Soir tranquille = Navbar + Homepage en 25 min. Total 48 min mais résultat impressionnant. 3 pages complètes fonctionnelles. Auth cycle complet testé. Navbar avec déconnexion OK. Homepage avec conditions si connecté. Design cohérent partout. Tailwind + Flowbite = combo gagnant. Svelte 5 simple et rapide. Confiance totale. Le MVP va être SUPERBE ! 29 commits. ~2700 lignes de code. Toujours en avance. WARRIOR ! 🌟✨
+
 ---
 
+# Carnet de Bord - Vendredi 24 Octobre 2025
+
+## Session Matin
+
+**Horaires :** 8h37 - 9h00  
+**Durée :** 23 minutes  
+**Lieu :** Domicile
+
+### Objectifs
+- Corriger navigation (+layout.svelte)
+- Créer page Ma Bibliothèque
+- Afficher livres utilisateur avec appel API
+
+### Réalisations
+
+#### 1. Correction Navigation (5 min)
+**Problème identifié :** Code du +layout.svelte mal placé (en dehors du script)
+
+**Solution appliquée :**
+- Déplacement du code JavaScript dans la balise `<script>`
+- Correction syntaxe Svelte 5
+- Tests de navigation validés
+
+**Fichiers modifiés :**
+- `frontend/src/routes/+layout.svelte`
+
+#### 2. Page Ma Bibliothèque (18 min)
+**Création complète :** `frontend/src/routes/my-books/+page.svelte` (232 lignes)
+
+**Fonctionnalités implémentées :**
+- Protection de la page (redirection si non connecté)
+- Appel API `GET /api/user-books` avec token JWT
+- Gestion état vide ("Aucun livre dans votre bibliothèque")
+- Affichage des livres en grille responsive
+- Cartes livres avec :
+  - Image de couverture
+  - Titre, auteur, année
+  - Badge statut (À lire, En cours, Lu)
+  - Bouton supprimer
+- Gestion loading et erreurs
+- Design professionnel avec Tailwind
+
+**Code structure :**
+```javascript
+// Protection authentification
+onMount(() => {
+  const token = localStorage.getItem('token');
+  if (!token) goto('/login');
+});
+
+// Récupération livres utilisateur
+async function fetchUserBooks() {
+  const response = await fetch('http://localhost:3000/api/user-books', {
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+  // ...
+}
+```
+
+**Tests validés :**
+- ✅ Redirection si non connecté
+- ✅ Appel API fonctionnel
+- ✅ Affichage état vide
+- ✅ Design responsive
+
+### Difficultés Rencontrées
+- Navigation ne fonctionnait pas → code mal placé dans +layout.svelte
+- Résolu en 5 minutes en déplaçant le code
+
+### Commit
+```
+259ef50 feat: page Ma Bibliothèque avec appel API et gestion état vide
+```
+
+**Statistiques :** 412 lignes modifiées (3 fichiers)
+
+### Compétences DWWM Mobilisées
+- **CCP1 - Développer front-end :** Création composant Svelte, gestion état
+- **CCP2 - Développer back-end :** Consommation API REST avec authentification
+- **Accessibilité :** Labels, alt, navigation clavier
+
+### Points Positifs
+- ✅ Session très productive (23 min = 412 lignes)
+- ✅ Page complète et fonctionnelle
+- ✅ Aucun blocage technique
+- ✅ Commit propre
+
+### À Faire Prochainement
+- Tester avec de vrais livres dans la base
+- Implémenter modification statut
+- Ajouter filtres par statut
+
+---
+
+## Session Soir
+
+**Horaires :** 18h55 - 20h06  
+**Durée :** 1h11  
+**Lieu :** Domicile
+
+### Objectifs
+- Créer page Recherche de livres
+- Intégrer API Open Library
+- Permettre ajout livre à la bibliothèque
+
+### Réalisations
+
+#### 1. Page Recherche de Livres (1h11)
+**Création complète :** `frontend/src/routes/search/+page.svelte` (267 lignes)
+
+**Fonctionnalités implémentées :**
+- Formulaire de recherche (titre, auteur, ISBN)
+- Appel API Open Library (`https://openlibrary.org/search.json`)
+- Transformation des données (mapping résultats)
+- Affichage résultats en grille responsive
+- Cartes livres compactes avec :
+  - Couverture haute qualité (format L)
+  - Titre, auteur, année publication
+  - Bouton "Ajouter à ma bibliothèque"
+- État loading avec spinner
+- Gestion erreurs (aucun résultat, erreur réseau)
+- Design responsive (3 à 6 colonnes selon écran)
+
+**Code structure :**
+```javascript
+// Recherche Open Library
+async function searchBooks(event) {
+  event.preventDefault();
+  const response = await fetch(
+    `https://openlibrary.org/search.json?q=${encodeURIComponent(searchQuery)}&limit=20`
+  );
+  const data = await response.json();
+  books = data.docs.map(book => ({
+    title: book.title,
+    author: book.author_name?.[0] || 'Auteur inconnu',
+    cover_id: book.cover_i,
+    // ...
+  }));
+}
+
+// Ajout à la bibliothèque
+async function addToLibrary(book) {
+  const response = await fetch('http://localhost:3000/api/user-books', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      title: book.title,
+      author: book.author,
+      cover_url: `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`,
+      // ...
+    })
+  });
+}
+```
+
+**Ajustements design (30 min) :**
+- Plusieurs itérations pour taille cartes optimale
+- Hauteur fixe cartes (280px) pour alignement
+- Images en haute qualité (format L au lieu de M)
+- Textes très compacts (10px) pour maximiser nombre de livres
+- Espacement entre cartes (gap-4)
+- 3 à 6 colonnes selon taille écran
+
+**Tests effectués :**
+- ✅ Recherche "Harry Potter" → 20 résultats
+- ✅ Affichage couvertures fonctionnel
+- ✅ Design responsive validé
+- ❌ Erreur "Données invalides" lors de l'ajout
+
+### Difficultés Rencontrées
+
+#### 1. Alignement des cartes (20 min)
+**Problème :** Cartes de hauteurs différentes selon longueur du titre
+
+**Solutions tentées :**
+- `auto-rows-[200px]` sur la grille → n'a pas fonctionné
+- `h-full` sur les cartes → hauteurs toujours variables
+- Cache navigateur très persistant
+
+**Solution finale :**
+- Hauteur fixe `h-[280px]` sur chaque carte
+- `flex flex-col` pour distribution contenu
+- `overflow-hidden` pour gérer débordement texte
+
+#### 2. Cache navigateur (10 min)
+**Problème :** Modifications CSS non visibles immédiatement
+
+**Actions :**
+- Ctrl+Shift+R (rafraîchissement forcé)
+- Vider cache navigateur
+- Cache très tenace, modifications pas toujours visibles
+
+#### 3. Erreur Backend "Données invalides" (5 min)
+**Problème :** Tentative d'ajout livre échoue
+
+**Message erreur :** "Données invalides" (alert navigateur)
+
+**Hypothèses :**
+- Validation backend trop stricte
+- Données Open Library pas au bon format
+- Champ manquant ou incorrect
+
+**État :** Non résolu, à corriger prochainement
+
+### Commit
+```
+acfb86c feat: page Recherche avec API Open Library (erreur ajout à corriger)
+```
+**Note :** Commit effectué le lundi 27 octobre matin
+
+**Statistiques :** 266 lignes (1 fichier créé)
+
+### Compétences DWWM Mobilisées
+- **CCP1 - Développer front-end :** Intégration API externe, gestion état
+- **CCP2 - Développer back-end :** Communication backend via API REST
+- **Design responsive :** Grid Tailwind, adaptation multi-écrans
+- **Débogage :** Identification et tentatives résolution erreurs
+
+### Points Positifs
+- ✅ Page Recherche fonctionnelle à 90%
+- ✅ Intégration Open Library réussie
+- ✅ Design compact et responsive
+- ✅ 20 livres affichés par recherche
+- ✅ Gestion erreurs et loading
+
+### Points d'Amélioration
+- ❌ Erreur backend à corriger (priorité)
+- ⚠️ Alignement cartes perfectible (cache)
+- ⚠️ Boutons "Ajouter" non visibles sur certaines cartes
+
+### À Faire Prochainement
+- **URGENT :** Débugger erreur "Données invalides" backend
+- Vérifier validation côté serveur
+- Tester ajout complet d'un livre
+- Améliorer design si nécessaire après vidage cache
+- Voir les livres ajoutés dans Ma Bibliothèque
+
+---
+
+## Bilan Journée Vendredi 24 Octobre
+
+**Temps total :** 23 min (matin) + 1h11 (soir) = 1h34
+
+**Réalisations :**
+- ✅ Page Ma Bibliothèque complète (412 lignes)
+- ✅ Page Recherche avec Open Library (266 lignes)
+- ✅ 2 commits propres
+- ✅ 678 lignes de code au total
+
+**Progression Frontend :** 50% environ
+- ✅ Authentification (Login, Register)
+- ✅ Navigation (Navbar)
+- ✅ Page accueil
+- ✅ Ma Bibliothèque (affichage)
+- ✅ Recherche (affichage résultats)
+- ⏳ Ajout livre (en cours)
+- ⏳ Actions sur livres (à faire)
+- ⏳ Détail livre (à faire)
+
+**Objectifs Lundi 27 Octobre :**
+1. Corriger erreur backend ajout livre
+2. Tester flux complet recherche → ajout → affichage
+3. Implémenter modification/suppression livre
+4. Créer page détail livre si temps
+
+**État d'esprit :** Productif malgré quelques difficultés techniques. Session soir longue mais code de qualité produit.
 
 ---
 
