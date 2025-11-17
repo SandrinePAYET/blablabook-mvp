@@ -41,7 +41,7 @@
       }
 
       // Appel API
-      const response = await fetch('${getApiUrl('/api/user-books')}', {
+      const response = await fetch(`${getApiUrl('/api/user-books')}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,

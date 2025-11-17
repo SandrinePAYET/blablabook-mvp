@@ -28,7 +28,7 @@
         return;
       }
 
-      const response = await fetch('${getApiUrl('/api/user-books')}', {
+      const response = await fetch(`${getApiUrl('/api/user-books')}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
