@@ -2,6 +2,7 @@
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
   import Footer from '$lib/components/Footer.svelte';
+  import { getApiUrl } from '$lib/config';
 
   // État (Svelte 5 runes)
   let books = $state([]);
@@ -40,7 +41,7 @@
       }
 
       // Appel API
-      const response = await fetch('http://localhost:3000/api/user-books', {
+      const response = await fetch('${getApiUrl('/api/user-books')}', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -78,7 +79,7 @@
     try {
       const token = localStorage.getItem('token');
 
-      const response = await fetch(`http://localhost:3000/api/user-books/${userBookId}`, {
+      const response = await fetch(`${getApiUrl('/api/user-books')}/${userBookId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -108,7 +109,7 @@
     try {
       const token = localStorage.getItem('token');
 
-      const response = await fetch(`http://localhost:3000/api/user-books/${bookId}`, {
+      const response = await fetch(`${getApiUrl('/api/user-books')}/${bookId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -132,7 +133,7 @@
     try {
       const token = localStorage.getItem('token');
       
-      const response = await fetch(`http://localhost:3000/api/user-books/${userBookId}`, {
+      const response = await fetch(`${getApiUrl('/api/user-books')}/${userBookId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

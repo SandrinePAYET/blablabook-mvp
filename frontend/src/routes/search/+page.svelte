@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import Footer from '$lib/components/Footer.svelte';
+  import { getApiUrl } from '$lib/config';
 
   let query = $state('');
   let results = $state([]);
@@ -17,7 +18,7 @@
     error = '';
 
     try {
-      const response = await fetch(`http://localhost:3000/api/books/search?q=${encodeURIComponent(query)}`);
+      const response = await fetch(getApiUrl(`/api/books/search?q=${encodeURIComponent(query)}`));
       const data = await response.json();
 
       if (response.ok) {
@@ -42,7 +43,7 @@
         return;
       }
 
-      const response = await fetch('http://localhost:3000/api/user-books', {
+      const response = await fetch(getApiUrl('/api/user-books'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

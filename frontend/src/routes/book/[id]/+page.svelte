@@ -3,6 +3,7 @@
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
   import Footer from '$lib/components/Footer.svelte';
+  import { getApiUrl } from '$lib/config';
 
   const bookId = $page.params.id;
 
@@ -27,7 +28,7 @@
         return;
       }
 
-      const response = await fetch('http://localhost:3000/api/user-books', {
+      const response = await fetch('${getApiUrl('/api/user-books')}', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -71,7 +72,7 @@
     try {
       const token = localStorage.getItem('token');
 
-      const response = await fetch(`http://localhost:3000/api/user-books/${userBook.id}`, {
+      const response = await fetch(`${getApiUrl('/api/user-books')}/${userBook.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -109,7 +110,7 @@
     try {
       const token = localStorage.getItem('token');
 
-      const response = await fetch(`http://localhost:3000/api/user-books/${userBook.id}`, {
+      const response = await fetch(`${getApiUrl('/api/user-books')}/${userBook.id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

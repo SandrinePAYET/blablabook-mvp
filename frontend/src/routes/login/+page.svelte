@@ -1,6 +1,7 @@
 <script>
   import { goto } from '$app/navigation';
   import Footer from '$lib/components/Footer.svelte';
+  import { getApiUrl } from '$lib/config';
 
   let username = '';
   let password = '';
@@ -19,7 +20,7 @@
     error = '';
 
     try {
-      const response = await fetch('http://localhost:3000/api/auth/login', {
+      const response = await fetch(getApiUrl('/api/auth/login'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

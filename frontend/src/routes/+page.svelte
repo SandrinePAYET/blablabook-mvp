@@ -2,6 +2,7 @@
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
   import Footer from '$lib/components/Footer.svelte';
+  import { getApiUrl } from '$lib/config';
 
   let isLoggedIn = $state(false);
   let user = $state(null);
@@ -25,7 +26,7 @@
     try {
       const token = localStorage.getItem('token');
       
-      const response = await fetch('http://localhost:3000/api/user-books', {
+      const response = await fetch(getApiUrl('/api/user-books'), {
         headers: {
           'Authorization': `Bearer ${token}`
         }

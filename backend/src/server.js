@@ -4,7 +4,7 @@
  * Point d'entrée de l'application backend
  */
 
-require('dotenv').config({ path: '../.env' });
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
