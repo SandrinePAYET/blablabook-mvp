@@ -52,19 +52,16 @@ const User = sequelize.define('User', {
   },
   
   // Mot de passe (haché, obligatoire)
-  password: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-    validate: {
-      notEmpty: {
-        msg: 'Le mot de passe est obligatoire'
-      },
-      len: {
-        args: [8, 255],
-        msg: 'Le mot de passe doit contenir au moins 8 caractères'
-      }
+password: {
+  type: DataTypes.STRING,
+  allowNull: false,
+  validate: {
+    len: {
+      args: [6, 255],
+      msg: 'Le mot de passe doit contenir au moins 6 caractères'
     }
-  },
+  }
+},
 
   // Prénom (optionnel)
   first_name: {

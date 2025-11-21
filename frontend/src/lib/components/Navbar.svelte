@@ -15,8 +15,8 @@
   function logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    user = null; // Réinitialise l'état
-    window.location.href = '/'; // Force un rechargement complet
+    user = null;
+    window.location.href = '/';
   }
 
   function toggleMenu() {
@@ -32,24 +32,186 @@
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 </svelte:head>
 
-<nav style="background: linear-gradient(135deg, #D4A574 0%, #C19A6B 50%, #A0826D 100%); box-shadow: 0 4px 12px rgba(0,0,0,0.3); border-bottom: 3px solid #8B6F47; position: relative;">
+<style>
+  /* === STYLES POUR LE MENU BURGER === */
+  /* Animation d'ouverture du menu mobile depuis la droite */
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+ 
+  /* Animation du bouton burger */
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+ 
+  /* Style de l'overlay semi-transparent */
+  .menu-overlay {
+    position: fixed;
+    top: 64px; /* hauteur de la navbar */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 40;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+ 
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+ 
+  /* Container du menu mobile positionné à droite */
+  .mobile-menu {
+    position: fixed;
+    top: 64px; /* hauteur de la navbar */
+    right: 0;
+    width: 280px;
+    max-width: 85vw;
+    height: calc(100vh - 64px);
+    background: linear-gradient(180deg, #D4A574 0%, #C19A6B 50%, #A0826D 100%);
+    box-shadow: -4px 0 16px rgba(0, 0, 0, 0.4);
+    border-left: 3px solid #8B6F47;
+    padding: 1.5rem;
+    z-index: 50;
+    overflow-y: auto;
+    animation: slideInRight 0.3s ease-out;
+  }
+ 
+  /* Style du bouton burger avec effet hover */
+  .burger-button {
+    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+    color: white;
+    border: 2px solid #B45309;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+  }
+ 
+  .burger-button:hover {
+    background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.5);
+  }
+ 
+  .burger-button:active {
+    transform: scale(0.95);
+  }
+ 
+  /* Style des liens du menu mobile */
+  .mobile-menu-item {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.875rem 1rem;
+    margin-bottom: 0.75rem;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+ 
+  .mobile-menu-item:hover {
+    transform: translateX(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+ 
+  .mobile-menu-item:active {
+    transform: translateX(-3px) scale(0.98);
+  }
+ 
+  /* Couleurs spécifiques pour chaque type de bouton */
+  .menu-library {
+    background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+  }
+ 
+  .menu-search {
+    background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+  }
+ 
+  .menu-login {
+    background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+  }
+ 
+  .menu-register {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  }
+ 
+  .menu-logout {
+    background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+  }
+ 
+  /* Style pour le nom d'utilisateur */
+  .user-badge {
+    background: rgba(255, 255, 255, 0.9);
+    color: #78350f;
+    font-weight: 700;
+    padding: 0.75rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #8B6F47;
+  }
+ 
+  /* Scrollbar personnalisée pour le menu mobile */
+  .mobile-menu::-webkit-scrollbar {
+    width: 8px;
+  }
+ 
+  .mobile-menu::-webkit-scrollbar-track {
+    background: rgba(139, 111, 71, 0.3);
+    border-radius: 4px;
+  }
+ 
+  .mobile-menu::-webkit-scrollbar-thumb {
+    background: #8B6F47;
+    border-radius: 4px;
+  }
+ 
+  .mobile-menu::-webkit-scrollbar-thumb:hover {
+    background: #6B5536;
+  }
+</style>
+
+<nav style="background: linear-gradient(135deg, #D4A574 0%, #C19A6B 50%, #A0826D 100%); box-shadow: 0 4px 12px rgba(0,0,0,0.3); border-bottom: 3px solid #8B6F47; position: fixed; top: 0; left: 0; right: 0; z-index: 100;">
   <div class="max-w-7xl mx-auto px-4">
     <div class="flex justify-between items-center h-16">
-      
+ 
       <!-- Logo -->
       <a href="/" onclick={closeMenu} style="font-family: 'Lobster', cursive; font-size: 24px; color: #78350f; text-decoration: none;">
         📚 Blablabook
       </a>
-
-      <!-- Bouton menu mobile -->
+ 
+      <!-- Bouton menu mobile avec style amélioré -->
       <button
         onclick={toggleMenu}
-        class="md:hidden px-3 py-2 rounded"
-        style="background: #F59E0B; color: white; border: none;"
+        class="md:hidden burger-button"
+        aria-label="Toggle menu"
       >
         {#if menuOpen}✕{:else}☰{/if}
       </button>
-
+ 
       <!-- Menu desktop -->
       <div class="hidden md:flex gap-4 items-center">
         {#if user}
@@ -64,19 +226,38 @@
       </div>
     </div>
   </div>
-
-  <!-- Menu mobile -->
-  {#if menuOpen}
-    <div class="md:hidden absolute top-16 left-0 right-0 p-4" style="background: #D4A574; border-bottom: 3px solid #8B6F47; box-shadow: 0 8px 16px rgba(0,0,0,0.4);">
-      {#if user}
-        <div class="text-center mb-3" style="color: #78350f; font-weight: 700;">👤 {user.username}</div>
-        <a href="/my-books" onclick={closeMenu} class="block w-full text-center mb-3 py-3 rounded-full" style="background: #8B5CF6; color: white; text-decoration: none;">📖 Ma Bibliothèque</a>
-        <a href="/search" onclick={closeMenu} class="block w-full text-center mb-3 py-3 rounded-full" style="background: #3B82F6; color: white; text-decoration: none;">🔍 Rechercher</a>
-        <button onclick={() => { logout(); closeMenu(); }} class="block w-full py-3 rounded-full" style="background: #DC2626; color: white; border: none; cursor: pointer;">🚪 Déconnexion</button>
-      {:else}
-        <a href="/login" onclick={closeMenu} class="block w-full text-center mb-3 py-3 rounded-full" style="background: #3B82F6; color: white; text-decoration: none;">🔐 Connexion</a>
-        <a href="/register" onclick={closeMenu} class="block w-full text-center py-3 rounded-full" style="background: #10B981; color: white; text-decoration: none;">✨ Inscription</a>
-      {/if}
-    </div>
-  {/if}
 </nav>
+ 
+<!-- Overlay semi-transparent (cliquable pour fermer le menu) -->
+{#if menuOpen}
+  <div class="menu-overlay md:hidden" onclick={closeMenu}></div>
+{/if}
+ 
+<!-- Menu mobile repositionné à droite -->
+{#if menuOpen}
+  <div class="mobile-menu md:hidden">
+    {#if user}
+      <div class="user-badge">👤 {user.username}</div>
+      <a href="/my-books" onclick={closeMenu} class="mobile-menu-item menu-library">
+        📖 Ma Bibliothèque
+      </a>
+      <a href="/search" onclick={closeMenu} class="mobile-menu-item menu-search">
+        🔍 Rechercher
+      </a>
+      <button
+        onclick={() => { logout(); closeMenu(); }}
+        class="mobile-menu-item menu-logout"
+        style="border: none; cursor: pointer; font-size: inherit;"
+      >
+        🚪 Déconnexion
+      </button>
+    {:else}
+      <a href="/login" onclick={closeMenu} class="mobile-menu-item menu-login">
+        🔐 Connexion
+      </a>
+      <a href="/register" onclick={closeMenu} class="mobile-menu-item menu-register">
+        ✨ Inscription
+      </a>
+    {/if}
+  </div>
+{/if}
