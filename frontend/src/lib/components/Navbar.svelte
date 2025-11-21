@@ -82,9 +82,9 @@
     width: 280px;
     max-width: 85vw;
     height: calc(100vh - 64px);
-    background: linear-gradient(180deg, #D4A574 0%, #C19A6B 50%, #A0826D 100%);
+    background: linear-gradient(180deg, #1E3A8A 0%, #3B82F6 100%);
     box-shadow: -4px 0 16px rgba(0, 0, 0, 0.4);
-    border-left: 3px solid #8B6F47;
+    border-left: 3px solid #1E40AF;
     padding: 1.5rem;
     z-index: 50;
     overflow-y: auto;
@@ -163,15 +163,15 @@
 
   /* Style pour le nom d'utilisateur */
   .user-badge {
-    background: rgba(255, 255, 255, 0.9);
-    color: #78350f;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1E3A8A;
     font-weight: 700;
     padding: 0.75rem;
     border-radius: 12px;
     margin-bottom: 1rem;
     text-align: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    border: 2px solid #8B6F47;
+    border: 2px solid rgba(255, 255, 255, 0.3);
   }
 
   /* Scrollbar personnalisée pour le menu mobile */
@@ -180,26 +180,26 @@
   }
 
   .mobile-menu::-webkit-scrollbar-track {
-    background: rgba(139, 111, 71, 0.3);
+    background: rgba(30, 58, 138, 0.3);
     border-radius: 4px;
   }
 
   .mobile-menu::-webkit-scrollbar-thumb {
-    background: #8B6F47;
+    background: rgba(255, 255, 255, 0.5);
     border-radius: 4px;
   }
 
   .mobile-menu::-webkit-scrollbar-thumb:hover {
-    background: #6B5536;
+    background: rgba(255, 255, 255, 0.7);
   }
 </style>
 
-<nav style="background: linear-gradient(135deg, #D4A574 0%, #C19A6B 50%, #A0826D 100%); box-shadow: 0 4px 12px rgba(0,0,0,0.3); border-bottom: 3px solid #8B6F47; position: fixed; top: 0; left: 0; right: 0; z-index: 100;">
+<nav style="background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%); box-shadow: 0 4px 12px rgba(0,0,0,0.3); border-bottom: 3px solid #1E40AF; position: fixed; top: 0; left: 0; right: 0; z-index: 100;">
   <div class="max-w-7xl mx-auto px-4">
     <div class="flex justify-between items-center h-16">
 
       <!-- Logo -->
-      <a href="/" onclick={closeMenu} style="font-family: 'Lobster', cursive; font-size: 24px; color: #78350f; text-decoration: none;">
+      <a href="/" onclick={closeMenu} style="font-family: 'Lobster', cursive; font-size: 24px; color: #FFFFFF; text-decoration: none;">
         📚 Blablabook
       </a>
 
@@ -215,7 +215,7 @@
       <!-- Menu desktop -->
       <div class="hidden md:flex gap-4 items-center">
         {#if user}
-          <span style="color: #78350f; font-weight: 600;">👤 {user.username}</span>
+          <span style="color: #FFFFFF; font-weight: 600;">👤 {user.username}</span>
           <a href="/my-books" style="color: white; text-decoration: none; background: #8B5CF6; padding: 8px 16px; border-radius: 20px;">📖 Ma Bibliothèque</a>
           <a href="/search" style="color: white; text-decoration: none; background: #3B82F6; padding: 8px 16px; border-radius: 20px;">🔍 Rechercher</a>
           <button onclick={logout} style="color: white; background: #DC2626; padding: 8px 16px; border-radius: 20px; border: none; cursor: pointer;">🚪 Déconnexion</button>
