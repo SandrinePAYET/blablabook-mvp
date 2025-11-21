@@ -18,5 +18,6 @@
 <style>
   main {
     min-height: calc(100vh - 64px);
+    padding-top: 64px; /* Compense la navbar fixe */
   }
 </style>
