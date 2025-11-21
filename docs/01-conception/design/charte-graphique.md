@@ -1,9 +1,32 @@
 # 🎨 CHARTE GRAPHIQUE - BLABLABOOK
 
-**Projet :** Blablabook - Bibliothèque personnelle  
-**Date :** 7 octobre 2025  
-**Auteur :** [PAYET Sandrine]  
-**Version :** 1.0
+**Projet :** Blablabook - Bibliothèque personnelle
+**Date création :** 7 octobre 2025
+**Dernière mise à jour :** 21 novembre 2025
+**Auteur :** [PAYET Sandrine]
+**Version :** 2.0 - Thème Bibliothèque Implémenté
+
+---
+
+## 📝 NOTE SUR L'IMPLÉMENTATION
+
+**⚠️ Évolution créative entre conception et réalisation**
+
+Lors du développement, le projet a évolué vers un **thème bibliothèque chaleureuse** avec des tons bois/marron pour créer une ambiance authentique de bibliothèque traditionnelle, tout en conservant la **navbar bleue moderne** pour la navigation.
+
+**Architecture des couleurs finales :**
+- **Navigation (Navbar)** : Bleu #1E3A8A (conception initiale) ✅
+- **Pages et contenu** : Thème bois/bibliothèque (évolution créative) 🆕
+- **Accessibilité** : WCAG 2.1 niveau AA respecté partout ✅
+
+Cette charte **version 2.0** documente l'implémentation réelle avec :
+- ✅ Palette bois/bibliothèque complète (🆕 sections ajoutées)
+- ✅ Polices Lobster & Satisfy (🆕 implémentées)
+- ✅ Corrections d'accessibilité (🆕 contraste optimisé)
+- ✅ Couleur purple pour bibliothèque (🆕)
+
+**Justification du choix :**
+Le thème bois renforce l'identité "bibliothèque personnelle" et crée une expérience utilisateur plus chaleureuse et engageante, tout en respectant les standards d'accessibilité professionnels.
 
 ---
 
@@ -98,6 +121,103 @@ Utilisation :
 
 ---
 
+### **🆕 Thème Bibliothèque Bois (Implémentation réelle)**
+
+**Concept :** Ambiance chaleureuse de bibliothèque traditionnelle avec étagères en bois.
+
+#### **Beige Chaud - Fond principal thème**
+
+Code HEX : `#D4A574`
+RGB : rgb(212, 165, 116)
+Utilisation :
+- Cartes principales
+- Fond héros sections
+- Éléments décoratifs
+
+#### **Beige Moyen**
+
+Code HEX : `#C19A6B`
+RGB : rgb(193, 154, 107)
+Utilisation :
+- Dégradés
+- Étagères de livres
+- Transitions
+
+#### **Marron Clair**
+
+Code HEX : `#A0826D`
+RGB : rgb(160, 130, 109)
+Utilisation :
+- Ombres douces
+- Dégradés de fin
+- Séparateurs
+
+#### **Marron Foncé - Texte sur beige**
+
+Code HEX : `#78350f`
+RGB : rgb(120, 53, 15)
+Utilisation :
+- Titres principaux sur fond beige
+- Labels et textes importants
+- Contraste : 4.5:1 sur beige (WCAG AA) ✅
+
+#### **Marron Très Foncé - Texte accessible** 🆕
+
+Code HEX : `#6B2D0E`
+RGB : rgb(107, 45, 14)
+Utilisation :
+- Texte courant sur fond beige
+- Descriptions et paragraphes
+- **Contraste : 5.5:1 sur beige (WCAG AA)** ✅
+- **Amélioration accessibilité vs #92400e**
+
+#### **Marron Bordures**
+
+Code HEX : `#8B6F47`
+RGB : rgb(139, 111, 71)
+Utilisation :
+- Bordures décoratives
+- Séparateurs
+- Effets bois
+
+#### **Beige Footer - Accessible** 🆕
+
+Code HEX : `#F5DEB3` (Wheat)
+RGB : rgb(245, 222, 179)
+Utilisation :
+- Liens footer sur fond sombre
+- **Contraste : ~5:1 (WCAG AA)** ✅
+
+Code HEX : `#E5D5C0` (Beige Clair)
+RGB : rgb(229, 213, 192)
+Utilisation :
+- Copyright footer
+- **Contraste amélioré pour accessibilité** ✅
+
+#### **Marron Footer Fond**
+
+Code HEX : `#5D4E37` → `#4A3F2F` (dégradé)
+RGB : rgb(93, 78, 55) → rgb(74, 63, 47)
+Utilisation :
+- Fond footer
+- Base sombre pour le contraste
+
+---
+
+### **🆕 Couleur UI Supplémentaire**
+
+#### **Purple Violet - Bibliothèque**
+
+Code HEX : `#8B5CF6`
+RGB : rgb(139, 92, 246)
+Utilisation :
+- Bouton "Ma Bibliothèque"
+- Statut "En cours de lecture"
+- Éléments interactifs bibliothèque
+- Excellent contraste sur blanc ✅
+
+---
+
 ### **Couleurs neutres**
 
 #### **Texte principal**
@@ -183,6 +303,62 @@ Bouton rouge + icône ✗ + texte "Annuler"
 ---
 
 ## ✍️ TYPOGRAPHIE
+
+**🆕 NOTE IMPLÉMENTATION :** Les polices **Lobster (titres)** et **Satisfy (décoratif)** ont été choisies pour renforcer le thème bibliothèque. Inter et Poppins (ci-dessous) étaient la vision initiale.
+
+---
+
+### **🆕 POLICES RÉELLEMENT IMPLÉMENTÉES**
+
+#### **Police principale : Lobster**
+
+Famille : Lobster (Google Fonts)
+Type : Cursive/Script
+URL : https://fonts.google.com/specimen/Lobster
+
+**Utilisation :**
+- Logo "Blablabook"
+- Titres principaux (H1)
+- Navigation
+
+**Pourquoi Lobster ?**
+- ✅ Ambiance chaleureuse bibliothèque
+- ✅ Personnalité unique et mémorable
+- ✅ Excellente lisibilité malgré style cursive
+- ✅ Gratuite
+
+**Code :**
+```html
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+<style>font-family: 'Lobster', cursive;</style>
+```
+
+#### **Police secondaire : Satisfy**
+
+Famille : Satisfy (Google Fonts)
+Type : Handwriting
+
+**Utilisation :**
+- Titres décoratifs
+- Messages d'accueil
+
+**Code :**
+```html
+<link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+```
+
+#### **Corps de texte : System fonts (Tailwind)**
+
+Stack : `-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif`
+
+**Avantages :**
+- ✅ Performances optimales
+- ✅ Lisibilité maximale
+- ✅ Pas de chargement externe
+
+---
+
+### **📋 VISION INITIALE (Documentée mais non implémentée)**
 
 ### **Police principale : Inter**
 

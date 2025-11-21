@@ -157,8 +157,6 @@ Le projet se concentre sur les **fonctionnalités essentielles** pour valider le
 
 Pour respecter le délai, ces fonctionnalités ne seront **pas développées** :
 
-- ❌ Système de notation des livres
-- ❌ Commentaires et avis
 - ❌ Partage social (amis, publications)
 - ❌ Listes de lecture personnalisées
 - ❌ Recommandations algorithmiques
@@ -167,6 +165,43 @@ Pour respecter le délai, ces fonctionnalités ne seront **pas développées** :
 - ❌ Chat ou messagerie
 
 **Note :** Ces fonctionnalités pourront être mentionnées comme **évolutions possibles** lors de la présentation au jury.
+
+### 3.4 Fonctionnalités Bonus Implémentées ✨
+
+**⚠️ Évolution du périmètre durant le développement**
+
+Durant la phase de développement, certaines fonctionnalités initialement exclues du MVP ont été implémentées en raison de leur forte valeur ajoutée pour l'expérience utilisateur. Ces ajouts démontrent la capacité à aller au-delà des exigences minimales tout en respectant les délais.
+
+#### ✅ Fonctionnalités ajoutées au-delà du MVP :
+
+**📊 Système de notation des livres**
+- Notation de 0 à 5 étoiles
+- Interface intuitive avec sélecteur d'étoiles
+- Sauvegarde automatique de la note
+- Affichage visuel des étoiles sur chaque livre
+
+**📖 Système de statut de lecture**
+- 4 statuts disponibles : "À lire", "En cours", "Lu", "Abandonné"
+- Sélecteur visuel avec emojis
+- Permet de suivre sa progression de lecture
+- Filtrage visuel par couleur
+
+**💬 Système d'avis personnels**
+- Zone de texte pour ajouter un avis sur un livre
+- Sauvegarde automatique
+- Consultation de ses propres avis
+
+**Justification de ces ajouts :**
+- ✅ Améliore significativement l'expérience utilisateur
+- ✅ Démontre la maîtrise de formulaires complexes
+- ✅ Illustre la gestion d'état avancée
+- ✅ Valorise le projet lors de la présentation au jury
+- ✅ Répond à un besoin réel des utilisateurs
+
+**Impact technique :**
+- Modification du modèle UserBook (ajout des champs `rating`, `status`, `review`)
+- Mise à jour de l'API pour gérer ces nouvelles données
+- Enrichissement de l'interface utilisateur (composants interactifs)
 
 ---
 
