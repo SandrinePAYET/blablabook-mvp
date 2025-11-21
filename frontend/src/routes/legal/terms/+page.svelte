@@ -27,14 +27,14 @@
       <div class="space-y-6" style="color: #78350f;">
         
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">1. Acceptation des conditions</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">1. Acceptation des conditions</h2>
           <p>
             En utilisant Blablabook, vous acceptez pleinement et sans réserve les présentes Conditions Générales d'Utilisation (CGU). Si vous n'acceptez pas ces conditions, vous ne devez pas utiliser ce service.
           </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">2. Objet du service</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">2. Objet du service</h2>
           <p class="mb-2">
             Blablabook est une application web gratuite permettant de :
           </p>
@@ -50,7 +50,7 @@
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">3. Création de compte</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">3. Création de compte</h2>
           <p class="mb-2">
             Pour utiliser Blablabook, vous devez créer un compte en fournissant :
           </p>
@@ -65,7 +65,7 @@
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">4. Utilisation du service</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">4. Utilisation du service</h2>
           <p class="mb-2">
             Vous vous engagez à :
           </p>
@@ -78,7 +78,7 @@
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">5. Contenu utilisateur</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">5. Contenu utilisateur</h2>
           <p class="mb-2">
             Vos notes, avis et bibliothèque personnelle vous appartiennent. Blablabook s'engage à :
           </p>
@@ -90,14 +90,14 @@
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">6. Disponibilité du service</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">6. Disponibilité du service</h2>
           <p>
             Blablabook est un projet pédagogique. Nous ne garantissons pas une disponibilité continue du service. Des interruptions peuvent survenir pour maintenance, mises à jour ou raisons techniques.
           </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">7. Limitation de responsabilité</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">7. Limitation de responsabilité</h2>
           <p class="mb-2">
             Blablabook est fourni "tel quel" sans garantie d'aucune sorte. Nous ne saurions être tenus responsables de :
           </p>
@@ -110,28 +110,28 @@
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">8. Suspension et résiliation</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">8. Suspension et résiliation</h2>
           <p>
             Nous nous réservons le droit de suspendre ou supprimer votre compte en cas de non-respect des présentes CGU, sans préavis ni indemnité.
           </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">9. Modifications des CGU</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">9. Modifications des CGU</h2>
           <p>
             Ces CGU peuvent être modifiées à tout moment. La date de dernière mise à jour est indiquée ci-dessous. Il est de votre responsabilité de consulter régulièrement ces conditions.
           </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">10. Droit applicable</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">10. Droit applicable</h2>
           <p>
             Les présentes CGU sont régies par le droit français. Tout litige sera soumis aux tribunaux compétents français.
           </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">11. Contact</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">11. Contact</h2>
           <p>
             Pour toute question concernant ces CGU, contactez-nous via la <a href="/legal/contact" class="underline font-bold hover:text-amber-700">page de contact</a>.
           </p>
@@ -139,7 +139,7 @@
 
       </div>
 
-      <div class="mt-8 text-sm text-center" style="color: #92400e;">
+      <div class="mt-8 text-sm text-center" style="color: #6B2D0E;">
         <p>Dernière mise à jour : 07 novembre 2025</p>
       </div>
 

@@ -68,7 +68,7 @@
           Connexion
         </h1>
         
-        <p style="color: #92400e; font-size: 16px; font-weight: 600;">
+        <p style="color: #6B2D0E; font-size: 16px; font-weight: 600;">
           Accédez à votre bibliothèque personnelle
         </p>
       </div>
@@ -145,7 +145,7 @@
 
         <!-- Lien inscription -->
         <div class="text-center">
-          <p style="color: #92400e; font-weight: 600; margin-bottom: 12px;">
+          <p style="color: #6B2D0E; font-weight: 600; margin-bottom: 12px;">
             Pas encore de compte ?
           </p>
           

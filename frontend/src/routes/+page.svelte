@@ -75,7 +75,7 @@
             Blablabook
           </h1>
 
-          <p style="font-size: 24px; color: #92400e; margin-bottom: 40px; font-weight: 600; text-shadow: 1px 1px 2px rgba(255,255,255,0.3);">
+          <p style="font-size: 24px; color: #6B2D0E; margin-bottom: 40px; font-weight: 600; text-shadow: 1px 1px 2px rgba(255,255,255,0.3);">
             Votre bibliothèque personnelle en ligne
           </p>
 
@@ -105,19 +105,19 @@
             <div style="background: rgba(255, 255, 255, 0.9); padding: 24px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
               <div style="font-size: 48px; margin-bottom: 12px;">📖</div>
               <h3 style="font-size: 20px; font-weight: bold; color: #78350f; margin-bottom: 8px;">Organisez</h3>
-              <p style="color: #92400e; font-size: 14px;">Classez vos livres par statut : à lire, en cours, terminés</p>
+              <p style="color: #6B2D0E; font-size: 14px;">Classez vos livres par statut : à lire, en cours, terminés</p>
             </div>
 
             <div style="background: rgba(255, 255, 255, 0.9); padding: 24px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
               <div style="font-size: 48px; margin-bottom: 12px;">⭐</div>
               <h3 style="font-size: 20px; font-weight: bold; color: #78350f; margin-bottom: 8px;">Notez</h3>
-              <p style="color: #92400e; font-size: 14px;">Attribuez des notes à vos lectures favorites</p>
+              <p style="color: #6B2D0E; font-size: 14px;">Attribuez des notes à vos lectures favorites</p>
             </div>
 
             <div style="background: rgba(255, 255, 255, 0.9); padding: 24px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
               <div style="font-size: 48px; margin-bottom: 12px;">🔍</div>
               <h3 style="font-size: 20px; font-weight: bold; color: #78350f; margin-bottom: 8px;">Découvrez</h3>
-              <p style="color: #92400e; font-size: 14px;">Recherchez parmi des milliers de livres</p>
+              <p style="color: #6B2D0E; font-size: 14px;">Recherchez parmi des milliers de livres</p>
             </div>
           </div>
 
@@ -136,13 +136,13 @@
             <h1 class="mb-3" style="font-family: 'Satisfy', cursive; font-size: 48px; color: #78350f; text-shadow: 2px 2px 4px rgba(255,255,255,0.3);">
               👋 Bonjour {user?.username || 'lecteur'} !
             </h1>
-            <p class="mb-8" style="font-size: 20px; color: #92400e; font-weight: 600;">
+            <p class="mb-8" style="font-size: 20px; color: #6B2D0E; font-weight: 600;">
               Bienvenue dans votre bibliothèque personnelle
             </p>
 
             {#if loading}
               <div class="flex justify-center py-12">
-                <div class="animate-spin h-12 w-12" style="border: 4px solid #92400e; border-top-color: transparent; border-radius: 50%;"></div>
+                <div class="animate-spin h-12 w-12" style="border: 4px solid #6B2D0E; border-top-color: transparent; border-radius: 50%;"></div>
               </div>
             {:else if stats}
               <!-- Statistiques -->

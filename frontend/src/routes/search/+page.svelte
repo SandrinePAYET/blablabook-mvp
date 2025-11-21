@@ -170,7 +170,7 @@ body: JSON.stringify({
         🔍 Rechercher des livres
       </h1>
       
-      <p style="color: #92400e; font-size: 16px; margin-bottom: 24px; font-weight: 600;">
+      <p style="color: #6B2D0E; font-size: 16px; margin-bottom: 24px; font-weight: 600;">
         Découvrez des millions de livres grâce à Open Library
       </p>
 

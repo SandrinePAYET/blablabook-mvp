@@ -149,7 +149,7 @@
     {#if loading}
       <div class="flex justify-center items-center py-32">
         <div class="text-center bg-white rounded-xl p-8 shadow-xl">
-          <div class="animate-spin h-16 w-16 mx-auto mb-4" style="border: 4px solid #92400e; border-top-color: transparent; border-radius: 50%;"></div>
+          <div class="animate-spin h-16 w-16 mx-auto mb-4" style="border: 4px solid #6B2D0E; border-top-color: transparent; border-radius: 50%;"></div>
           <p class="font-bold text-lg" style="color: #78350f;">Chargement...</p>
         </div>
       </div>
@@ -189,7 +189,7 @@
           </h1>
           
           {#if userBook.book.author}
-            <p class="text-2xl mb-4" style="color: #92400e;">
+            <p class="text-2xl mb-4" style="color: #6B2D0E;">
               par {userBook.book.author}
             </p>
           {/if}
@@ -264,7 +264,7 @@
             </div>
 
             {#if userBook.book.description}
-              <div class="mb-6 p-4 rounded-lg" style="background: rgba(212,165,116,0.2); border-left: 4px solid #92400e;">
+              <div class="mb-6 p-4 rounded-lg" style="background: rgba(212,165,116,0.2); border-left: 4px solid #6B2D0E;">
                 <p class="text-sm leading-relaxed" style="color: #78350f;">
                   {userBook.book.description}
                 </p>

@@ -27,7 +27,7 @@
       <div class="space-y-6" style="color: #78350f;">
         
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">1. Collecte des données</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">1. Collecte des données</h2>
           <p class="mb-2">
             Blablabook collecte uniquement les données strictement nécessaires au fonctionnement du service :
           </p>
@@ -40,7 +40,7 @@
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">2. Utilisation des données</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">2. Utilisation des données</h2>
           <p class="mb-2">
             Vos données sont utilisées exclusivement pour :
           </p>
@@ -55,7 +55,7 @@
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">3. Sécurité des données</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">3. Sécurité des données</h2>
           <p class="mb-2">
             Blablabook met en œuvre les mesures de sécurité suivantes :
           </p>
@@ -68,7 +68,7 @@
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">4. Vos droits (RGPD)</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">4. Vos droits (RGPD)</h2>
           <p class="mb-2">
             Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez des droits suivants :
           </p>
@@ -85,28 +85,28 @@
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">5. Cookies</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">5. Cookies</h2>
           <p>
             Blablabook utilise uniquement des cookies techniques essentiels (localStorage) pour stocker votre token d'authentification. Aucun cookie de traçage ou publicitaire n'est utilisé.
           </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">6. Conservation des données</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">6. Conservation des données</h2>
           <p>
             Vos données sont conservées tant que votre compte est actif. Vous pouvez supprimer votre compte à tout moment, ce qui entraînera la suppression définitive de toutes vos données.
           </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">7. API externe</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">7. API externe</h2>
           <p>
             Les recherches de livres utilisent l'API Google Books. Les requêtes sont envoyées directement depuis votre navigateur. Consultez la <a href="https://policies.google.com/privacy" target="_blank" class="underline font-bold hover:text-amber-700">politique de confidentialité de Google</a> pour plus d'informations.
           </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">8. Modifications</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">8. Modifications</h2>
           <p>
             Cette politique de confidentialité peut être modifiée. La date de dernière mise à jour est indiquée ci-dessous.
           </p>
@@ -114,7 +114,7 @@
 
       </div>
 
-      <div class="mt-8 text-sm text-center" style="color: #92400e;">
+      <div class="mt-8 text-sm text-center" style="color: #6B2D0E;">
         <p>Dernière mise à jour : 07 novembre 2025</p>
       </div>
 

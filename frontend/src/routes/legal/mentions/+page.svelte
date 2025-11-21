@@ -27,7 +27,7 @@
       <div class="space-y-6" style="color: #78350f;">
         
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">1. Présentation du site</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">1. Présentation du site</h2>
           <p class="mb-2"><strong>Nom du site :</strong> Blablabook</p>
           <p class="mb-2"><strong>URL :</strong> http://localhost:5173</p>
           <p class="mb-2"><strong>Éditeur :</strong> Projet étudiant dans le cadre de la formation DWWM</p>
@@ -35,13 +35,13 @@
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">2. Hébergement</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">2. Hébergement</h2>
           <p class="mb-2"><strong>Hébergeur :</strong> Développement local</p>
           <p>Ce site est actuellement hébergé en environnement de développement local dans le cadre d'un projet de formation.</p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">3. Propriété intellectuelle</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">3. Propriété intellectuelle</h2>
           <p class="mb-2">
             L'ensemble du contenu de ce site est la propriété exclusive de son créateur, sauf mention contraire.
           </p>
@@ -54,7 +54,7 @@
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">4. Données personnelles</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">4. Données personnelles</h2>
           <p class="mb-2">
             Conformément au RGPD, les utilisateurs disposent d'un droit d'accès, de rectification et de suppression de leurs données personnelles.
           </p>
@@ -64,21 +64,21 @@
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">5. Cookies</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">5. Cookies</h2>
           <p>
             Ce site utilise uniquement des cookies techniques nécessaires au fonctionnement de l'authentification. Aucun cookie de traçage n'est utilisé.
           </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">6. Limitation de responsabilité</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">6. Limitation de responsabilité</h2>
           <p>
             Ce site est un projet pédagogique. L'éditeur ne saurait être tenu responsable des éventuels dysfonctionnements.
           </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold mb-3" style="color: #92400e;">7. Contact</h2>
+          <h2 class="text-2xl font-bold mb-3" style="color: #6B2D0E;">7. Contact</h2>
           <p>
             Pour toute question, contactez-nous via la <a href="/legal/contact" class="underline font-bold hover:text-amber-700">page de contact</a>.
           </p>
@@ -86,7 +86,7 @@
 
       </div>
 
-      <div class="mt-8 text-sm text-center" style="color: #92400e;">
+      <div class="mt-8 text-sm text-center" style="color: #6B2D0E;">
         <p>Dernière mise à jour : 07 novembre 2025</p>
       </div>
 

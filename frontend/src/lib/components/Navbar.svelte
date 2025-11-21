@@ -114,6 +114,11 @@
     transform: scale(0.95);
   }
 
+  .burger-button:focus {
+    outline: 3px solid #F59E0B;
+    outline-offset: 2px;
+  }
+
   /* Style des liens du menu mobile */
   .mobile-menu-item {
     display: block;

@@ -56,7 +56,7 @@
         <p class="mb-4">
           Vous avez une question, une suggestion ou rencontrez un problème ? N'hésitez pas à nous contacter via le formulaire ci-dessous.
         </p>
-        <p class="text-sm" style="color: #92400e;">
+        <p class="text-sm" style="color: #6B2D0E;">
           <strong>Note :</strong> Ce formulaire est actuellement une démonstration dans le cadre d'un projet pédagogique. Les messages ne sont pas réellement envoyés.
         </p>
       </div>
@@ -158,9 +158,9 @@
 
       </form>
 
-      <div class="mt-8 p-6 rounded-lg" style="background: rgba(212, 165, 116, 0.2); border-left: 4px solid #92400e;">
+      <div class="mt-8 p-6 rounded-lg" style="background: rgba(212, 165, 116, 0.2); border-left: 4px solid #6B2D0E;">
         <h3 class="font-bold mb-2" style="color: #78350f;">📌 Informations importantes</h3>
-        <ul class="list-disc list-inside space-y-1 text-sm" style="color: #92400e;">
+        <ul class="list-disc list-inside space-y-1 text-sm" style="color: #6B2D0E;">
           <li>Nous traitons vos données conformément à notre <a href="/legal/privacy" class="underline font-bold hover:text-amber-700">politique de confidentialité</a></li>
           <li>Temps de réponse estimé : 24-48 heures</li>
           <li>Pour les demandes RGPD, précisez votre email d'inscription</li>

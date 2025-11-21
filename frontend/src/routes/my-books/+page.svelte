@@ -179,7 +179,7 @@
     <div class="mb-8 rounded-lg p-6 shadow-lg" style="background: linear-gradient(135deg, #D4A574 0%, #C19A6B 50%, #A0826D 100%); background-image: repeating-linear-gradient(90deg, rgba(0,0,0,0.1) 0px, transparent 1px, transparent 3px, rgba(0,0,0,0.15) 4px, transparent 5px, transparent 8px), repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, transparent 2px, transparent 7px, rgba(255,255,255,0.08) 9px, transparent 11px, transparent 15px); box-shadow: 0 6px 12px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.3);">
       <h1 class="text-3xl md:text-5xl mb-2" style="color: #78350f; font-family: 'Satisfy', cursive; font-weight: normal; text-shadow: 1px 1px 0px #78350f;">
       </h1>
-      <p style="color: #92400e;">
+      <p style="color: #6B2D0E;">
         Gérez votre collection personnelle de livres
       </p>
     </div>
@@ -189,7 +189,7 @@
       <div class="flex justify-center items-center py-32">
         <div class="text-center bg-white rounded-xl p-8 shadow-xl" style="background-color: rgba(255, 255, 255, 0.95);">
           <div class="relative inline-block">
-            <svg class="animate-spin h-16 w-16 mx-auto" style="color: #92400e;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <svg class="animate-spin h-16 w-16 mx-auto" style="color: #6B2D0E;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
@@ -198,7 +198,7 @@
             </div>
           </div>
           <p class="font-semibold text-lg mt-4" style="color: #78350f;">Chargement de votre bibliothèque...</p>
-          <p class="text-sm mt-2" style="color: #92400e;">Préparation de vos livres</p>
+          <p class="text-sm mt-2" style="color: #6B2D0E;">Préparation de vos livres</p>
         </div>
       </div>
     {/if}
@@ -223,11 +223,11 @@
         <button
           onclick={() => goto('/search')}
           class="px-8 py-3 text-white font-semibold rounded-lg transition-colors shadow-lg"
-          style="background-color: #92400e;"
+          style="background-color: #6B2D0E;"
           onmouseover={(e) => e.currentTarget.style.backgroundColor = '#78350f'}
-          onmouseout={(e) => e.currentTarget.style.backgroundColor = '#92400e'}
+          onmouseout={(e) => e.currentTarget.style.backgroundColor = '#6B2D0E'}
           onfocus={(e) => e.currentTarget.style.backgroundColor = '#78350f'}
-          onblur={(e) => e.currentTarget.style.backgroundColor = '#92400e'}
+          onblur={(e) => e.currentTarget.style.backgroundColor = '#6B2D0E'}
         >
           🔍 Rechercher des livres
         </button>
@@ -465,7 +465,7 @@
                   {/if}
                   
                   {#if userBook.book.author}
-                    <p class="text-[10px] text-gray-600 mb-2" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                    <p class="text-sm text-gray-600 mb-2" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                       par {userBook.book.author}
                     </p>
                   {/if}
@@ -474,7 +474,7 @@
 <select
   value={userBook.status}
   onchange={(e) => updateStatus(userBook.id, e.target.value)}
-  class="w-full text-[11px] px-3 py-2 mb-2 rounded-full focus:outline-none font-semibold transition-all cursor-pointer"
+  class="w-full text-sm px-3 py-2 mb-2 rounded-full focus:outline-none font-semibold transition-all cursor-pointer"
   style="
     background: {userBook.status === 'to_read' ? 'linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%)' : userBook.status === 'reading' ? 'linear-gradient(135deg, #E9D5FF 0%, #D8B4FE 100%)' : 'linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%)'};
     color: {userBook.status === 'to_read' ? '#1E40AF' : userBook.status === 'reading' ? '#6B21A8' : '#065F46'};
@@ -494,7 +494,7 @@
                   <!-- Bouton supprimer -->
                   <button
   onclick={() => deleteBook(userBook.id, userBook.book.title)}
-  class="w-full px-2 py-2 text-[10px] font-bold rounded-full transition-all"
+  class="w-full px-2 py-2 text-sm font-bold rounded-full transition-all"
   style="background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%); color: white; box-shadow: 0 2px 6px rgba(220, 38, 38, 0.3); border: 1px solid rgba(255, 255, 255, 0.2);"
   onmouseover={(e) => {
     e.currentTarget.style.background = 'linear-gradient(135deg, #EF4444 0%, #DC2626 100%)';

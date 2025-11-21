@@ -80,7 +80,7 @@
           Inscription
         </h1>
         
-        <p style="color: #92400e; font-size: 16px; font-weight: 600;">
+        <p style="color: #6B2D0E; font-size: 16px; font-weight: 600;">
           Créez votre compte gratuitement
         </p>
       </div>
@@ -191,7 +191,7 @@
 
         <!-- Lien connexion -->
         <div class="text-center">
-          <p style="color: #92400e; font-weight: 600; margin-bottom: 12px;">
+          <p style="color: #6B2D0E; font-weight: 600; margin-bottom: 12px;">
             Vous avez déjà un compte ?
           </p>
           
