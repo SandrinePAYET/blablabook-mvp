@@ -23,7 +23,7 @@ const registerSchema = Joi.object({
       'string.max': 'Le nom d\'utilisateur ne peut pas dépasser 50 caractères',
       'any.required': 'Le nom d\'utilisateur est obligatoire'
     }),
-  
+
   email: Joi.string()
     .email()
     .required()
@@ -31,7 +31,7 @@ const registerSchema = Joi.object({
       'string.email': 'Format email invalide',
       'any.required': 'L\'email est obligatoire'
     }),
-  
+
   password: Joi.string()
     .min(6)
     .required()
@@ -43,20 +43,20 @@ const registerSchema = Joi.object({
 
 /**
  * FONCTION : REGISTER (Inscription)
- * 
+ *
  * POST /api/auth/register
  * Body: { username, email, password }
- * 
+ *
  * @param {Object} req - Requête Express
  * @param {Object} res - Réponse Express
  */
 const register = async (req, res) => {
   try {
-    console.log('📝 Tentative d\'inscription:', req.body);
+    console.log('��� Tentative d\'inscription:', req.body);
 
     // 1. Valider les données reçues
     const { error, value } = registerSchema.validate(req.body);
-    
+
     if (error) {
       console.log('❌ Validation échouée:', error.details);
       return res.status(400).json({
@@ -96,10 +96,10 @@ const register = async (req, res) => {
 
     // 4. Générer un token JWT
     const token = jwt.sign(
-      { 
+      {
         userId: user.id,
         username: user.username,
-        email: user.email 
+        email: user.email
       },
       process.env.JWT_SECRET,
       { expiresIn: '7d' }  // Token valide 7 jours
@@ -123,7 +123,7 @@ const register = async (req, res) => {
       error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
-};
+}};
 
 /**
  * SCHÉMA DE VALIDATION LOGIN
@@ -134,7 +134,7 @@ const loginSchema = Joi.object({
     .messages({
       'any.required': 'Le nom d\'utilisateur est obligatoire'
     }),
-  
+
   password: Joi.string()
     .required()
     .messages({
@@ -144,17 +144,17 @@ const loginSchema = Joi.object({
 
 /**
  * FONCTION : LOGIN (Connexion)
- * 
+ *
  * POST /api/auth/login
  * Body: { username, password }
  */
 const login = async (req, res) => {
   try {
-    console.log('🔐 Tentative de connexion:', req.body.username);
+    console.log('��� Tentative de connexion:', req.body.username);
 
     // 1. Valider les données
     const { error, value } = loginSchema.validate(req.body);
-    
+
     if (error) {
       console.log('❌ Validation échouée:', error.details);
       return res.status(400).json({
@@ -192,10 +192,10 @@ const login = async (req, res) => {
 
     // 4. Générer un token JWT
     const token = jwt.sign(
-      { 
+      {
         userId: user.id,
         username: user.username,
-        email: user.email 
+        email: user.email
       },
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
